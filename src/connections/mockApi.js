@@ -1,0 +1,1 @@
+// apeluri catre server -> fara net
