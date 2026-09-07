@@ -1,21 +1,26 @@
-// react native paper
-
 import { MD3LightTheme } from "react-native-paper";
-import colors from "./colors";
 
-const theme = {
-    ...MD3LightTheme,
+import { COLORS } from "./colors";
 
-    colors: {
-        ...MD3LightTheme.colors,
+export const theme = {
+  ...MD3LightTheme,
 
-        primary: colors.primary,
-        secondary: colors.secondary,
-        background: colors.background,
-        surface: colors.surface,
+  roundness: 12,
 
-        error: colors.error,
-    },
+  colors: {
+    ...MD3LightTheme.colors,
+
+    primary: COLORS.primary,
+    secondary: COLORS.primary,
+
+    background: COLORS.background,
+    surface: COLORS.surface,
+
+    outline: COLORS.border,
+
+    error: COLORS.error,
+
+    onPrimary: COLORS.white,
+    onSurface: COLORS.text,
+  },
 };
-
-export default theme;

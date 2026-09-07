@@ -1,32 +1,15 @@
-// fonturi
+export const FONTS = {
+  regular: "System",
+  medium: "System",
+  bold: "System",
 
-const fonts = {
+  h1: 32,
+  h2: 28,
+  h3: 24,
+  h4: 20,
 
-    h1:{
-        fontSize:32,
-        fontWeight:"700",
-    },
+  body: 16,
+  bodySmall: 14,
 
-    h2:{
-        fontSize:24,
-        fontWeight:"700",
-    },
-
-    title:{
-        fontSize:20,
-        fontWeight:"600",
-    },
-
-    body:{
-        fontSize:16,
-        fontWeight:"400",
-    },
-
-    caption:{
-        fontSize:13,
-        fontWeight:"400",
-    },
-
+  caption: 12,
 };
-
-export default fonts;

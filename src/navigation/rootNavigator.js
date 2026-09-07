@@ -1,115 +1,76 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import SplashScreen from "../screens/splash/splashScreen";
-
 import LoadingScreen from "../screens/loading/loadingScreen";
 
 import LoginScreen from "../screens/auth/loginScreen";
 import RegisterScreen from "../screens/auth/registerScreen";
-import AccountScreen from "../screens/auth/accountScreen";
 
-import HomeScreen from "../screens/home/homeScreen";
+import AccountScreen from "../screens/settings/accountScreen";
 
 import ConnectDeviceScreen from "../screens/device/connectScreen";
 
 import AIScreen from "../screens/ai/aiScreen";
-
 import HistoryScreen from "../screens/history/historyScreen";
 
-import GuidesScreen from "../screens/tutorials/guidesScreen";
-import AppTutorialScreen from "../screens/tutorials/tutorialsScreen";
+import MainTabNavigator from "./mainTabNavigator";
 
-import SettingsScreen from "../screens/settings/settingsScreen";
-import FAQScreen from "../screens/settings/faqScreen";
-import ContactScreen from "../screens/settings/contactScreen";
+import { ROUTES } from "../constants/routes";
 
 const Stack = createNativeStackNavigator();
 
 export default function RootNavigator() {
   return (
     <Stack.Navigator
-      initialRouteName="Splash"
+      initialRouteName={ROUTES.SPLASH}
       screenOptions={{
         headerShown: false,
         animation: "slide_from_right",
       }}
     >
-      {/* Startup */}
       <Stack.Screen
-        name="Splash"
+        name={ROUTES.SPLASH}
         component={SplashScreen}
       />
 
       <Stack.Screen
-        name="Loading"
+        name={ROUTES.LOADING}
         component={LoadingScreen}
       />
 
-      {/* Auth */}
       <Stack.Screen
-        name="Login"
+        name={ROUTES.LOGIN}
         component={LoginScreen}
       />
 
       <Stack.Screen
-        name="Register"
+        name={ROUTES.REGISTER}
         component={RegisterScreen}
       />
 
       <Stack.Screen
-        name="Account"
+        name={ROUTES.ACCOUNT}
         component={AccountScreen}
       />
 
-      {/* Home */}
       <Stack.Screen
-        name="Home"
-        component={HomeScreen}
+        name={ROUTES.HOME}
+        component={MainTabNavigator}
       />
 
-      {/* Device */}
       <Stack.Screen
-        name="ConnectDevice"
+        name={ROUTES.CONNECT_DEVICE}
         component={ConnectDeviceScreen}
       />
 
-      {/* AI */}
       <Stack.Screen
-        name="AI"
+        name={ROUTES.AI}
         component={AIScreen}
       />
 
-      {/* History */}
       <Stack.Screen
-        name="History"
+        name={ROUTES.HISTORY}
         component={HistoryScreen}
-      />
-
-      {/* Tutorials */}
-      <Stack.Screen
-        name="Guides"
-        component={GuidesScreen}
-      />
-
-      <Stack.Screen
-        name="AppTutorial"
-        component={AppTutorialScreen}
-      />
-
-      {/* Settings */}
-      <Stack.Screen
-        name="Settings"
-        component={SettingsScreen}
-      />
-
-      <Stack.Screen
-        name="FAQ"
-        component={FAQScreen}
-      />
-
-      <Stack.Screen
-        name="Contact"
-        component={ContactScreen}
       />
     </Stack.Navigator>
   );

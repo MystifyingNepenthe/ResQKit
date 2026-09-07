@@ -1,7 +1,7 @@
-// export
-
-export { default as colors } from "./colors";
-export { default as spacing } from "./spacing";
-export { default as radius } from "./radius";
-export { default as fonts } from "./fonts";
-export { default as sizes } from "./sizes";
+export { COLORS } from "./colors";
+export { FONTS } from "./fonts";
+export { SPACING } from "./spacing";
+export { RADIUS } from "./radius";
+export { SIZES } from "./sizes";
+export { SHADOWS } from "./shadows";
+export { theme } from "./theme";

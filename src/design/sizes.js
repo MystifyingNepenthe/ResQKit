@@ -1,16 +1,15 @@
-// dimensiuni
+export const SIZES = {
+  buttonHeight: 56,
 
-const sizes = {
+  inputHeight: 56,
 
-    iconSmall:18,
-    iconMedium:24,
-    iconLarge:32,
+  iconSmall: 20,
+  iconMedium: 24,
+  iconLarge: 32,
 
-    buttonHeight:52,
+  logo: 80,
 
-    appBarHeight:64,
+  header: 60,
 
-    inputHeight:52,
+  bottomBar: 70,
 };
-
-export default sizes;

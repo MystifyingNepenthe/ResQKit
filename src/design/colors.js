@@ -1,29 +1,20 @@
-/* arhitectura proiectului -> best practices for files structures 
-all app flows
-mock endpoints for backend connection
-mock tutorials
-global state in react native, use state hooks
-*/
+export const COLORS = {
+  primary: "#0F7C90",
+  primaryDark: "#0A6676",
+  primaryLight: "#9ED2D8",
 
-// culori
+  background: "#F7FAFB",
+  surface: "#F8FBFC",
 
-const colors = {
-    primary: "#086F80",
-    secondary: "#9ED2D8",
+  text: "#22324A",
+  textSecondary: "#68768A",
 
-    background: "#F7FAFB",
-    surface: "#FFFFFF",
+  border: "#DCE5EA",
 
-    text: "#1D2D44",
-    textSecondary: "#617289",
+  success: "#18B37B",
+  warning: "#F5A623",
+  error: "#E74C3C",
 
-    success: "#2EC4B6",
-    warning: "#E3B500",
-    error: "#E63946",
-
-    border: "#DEE5E8",
-
-    disabled: "#C7C7C7",
+  white: "#FFFFFF",
+  black: "#000000",
 };
-
-export default colors;

@@ -1,9 +1,49 @@
-import { View, Text } from "react-native";
+import { useState } from "react";
 
-export default function HomeScreen() {
+import { ScrollView } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useTranslation } from "react-i18next";
+
+import AppHeader from "../../components/common/appHeader/appHeader";
+import FloatingAIButton from "../../components/home/aiButton";
+
+import SearchSection from "../../sections/home/searchSection";
+import DeviceSection from "../../sections/home/deviceSection";
+
+import { ROUTES } from "../../constants/routes";
+
+import styles from "./homeScreen.styles";
+
+export default function HomeScreen({ navigation }) {
+  const [search, setSearch] = useState("");
+
+  const { t } = useTranslation();
+
   return (
-    <View>
-      <Text>Home Screen</Text>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <AppHeader
+        title={t("home.title")}
+        onMenuPress={() => {}}
+        onNotificationPress={() => {}}
+        onProfilePress={() => navigation.navigate(ROUTES.ACCOUNT)}
+      />
+
+      <ScrollView
+        contentContainerStyle={styles.content}
+        showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled"
+      >
+        <SearchSection
+          search={search}
+          setSearch={setSearch}
+        />
+
+        <DeviceSection />
+      </ScrollView>
+
+      <FloatingAIButton
+        onPress={() => navigation.navigate(ROUTES.AI)}
+      />
+    </SafeAreaView>
   );
 }
