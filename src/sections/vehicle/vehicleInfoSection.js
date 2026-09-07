@@ -5,12 +5,14 @@ import PrimaryCard from "../../components/common/primaryCard";
 import SectionTitle from "../../components/common/sectionTitle";
 import InfoRow from "../../components/common/infoRow";
 
-import vehicle from "../../mock/vehicle";
+import useApp from "../../hooks/useApp";
 
 import styles from "./vehicleInfoSection.styles";
 
 export default function VehicleInformationSection() {
   const { t } = useTranslation();
+
+  const { vehicle } = useApp();
 
   return (
     <PrimaryCard style={styles.card}>
@@ -20,21 +22,21 @@ export default function VehicleInformationSection() {
 
       <InfoRow
         label={t("vehicle.model")}
-        value={vehicle.model}
+        value={vehicle?.model || "--"}
       />
 
       <Divider style={styles.divider} />
 
       <InfoRow
         label={t("vehicle.licensePlate")}
-        value={vehicle.plate}
+        value={vehicle?.plate || "--"}
       />
 
       <Divider style={styles.divider} />
 
       <InfoRow
         label={t("vehicle.vin")}
-        value={vehicle.vin}
+        value={vehicle?.vin || "--"}
       />
     </PrimaryCard>
   );

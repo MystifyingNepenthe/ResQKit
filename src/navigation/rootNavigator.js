@@ -15,6 +15,9 @@ import HistoryScreen from "../screens/history/historyScreen";
 
 import MainTabNavigator from "./mainTabNavigator";
 
+import LanguageScreen from "../screens/settings/languageScreen";
+import DeviceInfoScreen from "../screens/settings/deviceInfoScreen";
+
 import { ROUTES } from "../constants/routes";
 
 const Stack = createNativeStackNavigator();
@@ -71,6 +74,16 @@ export default function RootNavigator() {
       <Stack.Screen
         name={ROUTES.HISTORY}
         component={HistoryScreen}
+      />
+
+      <Stack.Screen
+        name={ROUTES.LANGUAGE}
+        component={LanguageScreen}
+      />
+
+      <Stack.Screen
+        name={ROUTES.DEVICE_INFO}
+        component={DeviceInfoScreen}
       />
     </Stack.Navigator>
   );

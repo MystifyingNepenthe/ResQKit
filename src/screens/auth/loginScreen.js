@@ -1,61 +1,107 @@
-import { SafeAreaView } from "react-native-safe-area-context";
-import { ScrollView, Text, View } from "react-native";
 import { useState } from "react";
-import { TextInput } from "react-native-paper";
 
-import PrimaryButton from "../../components/buttons/primaryButtons";
+import {
+  ScrollView,
+  Text,
+  View,
+} from "react-native";
+
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useTranslation } from "react-i18next";
+
 import InputField from "../../components/input/inputFields";
-import Logo from "../../components/layout/logo";
+import PrimaryButton from "../../components/buttons/primaryButtons";
+
+import useApp from "../../hooks/useApp";
+
 import { ROUTES } from "../../constants/routes";
+
 import styles from "./loginScreen.styles";
 
 export default function LoginScreen({ navigation }) {
+  const { t } = useTranslation();
+
+  const {
+    setIsLoggedIn,
+    device,
+  } = useApp();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [error, setError] = useState("");
+
+  function handleLogin() {
+    if (!email.trim() || !password.trim()) {
+      setError(t("auth.completeRequiredFields"));
+      return;
+    }
+
+    setError("");
+
+    setIsLoggedIn(true);
+
+    if (device?.connected) {
+      navigation.replace(ROUTES.HOME);
+    } else {
+      navigation.replace(ROUTES.CONNECT_DEVICE);
+    }
+  }
+
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={styles.content}>
-
-        <Logo />
-
+      <ScrollView
+        contentContainerStyle={styles.content}
+        showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled"
+      >
         <Text style={styles.title}>
-          Bun venit!
+          {t("auth.welcome")}
         </Text>
 
         <Text style={styles.subtitle}>
-          Sign in to continue
+          {t("auth.signInSubtitle")}
         </Text>
 
         <View style={styles.input}>
-         <InputField
-          label="Email"
-          placeholder="name@domain.com"
-          value={email}
-          onChangeText={setEmail}
-          keyboardType="email-address"
-          left={<TextInput.Icon icon="email-outline" />}
-        />
+          <InputField
+            label={t("auth.email")}
+            value={email}
+            onChangeText={setEmail}
+            keyboardType="email-address"
+          />
         </View>
 
         <View style={styles.input}>
           <InputField
-          label="Password"
-          placeholder="Password"
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry
-          left={<TextInput.Icon icon="lock-outline" />}
-        />
-        </View>
-
-        <View style={styles.button}>
-          <PrimaryButton
-            title="Sign In"
-            onPress={() => navigation.replace(ROUTES.HOME)}
+            label={t("auth.password")}
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry
           />
         </View>
 
+        {error ? (
+          <Text style={styles.error}>
+            {error}
+          </Text>
+        ) : null}
+
+        <View style={styles.button}>
+          <PrimaryButton
+            title={t("auth.signIn")}
+            onPress={handleLogin}
+          />
+        </View>
+
+        <Text
+          style={styles.registerLink}
+          onPress={() =>
+            navigation.navigate(ROUTES.REGISTER)
+          }
+        >
+          {t("auth.noAccount")} {t("auth.register")}
+        </Text>
       </ScrollView>
     </SafeAreaView>
   );

@@ -5,7 +5,12 @@ import AIQuickAction from "../../components/ai/aiQuickAction";
 
 import styles from "./quickActionSection.styles";
 
-export default function QuickActionsSection() {
+export default function QuickActionsSection({
+  onAnalyzeWound,
+  onFirstAid,
+  onCheckResQKit,
+  onAskQuestion,
+}) {
   const { t } = useTranslation();
 
   return (
@@ -17,25 +22,25 @@ export default function QuickActionsSection() {
       <AIQuickAction
         title={t("ai.analyzeWound")}
         icon="camera-outline"
-        onPress={() => {}}
+        onPress={onAnalyzeWound}
       />
 
       <AIQuickAction
         title={t("ai.firstAid")}
         icon="medical-bag"
-        onPress={() => {}}
+        onPress={onFirstAid}
       />
 
       <AIQuickAction
         title={t("ai.checkResQKit")}
-        icon="briefcase-medical-outline"
-        onPress={() => {}}
+        icon="medical-bag"
+        onPress={onCheckResQKit}
       />
 
       <AIQuickAction
         title={t("ai.askQuestion")}
         icon="message-question-outline"
-        onPress={() => {}}
+        onPress={onAskQuestion}
       />
     </View>
   );

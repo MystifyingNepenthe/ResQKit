@@ -1,29 +1,41 @@
 import { useEffect } from "react";
 import { View, Text } from "react-native";
 
+import useApp from "../../hooks/useApp";
+
 import { ROUTES } from "../../constants/routes";
 
 export default function LoadingScreen({ navigation }) {
-  useEffect(() => {
-    const isLoggedIn = false;
-    const hasDevice = false;
+  const {
+    isLoggedIn,
+    device,
+  } = useApp();
 
+  useEffect(() => {
     const timer = setTimeout(() => {
       if (!isLoggedIn) {
         navigation.replace(ROUTES.LOGIN);
-      } else if (!hasDevice) {
-        navigation.replace(ROUTES.CONNECT_DEVICE);
-      } else {
-        navigation.replace(ROUTES.HOME);
+        return;
       }
-    }, 2000);
+
+      if (!device?.connected) {
+        navigation.replace(ROUTES.CONNECT_DEVICE);
+        return;
+      }
+
+      navigation.replace(ROUTES.HOME);
+    }, 1000);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [
+    navigation,
+    isLoggedIn,
+    device?.connected,
+  ]);
 
   return (
     <View>
-      <Text>Loading Screen</Text>
+      <Text>Se încarcă...</Text>
     </View>
   );
 }

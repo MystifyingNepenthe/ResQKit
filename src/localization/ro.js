@@ -114,6 +114,7 @@ export default {
     lastName: "Nume",
     email: "Adresă de e-mail",
     password: "Parolă",
+    saved: "Datele au fost salvate.",
   },
 
   auth: {
@@ -126,5 +127,24 @@ export default {
     forgotPassword: "Ai uitat parola?",
     noAccount: "Nu ai un cont?",
     alreadyHaveAccount: "Ai deja un cont?",
+    createAccount: "Creează cont",
+    registerSubtitle:
+      "Completează datele pentru a configura contul ResQKit.",
+    completeRequiredFields:
+      "Completează toate câmpurile obligatorii.",
+    vehicleOptional:
+      "Datele vehiculului pot fi completate și mai târziu.",
+    alreadyHaveAccount:
+      "Ai deja un cont? Autentifică-te",
   },
+
+  connect: {
+    title: "Conectează ResQKit",
+    subtitle:
+      "Asociază dispozitivul ResQKit cu aplicația.",
+    description:
+      "Asigură-te că dispozitivul este pornit și se află în apropierea telefonului.",
+    connect: "Conectează ResQKit",
+    skip: "Continuă fără dispozitiv",
+},
 };

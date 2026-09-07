@@ -12,13 +12,14 @@ export const ROUTES = {
   CONNECT_DEVICE: "ConnectDevice",
 
   AI: "AI",
-
   HISTORY: "History",
 
   GUIDES: "Guides",
-  APP_TUTORIAL: "AppTutorial",
 
   SETTINGS: "Settings",
   FAQ: "FAQ",
   CONTACT: "Contact",
+
+  LANGUAGE: "Language",
+  DEVICE_INFO: "DeviceInfo",
 };

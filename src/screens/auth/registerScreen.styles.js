@@ -12,11 +12,9 @@ export default StyleSheet.create({
   },
 
   content: {
-    flexGrow: 1,
-    justifyContent: "center",
-
     paddingHorizontal: SPACING.lg,
-    paddingVertical: SPACING.xl,
+    paddingTop: SPACING.xl,
+    paddingBottom: SPACING.xxl,
   },
 
   title: {
@@ -24,20 +22,29 @@ export default StyleSheet.create({
     fontWeight: "700",
 
     color: COLORS.text,
-
-    marginBottom: SPACING.sm,
   },
 
   subtitle: {
+    marginTop: SPACING.sm,
+    marginBottom: SPACING.lg,
+
     fontSize: 16,
 
     color: COLORS.textSecondary,
+  },
 
-    marginBottom: SPACING.xl,
+  card: {
+    marginBottom: SPACING.lg,
   },
 
   input: {
     marginBottom: SPACING.md,
+  },
+
+  optionalText: {
+    fontSize: 13,
+
+    color: COLORS.textSecondary,
   },
 
   error: {
@@ -49,12 +56,10 @@ export default StyleSheet.create({
   },
 
   button: {
-    marginTop: SPACING.sm,
+    marginBottom: SPACING.lg,
   },
 
-  registerLink: {
-    marginTop: SPACING.lg,
-
+  loginLink: {
     textAlign: "center",
 
     fontSize: 15,

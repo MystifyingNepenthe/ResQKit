@@ -3,17 +3,17 @@ import { useState } from "react";
 import AppContext from "./appContext";
 
 import deviceMock from "../mock/device";
-
 import userMock from "../mock/user";
+import vehicleMock from "../mock/vehicle";
 
-export default function AppProvider({
-  children,
-}) {
+export default function AppProvider({ children }) {
   const [device, setDevice] = useState(deviceMock);
 
   const [user, setUser] = useState(userMock);
 
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [vehicle, setVehicle] = useState(vehicleMock);
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
     <AppContext.Provider
@@ -23,6 +23,9 @@ export default function AppProvider({
 
         user,
         setUser,
+
+        vehicle,
+        setVehicle,
 
         isLoggedIn,
         setIsLoggedIn,

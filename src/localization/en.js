@@ -113,6 +113,7 @@ export default {
     lastName: "Last Name",
     email: "Email Address",
     password: "Password",
+    saved: "Your information has been saved.",
   },
 
   auth: {
@@ -125,5 +126,24 @@ export default {
     forgotPassword: "Forgot password?",
     noAccount: "Don't have an account?",
     alreadyHaveAccount: "Already have an account?",
+    createAccount: "Create Account",
+    registerSubtitle:
+      "Enter your information to configure your ResQKit account.",
+    completeRequiredFields:
+      "Please complete all required fields.",
+    vehicleOptional:
+      "Vehicle details can also be added later.",
+    alreadyHaveAccount:
+      "Already have an account? Sign in",
   },
+
+  connect: {
+    title: "Connect ResQKit",
+    subtitle:
+      "Pair your ResQKit device with the app.",
+    description:
+      "Make sure the device is powered on and close to your phone.",
+    connect: "Connect ResQKit",
+    skip: "Continue without device",
+},
 };
