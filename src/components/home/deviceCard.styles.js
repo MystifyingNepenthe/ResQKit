@@ -4,51 +4,93 @@ import {
   COLORS,
   SPACING,
   RADIUS,
-  SHADOWS,
 } from "../../design";
 
 export default StyleSheet.create({
   card: {
-    backgroundColor: COLORS.white,
-
     marginHorizontal: SPACING.lg,
-
     marginTop: SPACING.lg,
+  },
 
-    borderRadius: RADIUS.lg,
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
 
-    padding: SPACING.xxs,
+  deviceInfo: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
 
-    ...SHADOWS.small,
+  iconContainer: {
+    width: 46,
+    height: 46,
+
+    alignItems: "center",
+    justifyContent: "center",
+
+    borderRadius: RADIUS.md,
+
+    backgroundColor: COLORS.primaryLight,
+
+    marginRight: SPACING.md,
+  },
+
+  titleContainer: {
+    flex: 1,
   },
 
   title: {
     fontSize: 20,
     fontWeight: "700",
+
     color: COLORS.text,
+
+    marginBottom: SPACING.xs,
   },
 
-  subtitle: {
-    marginTop: 4,
+  batteryHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+
+    marginTop: SPACING.lg,
     marginBottom: SPACING.sm,
-    color: COLORS.textSecondary,
-    fontSize: 15,
   },
 
-  info: {
+  label: {
     fontSize: 14,
+    fontWeight: "500",
+
     color: COLORS.textSecondary,
-    marginTop: SPACING.xxs,
   },
 
-  battery: {
-    marginTop: 4,
-    fontSize: 17,
-    fontWeight: "600",
+  batteryValue: {
+    fontSize: 15,
+    fontWeight: "700",
+
     color: COLORS.text,
   },
 
-  divider: {
-    marginVertical: SPACING.xs,
+  lastSync: {
+    marginTop: SPACING.sm,
+
+    fontSize: 13,
+
+    color: COLORS.textSecondary,
+  },
+
+  disconnectedText: {
+    marginTop: SPACING.lg,
+
+    fontSize: 14,
+    lineHeight: 20,
+
+    color: COLORS.textSecondary,
+  },
+
+  buttonContainer: {
+    marginTop: SPACING.lg,
   },
 });

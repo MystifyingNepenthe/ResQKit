@@ -1,4 +1,6 @@
-import { StyleSheet } from "react-native";
+import {
+  StyleSheet,
+} from "react-native";
 
 import {
   COLORS,
@@ -9,12 +11,26 @@ export default StyleSheet.create({
   container: {
     flex: 1,
 
-    backgroundColor: COLORS.background,
+    backgroundColor:
+      COLORS.background,
+  },
+
+  scrollView: {
+    flex: 1,
   },
 
   content: {
     flexGrow: 1,
 
-    paddingBottom: SPACING.xl,
+    paddingTop:
+      SPACING.md,
+
+    paddingBottom:
+      SPACING.lg,
+  },
+
+  emptyContent: {
+    justifyContent:
+      "center",
   },
 });

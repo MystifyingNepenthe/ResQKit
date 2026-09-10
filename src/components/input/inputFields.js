@@ -8,9 +8,11 @@ export default function InputField({
   secureTextEntry = false,
   keyboardType = "default",
   autoCapitalize = "none",
+  autoCorrect = true,
   left,
   right,
   error = false,
+  maxLength,
 }) {
   return (
     <TextInput
@@ -22,9 +24,11 @@ export default function InputField({
       secureTextEntry={secureTextEntry}
       keyboardType={keyboardType}
       autoCapitalize={autoCapitalize}
+      autoCorrect={autoCorrect}
       left={left}
       right={right}
       error={error}
+      maxLength={maxLength}
     />
   );
 }

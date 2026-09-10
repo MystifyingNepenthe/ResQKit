@@ -1,4 +1,6 @@
-import { StyleSheet } from "react-native";
+import {
+  StyleSheet,
+} from "react-native";
 
 import {
   COLORS,
@@ -8,35 +10,50 @@ import {
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.background,
+
+    backgroundColor:
+      COLORS.background,
   },
 
   content: {
-    paddingBottom: SPACING.xxl,
+    paddingBottom:
+      SPACING.xxxl,
   },
 
   card: {
-    marginHorizontal: SPACING.lg,
-    marginTop: SPACING.lg,
+    marginHorizontal:
+      SPACING.lg,
+
+    marginTop:
+      SPACING.lg,
   },
 
   input: {
-    marginBottom: SPACING.md,
+    marginBottom:
+      SPACING.md,
   },
 
   button: {
-    marginHorizontal: SPACING.lg,
-    marginTop: SPACING.lg,
+    marginHorizontal:
+      SPACING.lg,
+
+    marginTop:
+      SPACING.lg,
   },
 
   savedText: {
-    marginTop: SPACING.md,
+    marginTop:
+      SPACING.md,
 
-    textAlign: "center",
+    textAlign:
+      "center",
 
     fontSize: 14,
-    fontWeight: "600",
 
-    color: COLORS.success,
+    fontWeight:
+      "600",
+
+    color:
+      COLORS.success,
   },
 });

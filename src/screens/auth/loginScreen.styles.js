@@ -1,22 +1,61 @@
-import { StyleSheet } from "react-native";
+import {
+  StyleSheet,
+} from "react-native";
 
 import {
   COLORS,
+  RADIUS,
   SPACING,
 } from "../../design";
 
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.background,
+    backgroundColor:
+      COLORS.background,
   },
 
   content: {
     flexGrow: 1,
     justifyContent: "center",
 
-    paddingHorizontal: SPACING.lg,
-    paddingVertical: SPACING.xl,
+    paddingHorizontal:
+      SPACING.lg,
+
+    paddingVertical:
+      SPACING.xl,
+  },
+
+  logoArea: {
+    alignItems: "center",
+    marginBottom: SPACING.xl,
+  },
+
+  logoCircle: {
+    width: 76,
+    height: 76,
+
+    borderRadius:
+      RADIUS.round,
+
+    alignItems: "center",
+    justifyContent: "center",
+
+    backgroundColor:
+      COLORS.white,
+
+    borderWidth: 1,
+    borderColor:
+      COLORS.border,
+  },
+
+  brand: {
+    marginTop: SPACING.sm,
+
+    fontSize: 24,
+    fontWeight: "800",
+
+    color: COLORS.primary,
   },
 
   title: {
@@ -25,41 +64,79 @@ export default StyleSheet.create({
 
     color: COLORS.text,
 
-    marginBottom: SPACING.sm,
+    marginBottom:
+      SPACING.sm,
   },
 
   subtitle: {
-    fontSize: 16,
+    fontSize: 15,
+    lineHeight: 21,
 
-    color: COLORS.textSecondary,
+    color:
+      COLORS.textSecondary,
 
-    marginBottom: SPACING.xl,
+    marginBottom:
+      SPACING.xl,
+  },
+
+  form: {
+    width: "100%",
   },
 
   input: {
-    marginBottom: SPACING.md,
+    marginBottom:
+      SPACING.md,
   },
 
   error: {
-    marginBottom: SPACING.md,
+    marginBottom:
+      SPACING.md,
 
-    textAlign: "center",
+    fontSize: 13,
+    lineHeight: 18,
 
     color: COLORS.error,
   },
 
+  forgotPassword: {
+    alignSelf: "flex-end",
+
+    marginBottom:
+      SPACING.lg,
+
+    fontSize: 14,
+    fontWeight: "600",
+
+    color:
+      COLORS.primary,
+  },
+
   button: {
-    marginTop: SPACING.sm,
+    marginTop: SPACING.xs,
+  },
+
+  registerContainer: {
+    flexDirection: "row",
+
+    justifyContent: "center",
+    alignItems: "center",
+
+    marginTop:
+      SPACING.lg,
+  },
+
+  registerText: {
+    fontSize: 14,
+
+    color:
+      COLORS.textSecondary,
   },
 
   registerLink: {
-    marginTop: SPACING.lg,
+    fontSize: 14,
+    fontWeight: "700",
 
-    textAlign: "center",
-
-    fontSize: 15,
-    fontWeight: "600",
-
-    color: COLORS.primary,
+    color:
+      COLORS.primary,
   },
 });

@@ -22,4 +22,11 @@ export const ROUTES = {
 
   LANGUAGE: "Language",
   DEVICE_INFO: "DeviceInfo",
+
+  GUIDE_CATEGORY: "GuideCategory",
+  GUIDE_DETAIL: "GuideDetail",
+
+  APP_GUIDE_DETAIL: "AppGuideDetail",
+
+  FORGOT_PASSWORD: "ForgotPassword",
 };

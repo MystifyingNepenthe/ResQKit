@@ -23,11 +23,14 @@ export default {
     myResQKit: "My ResQKit",
     deviceStatus: "Device Status",
     status: "Status",
-    battery: "Battery",
-    lastSync: "Last Sync",
     justNow: "Just now",
     resyncNow: "Sync Now",
-    connectNow: "Connect Now",
+    battery: "Battery",
+    resync: "Resync now",
+    connectNow: "Connect now",
+    lastSync: "Last sync",
+    deviceDisconnected:
+      "ResQKit is not currently connected. Connect the device to view its battery and status.",
   },
 
   vehicle: {
@@ -39,6 +42,16 @@ export default {
     locateTitle: "Locate ResQKit",
     locateDescription: "Play a sound on the device to help you find it.",
     findResQKit: "Find ResQKit",
+    findDescription:
+      "Play a sound on the device to help you locate it.",
+    locateButton: "Find ResQKit",
+    locatingButton: "Locating...",
+    locating:
+      "Sending command to ResQKit...",
+    locateSuccess:
+      "ResQKit is now playing a sound.",
+    locateDisconnected:
+      "ResQKit must be connected before it can be located.",
   },
 
   guides: {
@@ -61,14 +74,16 @@ export default {
 
     appCategories: {
       gettingStarted: "Getting Started",
-      connectResQKit: "Connect ResQKit",
+      connectDevice: "Connect ResQKit",
       home: "Home Screen",
       vehicle: "Vehicle",
       ai: "AI Assistant",
       settings: "Settings",
     },
 
-    emergency: {
+    noResults: "No guides match your search.",
+
+    severity: {
       low: "LOW EMERGENCY",
       medium: "MEDIUM EMERGENCY",
       high: "HIGH EMERGENCY",
@@ -104,6 +119,7 @@ export default {
     english: "English",
     lightTheme: "Light",
     darkTheme: "Dark",
+    chooseLanguage: "Choose the app language",
   },
 
   account: {
@@ -125,7 +141,6 @@ export default {
     register: "Create Account",
     forgotPassword: "Forgot password?",
     noAccount: "Don't have an account?",
-    alreadyHaveAccount: "Already have an account?",
     createAccount: "Create Account",
     registerSubtitle:
       "Enter your information to configure your ResQKit account.",

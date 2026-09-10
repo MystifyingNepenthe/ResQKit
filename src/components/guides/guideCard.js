@@ -1,43 +1,40 @@
-import { Pressable, View } from "react-native";
-import { Text } from "react-native-paper";
+import { Pressable, Text, View } from "react-native";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
-import PrimaryCard from "../common/primaryCard";
-
 import { COLORS } from "../../design";
-
 import styles from "./guideCard.styles";
 
 export default function GuideCard({
   title,
-  icon = "file-document-outline",
+  icon = "medical-bag",
   onPress,
 }) {
   return (
-    <Pressable onPress={onPress}>
-      <PrimaryCard style={styles.card}>
-        <View style={styles.content}>
+    <Pressable
+      onPress={onPress}
+      disabled={!onPress}
+      style={({ pressed }) => [
+        styles.card,
+        pressed && onPress && styles.pressed,
+      ]}
+    >
+      <View style={styles.iconContainer}>
+        <MaterialCommunityIcons
+          name={icon}
+          size={26}
+          color={COLORS.primary}
+        />
+      </View>
 
-          <View style={styles.left}>
-            <MaterialCommunityIcons
-              name={icon}
-              size={24}
-              color={COLORS.primary}
-            />
+      <Text style={styles.title} numberOfLines={2}>
+        {title}
+      </Text>
 
-            <Text style={styles.title}>
-              {title}
-            </Text>
-          </View>
-
-          <MaterialCommunityIcons
-            name="chevron-right"
-            size={24}
-            color={COLORS.textSecondary}
-          />
-
-        </View>
-      </PrimaryCard>
+      <MaterialCommunityIcons
+        name="chevron-right"
+        size={24}
+        color={COLORS.textSecondary}
+      />
     </Pressable>
   );
 }

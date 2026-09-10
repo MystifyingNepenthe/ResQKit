@@ -1,70 +1,179 @@
-import { StyleSheet } from "react-native";
+import {
+  StyleSheet,
+} from "react-native";
 
 import {
   COLORS,
+  RADIUS,
   SPACING,
 } from "../../design";
 
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.background,
+
+    backgroundColor:
+      COLORS.background,
   },
 
   content: {
-    paddingHorizontal: SPACING.lg,
-    paddingTop: SPACING.xl,
-    paddingBottom: SPACING.xxl,
+    paddingHorizontal:
+      SPACING.lg,
+
+    paddingTop:
+      SPACING.lg,
+
+    paddingBottom:
+      SPACING.xxxl,
+  },
+
+  header: {
+    flexDirection: "row",
+
+    alignItems: "center",
+
+    marginBottom:
+      SPACING.lg,
+  },
+
+  logoCircle: {
+    width: 48,
+    height: 48,
+
+    borderRadius:
+      RADIUS.round,
+
+    alignItems: "center",
+
+    justifyContent:
+      "center",
+
+    backgroundColor:
+      COLORS.white,
+
+    borderWidth: 1,
+
+    borderColor:
+      COLORS.border,
+  },
+
+  brand: {
+    marginLeft:
+      SPACING.sm,
+
+    fontSize: 22,
+
+    fontWeight:
+      "800",
+
+    color:
+      COLORS.primary,
   },
 
   title: {
     fontSize: 30,
-    fontWeight: "700",
 
-    color: COLORS.text,
+    fontWeight:
+      "700",
+
+    color:
+      COLORS.text,
   },
 
   subtitle: {
-    marginTop: SPACING.sm,
-    marginBottom: SPACING.lg,
+    marginTop:
+      SPACING.sm,
 
-    fontSize: 16,
+    marginBottom:
+      SPACING.lg,
 
-    color: COLORS.textSecondary,
+    fontSize: 15,
+
+    lineHeight: 21,
+
+    color:
+      COLORS.textSecondary,
   },
 
   card: {
-    marginBottom: SPACING.lg,
+    marginBottom:
+      SPACING.lg,
+  },
+
+  sectionDescription: {
+    marginTop:
+      -SPACING.sm,
+
+    marginBottom:
+      SPACING.md,
+
+    fontSize: 13,
+
+    lineHeight: 19,
+
+    color:
+      COLORS.textSecondary,
   },
 
   input: {
-    marginBottom: SPACING.md,
+    marginBottom:
+      SPACING.md,
   },
 
-  optionalText: {
-    fontSize: 13,
+  vinCounter: {
+    marginTop:
+      -SPACING.sm,
 
-    color: COLORS.textSecondary,
+    textAlign: "right",
+
+    fontSize: 12,
+
+    color:
+      COLORS.textSecondary,
   },
 
   error: {
-    marginBottom: SPACING.md,
+    marginBottom:
+      SPACING.md,
+
+    fontSize: 13,
+
+    lineHeight: 18,
 
     textAlign: "center",
 
-    color: COLORS.error,
+    color:
+      COLORS.error,
   },
 
   button: {
-    marginBottom: SPACING.lg,
+    marginBottom:
+      SPACING.lg,
+  },
+
+  loginContainer: {
+    flexDirection: "row",
+
+    alignItems: "center",
+
+    justifyContent:
+      "center",
+  },
+
+  loginText: {
+    fontSize: 14,
+
+    color:
+      COLORS.textSecondary,
   },
 
   loginLink: {
-    textAlign: "center",
+    fontSize: 14,
 
-    fontSize: 15,
-    fontWeight: "600",
+    fontWeight:
+      "700",
 
-    color: COLORS.primary,
+    color:
+      COLORS.primary,
   },
 });

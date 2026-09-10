@@ -47,4 +47,16 @@ export default StyleSheet.create({
 
     textAlign: "center",
   },
+
+  emergencyNote: {
+    marginTop: SPACING.md,
+
+    fontSize: 12,
+
+   lineHeight: 18,
+
+    textAlign: "center",
+
+    color: COLORS.textSecondary,
+  },
 });

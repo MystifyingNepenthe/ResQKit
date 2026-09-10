@@ -33,7 +33,7 @@ export default function QuickActionsSection({
 
       <AIQuickAction
         title={t("ai.checkResQKit")}
-        icon="medical-bag"
+        icon="access-point-check"
         onPress={onCheckResQKit}
       />
 

@@ -18,6 +18,17 @@ import MainTabNavigator from "./mainTabNavigator";
 import LanguageScreen from "../screens/settings/languageScreen";
 import DeviceInfoScreen from "../screens/settings/deviceInfoScreen";
 
+import WoundCategoryScreen from "../screens/tutorials/woundCategoryScreen";
+import GuideDetailScreen from "../screens/tutorials/guideDetailScreen";
+
+import AppGuideDetailScreen from "../screens/tutorials/appGuideDetailScreen";
+
+import FAQScreen from "../screens/settings/faqScreen";
+
+import ContactScreen from "../screens/settings/contactScreen";
+
+import ForgotPasswordScreen from "../screens/auth/forgotPassword";
+
 import { ROUTES } from "../constants/routes";
 
 const Stack = createNativeStackNavigator();
@@ -70,12 +81,7 @@ export default function RootNavigator() {
         name={ROUTES.AI}
         component={AIScreen}
       />
-
-      <Stack.Screen
-        name={ROUTES.HISTORY}
-        component={HistoryScreen}
-      />
-
+      
       <Stack.Screen
         name={ROUTES.LANGUAGE}
         component={LanguageScreen}
@@ -84,6 +90,41 @@ export default function RootNavigator() {
       <Stack.Screen
         name={ROUTES.DEVICE_INFO}
         component={DeviceInfoScreen}
+      />
+
+      <Stack.Screen
+        name={ROUTES.GUIDE_CATEGORY}
+        component={WoundCategoryScreen}
+      />
+
+      <Stack.Screen
+        name={ROUTES.GUIDE_DETAIL}
+        component={GuideDetailScreen}
+      />
+
+      <Stack.Screen
+        name={ROUTES.APP_GUIDE_DETAIL}
+        component={AppGuideDetailScreen}
+      />
+
+      <Stack.Screen
+        name={ROUTES.HISTORY}
+        component={HistoryScreen}
+      />
+
+      <Stack.Screen
+        name={ROUTES.FAQ}
+        component={FAQScreen}
+      />
+
+      <Stack.Screen
+        name={ROUTES.CONTACT}
+        component={ContactScreen}
+      />
+
+      <Stack.Screen
+        name={ROUTES.FORGOT_PASSWORD}
+        component={ForgotPasswordScreen}
       />
     </Stack.Navigator>
   );

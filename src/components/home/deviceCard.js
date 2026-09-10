@@ -1,78 +1,101 @@
-import { Text, Divider } from "react-native-paper";
+import { Text, View } from "react-native";
 import { useTranslation } from "react-i18next";
 
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+
 import PrimaryCard from "../common/primaryCard";
-import SectionTitle from "../common/sectionTitle";
-import StatusChip from "../common/statusChip";
 import BatteryBar from "../common/batteryBar";
-import InfoRow from "../common/infoRow";
+import StatusChip from "../common/statusChip";
+
 import PrimaryButton from "../buttons/primaryButtons";
 
-import formatBattery from "../../utils/formatBattery";
+import { COLORS } from "../../design";
 
 import styles from "./deviceCard.styles";
 
 export default function DeviceCard({
   connected = false,
-  battery = 82,
+  battery = 0,
+  lastSync = null,
+  onResync,
+  onConnect,
 }) {
   const { t } = useTranslation();
 
+  const formattedLastSync = lastSync
+    ? new Date(lastSync).toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      })
+    : null;
+
   return (
     <PrimaryCard style={styles.card}>
-      <SectionTitle>
-        {t("home.myResQKit")}
-      </SectionTitle>
+      <View style={styles.header}>
+        <View style={styles.deviceInfo}>
+          <View style={styles.iconContainer}>
+            <MaterialCommunityIcons
+              name="medical-bag"
+              size={26}
+              color={COLORS.primary}
+            />
+          </View>
 
-      <Text style={styles.subtitle}>
-        {t("home.deviceStatus")}
-      </Text>
+          <View style={styles.titleContainer}>
+            <Text style={styles.title}>
+              ResQKit
+            </Text>
 
-      <InfoRow
-        label={t("home.status")}
-        value=""
-      />
+            <StatusChip
+              connected={connected}
+            />
+          </View>
+        </View>
+      </View>
 
-      <StatusChip
-        connected={connected}
-      />
+      {connected ? (
+        <>
+          <View style={styles.batteryHeader}>
+            <Text style={styles.label}>
+              {t("home.battery")}
+            </Text>
 
-      <Divider style={styles.divider} />
+            <Text style={styles.batteryValue}>
+              {battery}%
+            </Text>
+          </View>
 
-      <InfoRow
-        label={t("home.battery")}
-        value={
-          connected
-            ? formatBattery(battery)
-            : "--"
-        }
-      />
+          <BatteryBar
+            percentage={battery}
+          />
 
-      {connected && (
-        <BatteryBar
-          percentage={battery}
-        />
+          {formattedLastSync && (
+            <Text style={styles.lastSync}>
+              {t("home.lastSync")}: {formattedLastSync}
+            </Text>
+          )}
+
+          <View style={styles.buttonContainer}>
+            <PrimaryButton
+              title={t("home.resync")}
+              onPress={onResync}
+            />
+          </View>
+        </>
+      ) : (
+        <>
+          <Text style={styles.disconnectedText}>
+            {t("home.deviceDisconnected")}
+          </Text>
+
+          <View style={styles.buttonContainer}>
+            <PrimaryButton
+              title={t("home.connectNow")}
+              onPress={onConnect}
+            />
+          </View>
+        </>
       )}
-
-      <Divider style={styles.divider} />
-
-      <InfoRow
-        label={t("home.lastSync")}
-        value={
-          connected
-            ? t("home.justNow")
-            : "--"
-        }
-      />
-
-      <PrimaryButton
-        title={
-          connected
-            ? t("home.resyncNow")
-            : t("home.connectNow")
-        }
-        onPress={() => {}}
-      />
     </PrimaryCard>
   );
 }

@@ -1,7 +1,18 @@
-import { Text, View } from "react-native";
+import { useState } from "react";
 
-import { SafeAreaView } from "react-native-safe-area-context";
-import { useTranslation } from "react-i18next";
+import {
+  Alert,
+  Text,
+  View,
+} from "react-native";
+
+import {
+  SafeAreaView,
+} from "react-native-safe-area-context";
+
+import {
+  useTranslation,
+} from "react-i18next";
 
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
@@ -10,8 +21,17 @@ import PrimaryButton from "../../components/buttons/primaryButtons";
 
 import useApp from "../../hooks/useApp";
 
-import { COLORS } from "../../design";
-import { ROUTES } from "../../constants/routes";
+import {
+  connectDevice,
+} from "../../services/deviceService";
+
+import {
+  COLORS,
+} from "../../design";
+
+import {
+  ROUTES,
+} from "../../constants/routes";
 
 import styles from "./connectScreen.styles";
 
@@ -25,16 +45,53 @@ export default function ConnectDeviceScreen({
     setDevice,
   } = useApp();
 
-  function handleConnect() {
-    setDevice({
-      ...device,
-      connected: true,
-      battery:
-        device?.battery ?? 82,
-      lastSync: new Date().toISOString(),
-    });
+  const [
+    isConnecting,
+    setIsConnecting,
+  ] = useState(false);
 
-    navigation.replace(ROUTES.HOME);
+  async function handleConnect() {
+    if (isConnecting) {
+      return;
+    }
+
+    try {
+      setIsConnecting(true);
+
+      const result =
+        await connectDevice();
+
+      if (!result?.connected) {
+        throw new Error(
+          "Device connection failed"
+        );
+      }
+
+      setDevice({
+        ...device,
+
+        connected: true,
+
+        battery:
+          device?.battery ?? 82,
+
+        bluetooth: true,
+
+        lastSync:
+          new Date().toISOString(),
+      });
+
+      navigation.replace(
+        ROUTES.HOME
+      );
+    } catch (error) {
+      Alert.alert(
+        "Conectare nereușită",
+        "Nu am putut conecta dispozitivul ResQKit. Încearcă din nou."
+      );
+    } finally {
+      setIsConnecting(false);
+    }
   }
 
   function handleSkip() {
@@ -43,48 +100,198 @@ export default function ConnectDeviceScreen({
       connected: false,
     });
 
-    navigation.replace(ROUTES.HOME);
+    navigation.replace(
+      ROUTES.HOME
+    );
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView
+      style={styles.container}
+    >
       <View style={styles.content}>
-        <View style={styles.iconContainer}>
+        <View
+          style={
+            styles.iconContainer
+          }
+        >
           <MaterialCommunityIcons
             name="bluetooth-connect"
-            size={54}
+            size={52}
             color={COLORS.primary}
           />
         </View>
 
         <Text style={styles.title}>
-          {t("connect.title")}
+          Conectează ResQKit
         </Text>
 
         <Text style={styles.subtitle}>
-          {t("connect.subtitle")}
+          Conectează dispozitivul la aplicație pentru a avea acces la starea bateriei, sincronizare și funcțiile ResQKit.
         </Text>
 
-        <PrimaryCard style={styles.card}>
-          <Text style={styles.cardTitle}>
-            ResQKit
-          </Text>
+        <PrimaryCard
+          style={styles.card}
+        >
+          <View
+            style={
+              styles.deviceHeader
+            }
+          >
+            <View
+              style={
+                styles.deviceIcon
+              }
+            >
+              <MaterialCommunityIcons
+                name="medical-bag"
+                size={28}
+                color={
+                  COLORS.primary
+                }
+              />
+            </View>
 
-          <Text style={styles.description}>
-            {t("connect.description")}
-          </Text>
+            <View
+              style={
+                styles.deviceInfo
+              }
+            >
+              <Text
+                style={
+                  styles.cardTitle
+                }
+              >
+                ResQKit
+              </Text>
 
-          <PrimaryButton
-            title={t("connect.connect")}
-            onPress={handleConnect}
+              <Text
+                style={
+                  styles.deviceStatus
+                }
+              >
+                Pregătit pentru conectare
+              </Text>
+            </View>
+          </View>
+
+          <View
+            style={
+              styles.divider
+            }
           />
+
+          <View
+            style={
+              styles.instructionRow
+            }
+          >
+            <MaterialCommunityIcons
+              name="bluetooth"
+              size={20}
+              color={
+                COLORS.primary
+              }
+            />
+
+            <Text
+              style={
+                styles.instructionText
+              }
+            >
+              Activează Bluetooth pe telefon.
+            </Text>
+          </View>
+
+          <View
+            style={
+              styles.instructionRow
+            }
+          >
+            <MaterialCommunityIcons
+              name="power"
+              size={20}
+              color={
+                COLORS.primary
+              }
+            />
+
+            <Text
+              style={
+                styles.instructionText
+              }
+            >
+              Asigură-te că dispozitivul ResQKit este pornit.
+            </Text>
+          </View>
+
+          <View
+            style={
+              styles.instructionRow
+            }
+          >
+            <MaterialCommunityIcons
+              name="access-point"
+              size={20}
+              color={
+                COLORS.primary
+              }
+            />
+
+            <Text
+              style={
+                styles.instructionText
+              }
+            >
+              Ține dispozitivul aproape de telefon.
+            </Text>
+          </View>
+
+          <View
+            style={
+              styles.buttonContainer
+            }
+          >
+            <PrimaryButton
+              title={
+                isConnecting
+                  ? "Se conectează..."
+                  : "Conectează ResQKit"
+              }
+              onPress={
+                handleConnect
+              }
+              loading={
+                isConnecting
+              }
+              disabled={
+                isConnecting
+              }
+            />
+          </View>
         </PrimaryCard>
 
         <Text
-          style={styles.skip}
-          onPress={handleSkip}
+          style={[
+            styles.skip,
+            isConnecting &&
+              styles.skipDisabled,
+          ]}
+          onPress={
+            isConnecting
+              ? undefined
+              : handleSkip
+          }
         >
-          {t("connect.skip")}
+          Continuă fără dispozitiv
+        </Text>
+
+        <Text
+          style={
+            styles.skipDescription
+          }
+        >
+          Poți conecta ResQKit mai târziu din aplicație.
         </Text>
       </View>
     </SafeAreaView>

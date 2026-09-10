@@ -1,8 +1,16 @@
-import { ScrollView } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { useTranslation } from "react-i18next";
+import {
+  ScrollView,
+} from "react-native";
 
-import AppHeader from "../../components/common/appHeader/appHeader";
+import {
+  SafeAreaView,
+} from "react-native-safe-area-context";
+
+import {
+  useTranslation,
+} from "react-i18next";
+
+import AppScreenHeader from "../../components/common/appScreenHeader/appScreenHeader";
 import PrimaryCard from "../../components/common/primaryCard";
 import SectionTitle from "../../components/common/sectionTitle";
 import InfoRow from "../../components/common/infoRow";
@@ -17,34 +25,61 @@ export default function DeviceInfoScreen({
 }) {
   const { t } = useTranslation();
 
-  const { device } = useApp();
+  const { device } =
+    useApp();
 
   return (
-    <SafeAreaView style={styles.container}>
-      <AppHeader
-        title={t("settings.device")}
-        onMenuPress={() => navigation.goBack()}
-        onNotificationPress={() => {}}
-        onProfilePress={() => {}}
+    <SafeAreaView
+      style={styles.container}
+    >
+      <AppScreenHeader
+        title={t(
+          "settings.device"
+        )}
+        navigation={
+          navigation
+        }
+        showMenu={false}
       />
 
       <ScrollView
-        contentContainerStyle={styles.content}
-        showsVerticalScrollIndicator={false}
+        contentContainerStyle={
+          styles.content
+        }
+        showsVerticalScrollIndicator={
+          false
+        }
       >
-        <PrimaryCard style={styles.card}>
+        <PrimaryCard
+          style={styles.card}
+        >
           <SectionTitle>
             ResQKit
           </SectionTitle>
 
           <InfoRow
+            label="Stare"
+            value={
+              device.connected
+                ? "Conectat"
+                : "Deconectat"
+            }
+          />
+
+          <InfoRow
             label="Firmware"
-            value={device.firmware || "--"}
+            value={
+              device.firmware ||
+              "--"
+            }
           />
 
           <InfoRow
             label="Număr de serie"
-            value={device.serialNumber || "--"}
+            value={
+              device.serialNumber ||
+              "--"
+            }
           />
 
           <InfoRow
@@ -57,7 +92,9 @@ export default function DeviceInfoScreen({
           />
 
           <InfoRow
-            label={t("home.battery")}
+            label={t(
+              "home.battery"
+            )}
             value={
               device.connected
                 ? `${device.battery}%`
@@ -67,7 +104,9 @@ export default function DeviceInfoScreen({
 
           {device.connected && (
             <BatteryBar
-              percentage={device.battery}
+              percentage={
+                device.battery
+              }
             />
           )}
         </PrimaryCard>

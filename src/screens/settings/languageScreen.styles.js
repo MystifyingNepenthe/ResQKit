@@ -1,4 +1,6 @@
-import { StyleSheet } from "react-native";
+import {
+  StyleSheet,
+} from "react-native";
 
 import {
   COLORS,
@@ -8,43 +10,72 @@ import {
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.background,
+
+    backgroundColor:
+      COLORS.background,
   },
 
   content: {
-    paddingTop: SPACING.lg,
+    paddingHorizontal:
+      SPACING.lg,
+
+    paddingTop:
+      SPACING.lg,
   },
 
   subtitle: {
-    marginHorizontal: SPACING.lg,
-    marginBottom: SPACING.md,
+    marginBottom:
+      SPACING.md,
 
-    fontSize: 16,
+    fontSize: 14,
 
-    color: COLORS.textSecondary,
+    color:
+      COLORS.textSecondary,
   },
 
   card: {
-    marginHorizontal: SPACING.lg,
+    paddingVertical: 0,
   },
 
   languageRow: {
-    minHeight: 58,
-
     flexDirection: "row",
+
     alignItems: "center",
-    justifyContent: "space-between",
+
+    justifyContent:
+      "space-between",
+
+    paddingVertical:
+      SPACING.md,
+  },
+
+  languageInfo: {
+    flex: 1,
   },
 
   language: {
     fontSize: 16,
+
     fontWeight: "600",
 
-    color: COLORS.text,
+    color:
+      COLORS.text,
+  },
+
+  languageCode: {
+    marginTop:
+      SPACING.xs,
+
+    fontSize: 12,
+
+    color:
+      COLORS.textSecondary,
   },
 
   divider: {
     height: 1,
-    backgroundColor: COLORS.border,
+
+    backgroundColor:
+      COLORS.border,
   },
 });

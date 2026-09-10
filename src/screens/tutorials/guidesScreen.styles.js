@@ -1,9 +1,5 @@
 import { StyleSheet } from "react-native";
-
-import {
-  COLORS,
-  SPACING,
-} from "../../design";
+import { COLORS, SPACING } from "../../design";
 
 export default StyleSheet.create({
   container: {
@@ -11,7 +7,12 @@ export default StyleSheet.create({
     backgroundColor: COLORS.background,
   },
 
+  scroll: {
+    flex: 1,
+  },
+
   content: {
-    paddingBottom: SPACING.xxxl,
+    paddingTop: SPACING.sm,
+    paddingBottom: SPACING.xxxl + 56,
   },
 });

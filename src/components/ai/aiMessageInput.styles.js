@@ -62,4 +62,8 @@ export default StyleSheet.create({
 
     backgroundColor: COLORS.primary,
   },
+
+  sendButtonDisabled: {
+     opacity: 0.45,
+  },
 });

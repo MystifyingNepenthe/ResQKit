@@ -4,7 +4,7 @@ import { ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useTranslation } from "react-i18next";
 
-import AppHeader from "../../components/common/appHeader/appHeader";
+import AppScreenHeader from "../../components/common/appScreenHeader/appScreenHeader";
 import FloatingAIButton from "../../components/home/aiButton";
 
 import SearchSection from "../../sections/home/searchSection";
@@ -21,11 +21,12 @@ export default function HomeScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <AppHeader
+      <AppScreenHeader
         title={t("home.title")}
-        onMenuPress={() => {}}
-        onNotificationPress={() => {}}
-        onProfilePress={() => navigation.navigate(ROUTES.ACCOUNT)}
+        navigation={navigation}
+        onProfilePress={() =>
+          navigation.navigate(ROUTES.ACCOUNT)
+        }
       />
 
       <ScrollView
@@ -38,11 +39,13 @@ export default function HomeScreen({ navigation }) {
           setSearch={setSearch}
         />
 
-        <DeviceSection />
+        <DeviceSection navigation={navigation} />
       </ScrollView>
 
       <FloatingAIButton
-        onPress={() => navigation.navigate(ROUTES.AI)}
+        onPress={() =>
+          navigation.navigate(ROUTES.AI)
+        }
       />
     </SafeAreaView>
   );

@@ -1,27 +1,42 @@
-import { View } from "react-native";
-
-import { Text } from "react-native-paper";
+import { View, Text } from "react-native";
+import { useTranslation } from "react-i18next";
 
 import styles from "./statusChip.styles";
-
-import { COLORS } from "../../design";
 
 export default function StatusChip({
   connected = false,
 }) {
+  const { t } = useTranslation();
+
   return (
     <View
       style={[
-        styles.chip,
-        {
-          backgroundColor: connected
-            ? COLORS.success
-            : COLORS.error,
-        },
+        styles.container,
+        connected
+          ? styles.connected
+          : styles.disconnected,
       ]}
     >
-      <Text style={styles.text}>
-        {connected ? "Connected" : "Disconnected"}
+      <View
+        style={[
+          styles.dot,
+          connected
+            ? styles.connectedDot
+            : styles.disconnectedDot,
+        ]}
+      />
+
+      <Text
+        style={[
+          styles.text,
+          connected
+            ? styles.connectedText
+            : styles.disconnectedText,
+        ]}
+      >
+        {connected
+          ? t("common.connected")
+          : t("common.disconnected")}
       </Text>
     </View>
   );

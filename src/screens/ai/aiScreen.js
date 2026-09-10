@@ -1,10 +1,19 @@
-import { useState } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
-import { ScrollView } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { useTranslation } from "react-i18next";
+import {
+  Alert,
+  ScrollView,
+} from "react-native";
 
-import AppHeader from "../../components/common/appHeader/appHeader";
+import {
+  SafeAreaView,
+} from "react-native-safe-area-context";
+
+import AppScreenHeader from "../../components/common/appScreenHeader/appScreenHeader";
 
 import AIEmptyState from "../../components/ai/aiEmptyState";
 import AIMessageInput from "../../components/ai/aiMessageInput";
@@ -12,22 +21,52 @@ import AIChatBubble from "../../components/ai/aiChatBubble";
 
 import QuickActionsSection from "../../sections/ai/quickActionSection";
 
-import { sendMockAIMessage } from "../../services/mockAiService";
-
-import { ROUTES } from "../../constants/routes";
+import {
+  sendMockAIMessage,
+} from "../../services/mockAiService";
 
 import styles from "./aiScreen.styles";
 
-export default function AIScreen({ navigation }) {
-  const { t } = useTranslation();
+export default function AIScreen({
+  navigation,
+}) {
+  const scrollViewRef =
+    useRef(null);
 
-  const [messages, setMessages] = useState([]);
-  const [sending, setSending] = useState(false);
+  const [messages, setMessages] =
+    useState([]);
+
+  const [sending, setSending] =
+    useState(false);
+
+  useEffect(() => {
+    if (messages.length === 0) {
+      return;
+    }
+
+    setTimeout(() => {
+      scrollViewRef.current?.scrollToEnd({
+        animated: true,
+      });
+    }, 100);
+  }, [messages, sending]);
 
   async function handleSend(text) {
+    if (sending) {
+      return;
+    }
+
+    const cleanText =
+      text?.trim();
+
+    if (!cleanText) {
+      return;
+    }
+
     const userMessage = {
+      id: `user-${Date.now()}`,
       role: "user",
-      content: text,
+      content: cleanText,
     };
 
     const nextMessages = [
@@ -40,11 +79,16 @@ export default function AIScreen({ navigation }) {
 
     try {
       const response =
-        await sendMockAIMessage(nextMessages);
+        await sendMockAIMessage(
+          nextMessages
+        );
 
       const aiMessage = {
+        id: `assistant-${Date.now()}`,
         role: "assistant",
-        content: response.reply,
+        content:
+          response?.reply ||
+          "Momentan nu pot genera un răspuns.",
       };
 
       setMessages([
@@ -55,6 +99,7 @@ export default function AIScreen({ navigation }) {
       setMessages([
         ...nextMessages,
         {
+          id: `error-${Date.now()}`,
           role: "assistant",
           content:
             "Momentan nu pot genera un răspuns. Încearcă din nou.",
@@ -67,71 +112,103 @@ export default function AIScreen({ navigation }) {
 
   function handleAnalyzeWound() {
     handleSend(
-      "Vreau să analizez o rană."
+      "Vreau ajutor pentru evaluarea unei răni."
     );
   }
 
   function handleFirstAid() {
     handleSend(
-      "Am nevoie de ajutor de prim ajutor."
+      "Am nevoie de informații de prim ajutor."
     );
   }
 
   function handleCheckResQKit() {
     handleSend(
-      "Ajută-mă să verific ResQKit."
+      "Ajută-mă să verific starea ResQKit."
     );
   }
 
   function handleAskQuestion() {
     handleSend(
-      "Am o întrebare."
+      "Am o întrebare despre ResQKit."
     );
   }
 
   function handleCameraPress() {
-    console.log("Deschide camera");
+    Alert.alert(
+      "Fotografie",
+      "Funcția de analiză a fotografiilor va fi conectată ulterior."
+    );
   }
 
   function handleAttachmentPress() {
-    console.log("Deschide galeria");
+    Alert.alert(
+      "Atașament",
+      "Încărcarea fișierelor va fi conectată ulterior."
+    );
   }
 
   return (
-    <SafeAreaView style={styles.container}>
-      <AppHeader
-        title={t("ai.title")}
-        onMenuPress={() => {}}
-        onNotificationPress={() => {}}
-        onProfilePress={() =>
-          navigation.navigate(ROUTES.ACCOUNT)
-        }
+    <SafeAreaView
+      style={styles.container}
+    >
+      <AppScreenHeader
+        title="Asistent AI"
+        navigation={navigation}
+        showMenu={false}
       />
 
       <ScrollView
-        contentContainerStyle={styles.content}
-        showsVerticalScrollIndicator={false}
+        ref={scrollViewRef}
+        style={styles.scrollView}
+        contentContainerStyle={[
+          styles.content,
+          messages.length === 0 &&
+            styles.emptyContent,
+        ]}
+        showsVerticalScrollIndicator={
+          false
+        }
         keyboardShouldPersistTaps="handled"
+        onContentSizeChange={() => {
+          if (messages.length > 0) {
+            scrollViewRef.current?.scrollToEnd({
+              animated: true,
+            });
+          }
+        }}
       >
         {messages.length === 0 ? (
           <>
             <AIEmptyState />
 
             <QuickActionsSection
-              onAnalyzeWound={handleAnalyzeWound}
-              onFirstAid={handleFirstAid}
-              onCheckResQKit={handleCheckResQKit}
-              onAskQuestion={handleAskQuestion}
+              onAnalyzeWound={
+                handleAnalyzeWound
+              }
+              onFirstAid={
+                handleFirstAid
+              }
+              onCheckResQKit={
+                handleCheckResQKit
+              }
+              onAskQuestion={
+                handleAskQuestion
+              }
             />
           </>
         ) : (
-          messages.map((message, index) => (
-            <AIChatBubble
-              key={`${message.role}-${index}`}
-              role={message.role}
-              message={message.content}
-            />
-          ))
+          messages.map(
+            (message) => (
+              <AIChatBubble
+                key={message.id}
+                role={message.role}
+                message={
+                  message.content
+                }
+              />
+            )
+          )
         )}
 
         {sending && (
@@ -144,8 +221,13 @@ export default function AIScreen({ navigation }) {
 
       <AIMessageInput
         onSend={handleSend}
-        onCameraPress={handleCameraPress}
-        onAttachmentPress={handleAttachmentPress}
+        onCameraPress={
+          handleCameraPress
+        }
+        onAttachmentPress={
+          handleAttachmentPress
+        }
+        disabled={sending}
       />
     </SafeAreaView>
   );

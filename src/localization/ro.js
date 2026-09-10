@@ -23,11 +23,14 @@ export default {
     myResQKit: "ResQKit-ul meu",
     deviceStatus: "Starea dispozitivului",
     status: "Stare",
-    battery: "Baterie",
-    lastSync: "Ultima sincronizare",
     justNow: "Chiar acum",
     resyncNow: "Sincronizează acum",
+    battery: "Baterie",
+    resync: "Sincronizează acum",
     connectNow: "Conectează acum",
+    lastSync: "Ultima sincronizare",
+    deviceDisconnected:
+      "ResQKit nu este conectat momentan. Conectează dispozitivul pentru a vedea bateria și starea acestuia.",
   },
 
   vehicle: {
@@ -40,6 +43,16 @@ export default {
     locateDescription:
       "Redă un sunet pe dispozitiv pentru a-l găsi mai ușor.",
     findResQKit: "Găsește ResQKit",
+    findDescription:
+      "Redă un semnal sonor pe dispozitiv pentru a-l găsi mai ușor.",
+    locateButton: "Găsește ResQKit",
+    locatingButton: "Se caută...",
+    locating:
+      "Se trimite comanda către ResQKit...",
+    locateSuccess:
+      "ResQKit redă acum un semnal sonor.",
+    locateDisconnected:
+      "ResQKit trebuie să fie conectat pentru a putea fi localizat.",
   },
 
   guides: {
@@ -62,14 +75,16 @@ export default {
 
     appCategories: {
         gettingStarted: "Introducere",
-        connectResQKit: "Conectarea ResQKit",
+        connectDevice: "Conectarea ResQKit",
         home: "Pagina Acasă",
         vehicle: "Vehicul",
         ai: "Asistent AI",
         settings: "Setări",
     },
 
-    emergency: {
+    noResults: "Nu am găsit ghiduri pentru căutarea ta.",
+
+    severity: {
       low: "URGENȚĂ REDUSĂ",
       medium: "URGENȚĂ MEDIE",
       high: "URGENȚĂ RIDICATĂ",
@@ -105,6 +120,7 @@ export default {
     english: "Engleză",
     lightTheme: "Deschisă",
     darkTheme: "Întunecată",
+    chooseLanguage: "Alege limba aplicației",
   },
 
   account: {
@@ -126,7 +142,6 @@ export default {
     register: "Creează cont",
     forgotPassword: "Ai uitat parola?",
     noAccount: "Nu ai un cont?",
-    alreadyHaveAccount: "Ai deja un cont?",
     createAccount: "Creează cont",
     registerSubtitle:
       "Completează datele pentru a configura contul ResQKit.",

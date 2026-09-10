@@ -7,21 +7,53 @@ import {
 } from "../../design";
 
 export default StyleSheet.create({
-  chip: {
+  container: {
     alignSelf: "flex-start",
 
-    paddingVertical: 6,
+    flexDirection: "row",
+    alignItems: "center",
 
-    paddingHorizontal: 14,
+    paddingHorizontal: SPACING.sm,
+    paddingVertical: 5,
 
-    borderRadius: RADIUS.xl,
+    borderRadius: RADIUS.round,
+  },
+
+  connected: {
+    backgroundColor: "#E7F7ED",
+  },
+
+  disconnected: {
+    backgroundColor: "#F3F4F6",
+  },
+
+  dot: {
+    width: 7,
+    height: 7,
+
+    borderRadius: 4,
+
+    marginRight: 6,
+  },
+
+  connectedDot: {
+    backgroundColor: "#2E9D57",
+  },
+
+  disconnectedDot: {
+    backgroundColor: "#e3311a",
   },
 
   text: {
-    color: COLORS.white,
+    fontSize: 12,
+    fontWeight: "600",
+  },
 
-    fontWeight: "700",
+  connectedText: {
+    color: "#237A43",
+  },
 
-    fontSize: 13,
+  disconnectedText: {
+    color: COLORS.textSecondary,
   },
 });

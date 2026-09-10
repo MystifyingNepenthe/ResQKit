@@ -1,10 +1,13 @@
-import { useState } from "react";
+import {
+  useEffect,
+  useState,
+} from "react";
 
 import { ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useTranslation } from "react-i18next";
 
-import AppHeader from "../../components/common/appHeader/appHeader";
+import AppScreenHeader from "../../components/common/appScreenHeader/appScreenHeader";
 import FloatingAIButton from "../../components/home/aiButton";
 
 import SearchSection from "../../sections/home/searchSection";
@@ -18,19 +21,35 @@ import { ROUTES } from "../../constants/routes";
 
 import styles from "./guidesScreen.styles";
 
-export default function GuidesScreen({ navigation }) {
+export default function GuidesScreen({
+  navigation,
+  route,
+}) {
   const [search, setSearch] = useState("");
-  const [guideType, setGuideType] = useState("wounds");
+
+  const [guideType, setGuideType] =
+    useState(
+      route?.params?.guideType || "wounds"
+    );
 
   const { t } = useTranslation();
 
+  useEffect(() => {
+    if (route?.params?.guideType) {
+      setGuideType(
+        route.params.guideType
+      );
+    }
+  }, [route?.params?.guideType]);
+
   return (
     <SafeAreaView style={styles.container}>
-      <AppHeader
+      <AppScreenHeader
         title={t("guides.title")}
-        onMenuPress={() => {}}
-        onNotificationPress={() => {}}
-        onProfilePress={() => navigation.navigate(ROUTES.ACCOUNT)}
+        navigation={navigation}
+        onProfilePress={() =>
+          navigation.navigate(ROUTES.ACCOUNT)
+        }
       />
 
       <ScrollView
@@ -49,14 +68,20 @@ export default function GuidesScreen({ navigation }) {
         />
 
         {guideType === "wounds" ? (
-          <WoundGuidesSection />
+          <WoundGuidesSection
+            search={search}
+          />
         ) : (
-          <AppGuidesSection />
+          <AppGuidesSection
+            search={search}
+          />
         )}
       </ScrollView>
 
       <FloatingAIButton
-        onPress={() => navigation.navigate(ROUTES.AI)}
+        onPress={() =>
+          navigation.navigate(ROUTES.AI)
+        }
       />
     </SafeAreaView>
   );
