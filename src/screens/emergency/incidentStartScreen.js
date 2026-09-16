@@ -20,16 +20,19 @@ export default function IncidentStartScreen({ navigation }) {
         pick("Dacă începi una nouă, sesiunea activă va fi înlocuită.", "If you start a new one, the active session will be replaced."),
         [
           { text: pick("Anulează", "Cancel"), style: "cancel" },
-          { text: pick("Începe una nouă", "Start a new one"), style: "destructive", onPress: () => { discardIncident(); startIncident(); navigation.replace(ROUTES.AGE_SELECTION); } },
+          { text: pick("Începe una nouă", "Start a new one"), style: "destructive", onPress: () => { discardIncident(); startIncident(); navigation.replace(ROUTES.CALL_112_GATE); } },
         ]
       );
       return;
     }
     startIncident();
-    navigation.replace(ROUTES.AGE_SELECTION);
+    navigation.replace(ROUTES.CALL_112_GATE);
   }
 
   function continueIncident() {
+    if (incident?.called112 !== "called" && incident?.called112 !== "already_called") {
+      return navigation.navigate(ROUTES.CALL_112_GATE);
+    }
     const active = incident?.victims?.find((v) => v.id === incident.activeVictimId) || incident?.victims?.[0];
     if (!active?.ageProfile) return navigation.navigate(ROUTES.AGE_SELECTION);
     if (!active?.situation) return navigation.navigate(ROUTES.SITUATION_SELECTION);

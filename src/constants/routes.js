@@ -32,12 +32,19 @@ export const ROUTES = {
   APP_GUIDE_DETAIL: "AppGuideDetail",
 
   INCIDENT_START: "IncidentStart",
+  CALL_112_GATE: "Call112Gate",
+  CONTEXT_SELECTION: "ContextSelection",
   AGE_SELECTION: "AgeSelection",
   SITUATION_SELECTION: "SituationSelection",
   PROTOCOL: "Protocol",
+  KIT_PREPARATION: "KitPreparation",
   VICTIMS: "Victims",
+  TRIAGE: "Triage",
   HANDOFF: "Handoff",
   INTERVIEW: "Interview",
   REPORT: "Report",
   REVIEW: "Review",
+
+  PRACTICE_HOME: "PracticeHome",
+  PRACTICE_PROTOCOL: "PracticeProtocol",
 };

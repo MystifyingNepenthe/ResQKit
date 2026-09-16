@@ -14,11 +14,12 @@ import { listArchivedIncidents } from "../../services/incidentService";
 import { getJSON, STORAGE_KEYS } from "../../services/storageService";
 import { ROUTES } from "../../constants/routes";
 import { COLORS } from "../../design";
+import { formatRetentionRemaining } from "../../utils/retention";
 import styles from "./historyScreen.styles";
 
 export default function HistoryScreen({ navigation }) {
   const { retainedIncidents, institutionalLog, isLoggedIn } = useApp();
-  const { locale, pick } = useLocale();
+  const { locale, language, pick } = useLocale();
   const [historyType, setHistoryType] = useState("interventions");
   const [archived, setArchived] = useState([]);
   const [chats, setChats] = useState([]);
@@ -57,8 +58,11 @@ export default function HistoryScreen({ navigation }) {
         title: pick("Intervenție locală", "Local intervention"),
         ...when,
         description: pick(`${count} victimă(e) · retenție ${entry.retention}`, `${count} person(s) · retention ${entry.retention}`),
-        status: pick("Pe dispozitiv", "On device"),
-        details: (entry.incident?.victims || []).map((v) => `${v.label}: ${v.situation || pick("situație neprecizată", "unspecified situation")}`),
+        status: formatRetentionRemaining(entry.expiresAt, language) || pick("Pe dispozitiv", "On device"),
+        details: [
+          entry.expiresAt ? `${pick("Ștergere automată", "Automatic deletion")}: ${formatRetentionRemaining(entry.expiresAt, language)}` : null,
+          ...(entry.incident?.victims || []).map((v) => `${v.label || pick(`Victima ${v.number || ""}`, `Person ${v.number || ""}`)}: ${v.situation || pick("situație neprecizată", "unspecified situation")}`),
+        ].filter(Boolean),
       };
     });
     const remote = archived.map((entry) => {
@@ -79,7 +83,7 @@ export default function HistoryScreen({ navigation }) {
       };
     });
     return [...local, ...remote];
-  }, [archived, retainedIncidents, dt, pick]);
+  }, [archived, retainedIncidents, dt, language, pick]);
 
   const operators = useMemo(() => institutionalLog.slice().reverse().map((entry) => ({
     id: entry.id,

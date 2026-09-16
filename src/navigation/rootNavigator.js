@@ -25,14 +25,20 @@ import FAQScreen from "../screens/settings/faqScreen";
 import ContactScreen from "../screens/settings/contactScreen";
 import NotificationsScreen from "../screens/settings/notificationsScreen";
 import IncidentStartScreen from "../screens/emergency/incidentStartScreen";
+import Call112GateScreen from "../screens/emergency/call112GateScreen";
+import ContextSelectionScreen from "../screens/emergency/contextSelectionScreen";
 import AgeSelectionScreen from "../screens/emergency/ageSelectionScreen";
 import SituationSelectionScreen from "../screens/emergency/situationSelectionScreen";
 import ProtocolScreen from "../screens/emergency/protocolScreen";
+import KitPreparationScreen from "../screens/emergency/kitPreparationScreen";
 import VictimsScreen from "../screens/emergency/victimsScreen";
+import TriageScreen from "../screens/emergency/triageScreen";
 import HandoffScreen from "../screens/emergency/handoffScreen";
 import InterviewScreen from "../screens/emergency/interviewScreen";
 import ReportScreen from "../screens/emergency/reportScreen";
 import ReviewScreen from "../screens/emergency/reviewScreen";
+import PracticeHomeScreen from "../screens/tutorials/practiceHomeScreen";
+import PracticeProtocolScreen from "../screens/tutorials/practiceProtocolScreen";
 import { ROUTES } from "../constants/routes";
 
 const Stack = createNativeStackNavigator();
@@ -65,14 +71,20 @@ export default function RootNavigator() {
       <Stack.Screen name={ROUTES.CONTACT} component={ContactScreen} />
       <Stack.Screen name={ROUTES.NOTIFICATIONS} component={NotificationsScreen} />
       <Stack.Screen name={ROUTES.INCIDENT_START} component={IncidentStartScreen} />
+      <Stack.Screen name={ROUTES.CALL_112_GATE} component={Call112GateScreen} />
+      <Stack.Screen name={ROUTES.CONTEXT_SELECTION} component={ContextSelectionScreen} />
       <Stack.Screen name={ROUTES.AGE_SELECTION} component={AgeSelectionScreen} />
       <Stack.Screen name={ROUTES.SITUATION_SELECTION} component={SituationSelectionScreen} />
       <Stack.Screen name={ROUTES.PROTOCOL} component={ProtocolScreen} />
+      <Stack.Screen name={ROUTES.KIT_PREPARATION} component={KitPreparationScreen} />
       <Stack.Screen name={ROUTES.VICTIMS} component={VictimsScreen} />
+      <Stack.Screen name={ROUTES.TRIAGE} component={TriageScreen} />
       <Stack.Screen name={ROUTES.HANDOFF} component={HandoffScreen} />
       <Stack.Screen name={ROUTES.INTERVIEW} component={InterviewScreen} />
       <Stack.Screen name={ROUTES.REPORT} component={ReportScreen} />
       <Stack.Screen name={ROUTES.REVIEW} component={ReviewScreen} />
+      <Stack.Screen name={ROUTES.PRACTICE_HOME} component={PracticeHomeScreen} />
+      <Stack.Screen name={ROUTES.PRACTICE_PROTOCOL} component={PracticeProtocolScreen} />
     </Stack.Navigator>
   );
 }

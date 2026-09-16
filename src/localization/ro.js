@@ -56,6 +56,7 @@ export default {
   },
 
   guides: {
+    practiceProtocols: "Exersează protocoalele de urgență",
     title: "Ghiduri",
     searchPlaceholder: "Caută ghiduri...",
     woundGuides: "Ghiduri pentru răni",

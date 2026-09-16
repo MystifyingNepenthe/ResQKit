@@ -3,6 +3,7 @@ import { Alert, ScrollView, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Button, RadioButton } from "react-native-paper";
 import AppScreenHeader from "../../components/common/appScreenHeader/appScreenHeader";
+import Emergency112Banner from "../../components/emergency/emergency112Banner";
 import PrimaryCard from "../../components/common/primaryCard";
 import useApp from "../../hooks/useApp";
 import useLocale from "../../hooks/useLocale";
@@ -45,12 +46,13 @@ export default function ReviewScreen({ navigation }) {
       } catch {}
     }
     await closeIncident();
-    navigation.reset({ index: 0, routes: [{ name: ROUTES.HOME }] });
+    navigation.reset({ index: 0, routes: [{ name: isLoggedIn ? ROUTES.HOME : ROUTES.LOGIN }] });
   }
 
   return (
     <SafeAreaView style={styles.container}>
       <AppScreenHeader title={pick("Încheiere sesiune", "End session")} navigation={navigation} showMenu={false} showNotifications={false} />
+      <Emergency112Banner />
       <ScrollView contentContainerStyle={styles.content}>
         <Text style={styles.title}>{pick("Sesiune încheiată", "Session complete")}</Text>
         <Text style={styles.subtitle}>{pick("Alege cât timp vrei să păstrezi copia locală. Arhivarea în cont este o acțiune separată.", "Choose how long to keep the local copy. Archiving to your account is a separate action.")}</Text>

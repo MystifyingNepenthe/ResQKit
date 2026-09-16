@@ -4,6 +4,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Button } from "react-native-paper";
 import AppScreenHeader from "../../components/common/appScreenHeader/appScreenHeader";
 import CPRMetronome from "../../components/emergency/cprMetronome";
+import Emergency112Banner from "../../components/emergency/emergency112Banner";
+import ProtocolKitHint from "../../components/emergency/protocolKitHint";
 import useApp from "../../hooks/useApp";
 import useLocale from "../../hooks/useLocale";
 import { getDynamicProtocolText, getProtocolNode, getSvbStart } from "../../data/protocols/protocolData";
@@ -53,7 +55,7 @@ export default function ProtocolScreen({ navigation }) {
   }
 
   async function call112() {
-    updateIncident({ called112: "called" });
+    updateIncident({ called112: "called", called112At: new Date().toISOString() });
     const sessionId = await ensureSession();
     if (sessionId) void updateInstitutionalSession(sessionId, { called_112: "called" }).catch(() => {});
     try {
@@ -119,6 +121,7 @@ export default function ProtocolScreen({ navigation }) {
     return (
       <SafeAreaView style={styles.container}>
         <AppScreenHeader title={pick("Protocol", "Protocol")} navigation={navigation} showMenu={false} showNotifications={false} />
+        <Emergency112Banner />
         <View style={styles.content}>
           <Text style={styles.title}>{pick("Protocol indisponibil", "Protocol unavailable")}</Text>
           <Button onPress={() => navigation.replace(ROUTES.SITUATION_SELECTION)}>{pick("Alege situația din nou", "Choose the situation again")}</Button>
@@ -130,16 +133,21 @@ export default function ProtocolScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <AppScreenHeader title={pick("Ghidare de urgență", "Emergency guidance")} navigation={navigation} showMenu={false} showNotifications={false} />
+      <Emergency112Banner />
       <ScrollView contentContainerStyle={styles.content}>
         <View style={styles.row}>
           <View style={styles.badge}><Text style={styles.badgeText}>{active.label || pick("Victima", "Person")}</Text></View>
-          <Button compact icon="account-multiple" onPress={() => navigation.navigate(ROUTES.VICTIMS)}>{pick("Victime", "People")}</Button>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <Button compact icon="medical-bag" onPress={() => navigation.navigate(ROUTES.KIT_PREPARATION, { nextRoute: ROUTES.PROTOCOL })}>{pick("Materiale", "Supplies")}</Button>
+            <Button compact icon="account-multiple" onPress={() => navigation.navigate(ROUTES.VICTIMS)}>{pick("Victime", "People")}</Button>
+          </View>
         </View>
         <View style={styles.protocolCard}>
           <Text style={styles.protocolTitle}>{node.title}</Text>
           <Text style={styles.protocolText}>{text}</Text>
           {node.warning ? <View style={styles.warningBox}><Text style={styles.warningText}>{node.warning}</Text></View> : null}
           {node.note ? <View style={styles.noteBox}><Text style={styles.noteText}>{node.note}</Text></View> : null}
+          <ProtocolKitHint nodeId={active.protocolNodeId} selected={incident?.kitItems || []} />
           <Button
             icon={speaking ? "stop-circle-outline" : "volume-high"}
             mode="text"

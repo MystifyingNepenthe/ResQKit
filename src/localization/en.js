@@ -55,6 +55,7 @@ export default {
   },
 
   guides: {
+    practiceProtocols: "Practice emergency protocols",
     title: "Guides",
     searchPlaceholder: "Search guides...",
     woundGuides: "Wound Guides",

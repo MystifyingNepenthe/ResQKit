@@ -27,6 +27,12 @@ export default function WoundGuidesSection({ search = "" }) {
 
   return (
     <View style={styles.container}>
+      <GuideCard
+        title={t("guides.practiceProtocols", { defaultValue: "Exersează protocoalele de urgență" })}
+        icon="school-outline"
+        onPress={() => navigation.navigate(ROUTES.PRACTICE_HOME)}
+      />
+
       {guides.length === 0 ? (
         <Text style={[styles.emptyText, { color: COLORS.textSecondary }]}>
           {t("guides.noResults")}

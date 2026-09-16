@@ -1,3 +1,5 @@
+import { apiRequest } from "./apiClient";
+
 function isEnglish(language) {
   return String(language || "ro").toLowerCase().startsWith("en");
 }
@@ -32,10 +34,15 @@ const situationLabel = (situation, language) => {
   return labels[situation] || situation || (en ? "situation not specified" : "situație neprecizată");
 };
 
-export function buildIncidentBrief(incident, profile = {}, includeHealth = false, language = "ro") {
+export function buildIncidentBrief(incident, profile = {}, includeHealth = false, language = "ro", options = {}) {
   const en = isEnglish(language);
   if (!incident) return en ? "There is no active session." : "Nu există o sesiune activă.";
   const locale = en ? "en-US" : "ro-RO";
+  const selectedVictimId = options?.victimId || null;
+  const includeReporter = options?.includeReporter !== false;
+  const selectedVictims = selectedVictimId
+    ? (incident.victims || []).filter((victim) => victim.id === selectedVictimId)
+    : (incident.victims || []);
   const called112 = incident.called112 === "called"
     ? (en ? "call started/confirmed" : "apel inițiat/confirmat")
     : incident.called112 === "already_called"
@@ -46,6 +53,8 @@ export function buildIncidentBrief(incident, profile = {}, includeHealth = false
     "RESQKIT — CREW HANDOFF SUMMARY",
     `Session started: ${new Date(incident.startedAt).toLocaleString(locale)}`,
     `112 call status: ${called112}`,
+    `Incident context: ${incident.context || "not recorded"}`,
+    includeReporter ? `Reporter: ${incident.reporterName || "not recorded"}${incident.reporterPhone ? ` · ${incident.reporterPhone}` : ""}` : "Reporter: not shared",
     "",
     "LOCATION",
     incident.latitude != null && incident.longitude != null
@@ -53,11 +62,13 @@ export function buildIncidentBrief(incident, profile = {}, includeHealth = false
       : "Coordinates: not recorded",
     `Landmark/description: ${incident.locationNote || "not recorded"}`,
     "",
-    `PEOPLE: ${incident.victims?.length || 1}`,
+    `PEOPLE: ${selectedVictimId ? selectedVictims.length : (incident.victims?.length || 1)}`,
   ] : [
     "RESQKIT — REZUMAT PENTRU ECHIPAJ",
     `Sesiune începută: ${new Date(incident.startedAt).toLocaleString(locale)}`,
     `Status apel 112: ${called112}`,
+    `Context incident: ${incident.context || "neînregistrat"}`,
+    includeReporter ? `Persoană care raportează: ${incident.reporterName || "neînregistrată"}${incident.reporterPhone ? ` · ${incident.reporterPhone}` : ""}` : "Persoană care raportează: nepartajată",
     "",
     "LOCAȚIE",
     incident.latitude != null && incident.longitude != null
@@ -65,10 +76,10 @@ export function buildIncidentBrief(incident, profile = {}, includeHealth = false
       : "Coordonate: neînregistrate",
     `Reper/descriere: ${incident.locationNote || "neînregistrat"}`,
     "",
-    `VICTIME: ${incident.victims?.length || 1}`,
+    `VICTIME: ${selectedVictimId ? selectedVictims.length : (incident.victims?.length || 1)}`,
   ];
 
-  (incident.victims || []).forEach((victim, index) => {
+  selectedVictims.forEach((victim, index) => {
     const defaultLabel = en ? `Person ${index + 1}` : `Victima ${index + 1}`;
     lines.push(`${index + 1}. ${victim.label || defaultLabel} — ${ageLabel(victim.ageProfile, language)} — ${situationLabel(victim.situation, language)}`);
     if (victim.completedSteps?.length) {
@@ -100,4 +111,14 @@ export function buildIncidentBrief(incident, profile = {}, includeHealth = false
     ? "ResQKit is an assistance tool; follow instructions from the 112 operator and medical personnel."
     : "ResQKit este un instrument de asistență; urmează indicațiile operatorului 112 și ale personalului medical.");
   return lines.join("\n");
+}
+
+
+export async function polishIncidentBrief(briefText) {
+  const result = await apiRequest("/api/v1/resqkit/polish_brief", {
+    method: "POST",
+    auth: false,
+    body: JSON.stringify({ brief_text: briefText }),
+  });
+  return result?.spoken || result?.polished_brief || result?.brief || result?.text || result?.result || "";
 }

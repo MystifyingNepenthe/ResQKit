@@ -4,7 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useTranslation } from "react-i18next";
 import useLocale from "../../hooks/useLocale";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import { TextInput } from "react-native-paper";
+import { Button, TextInput } from "react-native-paper";
 
 import InputField from "../../components/input/inputFields";
 import PrimaryButton from "../../components/buttons/primaryButtons";
@@ -59,6 +59,18 @@ export default function LoginScreen({ navigation }) {
             <Text style={styles.registerText}>{t("auth.noAccount")}</Text>
             <Text style={styles.registerLink} onPress={() => navigation.navigate(ROUTES.REGISTER)}> {t("auth.register")}</Text>
           </View>
+          <Button
+            style={{ marginTop: 24 }}
+            mode="outlined"
+            icon="car-emergency"
+            textColor={COLORS.error}
+            onPress={() => navigation.navigate(ROUTES.INCIDENT_START)}
+          >
+            {pick("Urgență fără autentificare", "Emergency without sign-in")}
+          </Button>
+          <Text style={[styles.registerText, { textAlign: "center", marginTop: 8 }]}>
+            {pick("Poți folosi protocoalele de urgență fără cont. Arhivarea în cont rămâne opțională.", "You can use the emergency protocols without an account. Account archiving remains optional.")}
+          </Text>
         </View>
       </ScrollView>
     </SafeAreaView>

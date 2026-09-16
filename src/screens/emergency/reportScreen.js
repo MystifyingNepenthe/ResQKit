@@ -4,6 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Button } from "react-native-paper";
 import * as Clipboard from "expo-clipboard";
 import AppScreenHeader from "../../components/common/appScreenHeader/appScreenHeader";
+import Emergency112Banner from "../../components/emergency/emergency112Banner";
 import PrimaryCard from "../../components/common/primaryCard";
 import useApp from "../../hooks/useApp";
 import useLocale from "../../hooks/useLocale";
@@ -52,6 +53,7 @@ export default function ReportScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <AppScreenHeader title={pick("Raport incident", "Incident report")} navigation={navigation} showMenu={false} showNotifications={false} />
+      <Emergency112Banner />
       <ScrollView contentContainerStyle={styles.content}>
         <PrimaryCard style={{ marginBottom: 16 }}>
           <Text style={styles.sectionTitle}>{pick("Rezumat pentru echipaj", "Crew handoff summary")}</Text>
