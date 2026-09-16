@@ -14,6 +14,8 @@ import {
   useTranslation,
 } from "react-i18next";
 
+import useLocale from "../../hooks/useLocale";
+
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { TextInput } from "react-native-paper";
 
@@ -38,11 +40,11 @@ export default function RegisterScreen({
   navigation,
 }) {
   const { t } = useTranslation();
+  const { pick } = useLocale();
 
   const {
-    setUser,
+    signUp,
     setVehicle,
-    setIsLoggedIn,
   } = useApp();
 
   const [firstName, setFirstName] =
@@ -82,117 +84,53 @@ export default function RegisterScreen({
   const [error, setError] =
     useState("");
 
+  const [loading, setLoading] =
+    useState(false);
+
   function isValidEmail(value) {
     return /\S+@\S+\.\S+/.test(value);
   }
 
-  function handleRegister() {
-    const cleanFirstName =
-      firstName.trim();
+  async function handleRegister() {
+    const cleanFirstName = firstName.trim();
+    const cleanLastName = lastName.trim();
+    const cleanEmail = email.trim().toLowerCase();
+    const cleanModel = model.trim();
+    const cleanPlate = plate.trim().toUpperCase();
+    const cleanVin = vin.trim().toUpperCase();
 
-    const cleanLastName =
-      lastName.trim();
-
-    const cleanEmail =
-      email.trim().toLowerCase();
-
-    const cleanModel =
-      model.trim();
-
-    const cleanPlate =
-      plate
-        .trim()
-        .toUpperCase();
-
-    const cleanVin =
-      vin
-        .trim()
-        .toUpperCase();
-
-    if (
-      !cleanFirstName ||
-      !cleanLastName ||
-      !cleanEmail ||
-      !password ||
-      !confirmPassword
-    ) {
-      setError(
-        t("auth.completeRequiredFields")
-      );
-
+    if (!cleanFirstName || !cleanLastName || !cleanEmail || !password || !confirmPassword) {
+      setError(t("auth.completeRequiredFields"));
       return;
     }
-
-    if (!isValidEmail(cleanEmail)) {
-      setError(
-        "Introdu o adresă de email validă."
-      );
-
+    if (!/\S+@\S+\.\S+/.test(cleanEmail)) {
+      setError(pick("Introdu o adresă de email validă.", "Enter a valid email address."));
       return;
     }
-
-    if (password.length < 6) {
-      setError(
-        "Parola trebuie să conțină cel puțin 6 caractere."
-      );
-
+    if (password.length < 8) {
+      setError(pick("Parola trebuie să conțină cel puțin 8 caractere pentru backend-ul ResQKit.", "The password must contain at least 8 characters for the ResQKit backend."));
       return;
     }
-
-    if (
-      password !==
-      confirmPassword
-    ) {
-      setError(
-        "Parolele introduse nu coincid."
-      );
-
+    if (password !== confirmPassword) {
+      setError(pick("Parolele introduse nu coincid.", "The passwords do not match."));
       return;
     }
-
-    if (
-      cleanVin &&
-      cleanVin.length !== 17
-    ) {
-      setError(
-        "Seria VIN trebuie să conțină 17 caractere."
-      );
-
+    if (cleanVin && cleanVin.length !== 17) {
+      setError(pick("Seria VIN trebuie să conțină 17 caractere.", "The VIN must contain 17 characters."));
       return;
     }
 
     setError("");
-
-    setUser({
-      firstName:
-        cleanFirstName,
-
-      lastName:
-        cleanLastName,
-
-      email:
-        cleanEmail,
-
-      profilePicture:
-        null,
-    });
-
-    setVehicle({
-      model:
-        cleanModel,
-
-      plate:
-        cleanPlate,
-
-      vin:
-        cleanVin,
-    });
-
-    setIsLoggedIn(true);
-
-    navigation.replace(
-      ROUTES.CONNECT_DEVICE
-    );
+    setLoading(true);
+    try {
+      await signUp({ email: cleanEmail, password, firstName: cleanFirstName, lastName: cleanLastName });
+      setVehicle({ model: cleanModel, plate: cleanPlate, vin: cleanVin });
+      navigation.reset({ index: 0, routes: [{ name: ROUTES.CONNECT_DEVICE }] });
+    } catch (err) {
+      setError(err?.message || pick("Contul nu a putut fi creat. Verifică backend-ul.", "The account could not be created. Check the backend."));
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -320,7 +258,7 @@ export default function RegisterScreen({
 
           <View style={styles.input}>
             <InputField
-              label="Confirmă parola"
+              label={pick("Confirmă parola", "Confirm password")}
               value={
                 confirmPassword
               }
@@ -369,7 +307,7 @@ export default function RegisterScreen({
               styles.sectionDescription
             }
           >
-            Poți completa datele vehiculului acum sau le poți adăuga ulterior din Cont.
+            {pick("Poți completa datele vehiculului acum sau le poți adăuga ulterior din Cont.", "You can enter the vehicle details now or add them later from Account.")}
           </Text>
 
           <View style={styles.input}>
@@ -428,6 +366,8 @@ export default function RegisterScreen({
             onPress={
               handleRegister
             }
+            loading={loading}
+            disabled={loading}
           />
         </View>
 
@@ -439,7 +379,7 @@ export default function RegisterScreen({
           <Text
             style={styles.loginText}
           >
-            Ai deja un cont?
+            {pick("Ai deja un cont?", "Already have an account?")}
           </Text>
 
           <Text
@@ -451,7 +391,7 @@ export default function RegisterScreen({
             }
           >
             {" "}
-            Autentifică-te
+            {pick("Autentifică-te", "Sign in")}
           </Text>
         </View>
       </ScrollView>

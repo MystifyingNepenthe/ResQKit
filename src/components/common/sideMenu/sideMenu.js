@@ -8,6 +8,7 @@ import {
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
 import { ROUTES } from "../../../constants/routes";
+import useLocale from "../../../hooks/useLocale";
 
 import styles from "./sideMenu.styles";
 
@@ -16,6 +17,7 @@ export default function SideMenu({
   onClose,
   navigation,
 }) {
+  const { pick } = useLocale();
   function getRootNavigation() {
     let currentNavigation = navigation;
 
@@ -80,7 +82,7 @@ export default function SideMenu({
         <View style={styles.menu}>
           <View style={styles.header}>
             <Text style={styles.menuTitle}>
-              MENIU
+              {pick("MENIU", "MENU")}
             </Text>
 
             <Pressable
@@ -100,7 +102,7 @@ export default function SideMenu({
           />
 
           <MenuItem
-            title="My ResQKit"
+            title={pick("ResQKit-ul meu", "My ResQKit")}
             onPress={() =>
               navigateToTab(
                 ROUTES.HOME
@@ -109,7 +111,7 @@ export default function SideMenu({
           />
 
           <MenuItem
-            title="Vehicul"
+            title={pick("Vehicul", "Vehicle")}
             onPress={() =>
               navigateToTab(
                 ROUTES.VEHICLE
@@ -118,7 +120,16 @@ export default function SideMenu({
           />
 
           <MenuItem
-            title="Istoric intervenții"
+            title={pick("Începe intervenția", "Start intervention")}
+            onPress={() =>
+              navigateToRoot(
+                ROUTES.INCIDENT_START
+              )
+            }
+          />
+
+          <MenuItem
+            title={pick("Istoric intervenții", "Intervention history")}
             onPress={() =>
               navigateToRoot(
                 ROUTES.HISTORY
@@ -127,7 +138,7 @@ export default function SideMenu({
           />
 
           <MenuItem
-            title="Materiale video"
+            title={pick("Materiale video", "First-aid guides")}
             onPress={() =>
               navigateToTab(
                 ROUTES.GUIDES,
@@ -140,7 +151,7 @@ export default function SideMenu({
           />
 
           <MenuItem
-            title="Tutoriale"
+            title={pick("Tutoriale", "Tutorials")}
             onPress={() =>
               navigateToTab(
                 ROUTES.GUIDES,
@@ -157,7 +168,7 @@ export default function SideMenu({
           />
 
           <MenuItem
-            title="Cont"
+            title={pick("Cont", "Account")}
             onPress={() =>
               navigateToRoot(
                 ROUTES.ACCOUNT
@@ -166,7 +177,7 @@ export default function SideMenu({
           />
 
           <MenuItem
-            title="Setări"
+            title={pick("Setări", "Settings")}
             onPress={() =>
               navigateToTab(
                 ROUTES.SETTINGS

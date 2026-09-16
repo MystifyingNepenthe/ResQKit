@@ -18,6 +18,7 @@ import SeverityBadge from "../../components/guides/severityBadge";
 import {
   getTutorialById,
 } from "../../mock/tutorials";
+import useLocale from "../../hooks/useLocale";
 
 import {
   ROUTES,
@@ -33,12 +34,15 @@ export default function GuideDetailScreen({
   route,
   navigation,
 }) {
+  const { language, pick } = useLocale();
+
   const tutorialId =
     route?.params?.tutorialId;
 
   const tutorial =
     getTutorialById(
-      tutorialId
+      tutorialId,
+      language
     );
 
   if (!tutorial) {
@@ -47,7 +51,7 @@ export default function GuideDetailScreen({
         style={styles.container}
       >
         <AppScreenHeader
-          title="Ghid"
+          title={pick("Ghid", "Guide")}
           navigation={navigation}
           showMenu={false}
         />
@@ -68,7 +72,7 @@ export default function GuideDetailScreen({
           <Text
             style={styles.notFound}
           >
-            Ghidul nu a fost găsit.
+            {pick("Ghidul nu a fost găsit.", "Guide not found.")}
           </Text>
         </View>
       </SafeAreaView>
@@ -156,7 +160,7 @@ export default function GuideDetailScreen({
               styles.sectionTitle
             }
           >
-            Pași
+            {pick("Pași", "Steps")}
           </Text>
 
           {(tutorial.steps || []).map(
@@ -216,7 +220,7 @@ export default function GuideDetailScreen({
                   styles.emergencyTitle
                 }
               >
-                Situație de urgență
+                {pick("Situație de urgență", "Emergency situation")}
               </Text>
             </View>
 
@@ -225,7 +229,7 @@ export default function GuideDetailScreen({
                 styles.emergencyText
               }
             >
-              Dacă persoana este în pericol imediat, starea acesteia se agravează sau situația nu poate fi controlată în siguranță, apelează serviciile de urgență la 112.
+              {pick("Dacă persoana este în pericol imediat, starea acesteia se agravează sau situația nu poate fi controlată în siguranță, apelează serviciile de urgență la 112.", "If the person is in immediate danger, their condition worsens, or the situation cannot be managed safely, call emergency services at 112.")}
             </Text>
           </PrimaryCard>
         )}

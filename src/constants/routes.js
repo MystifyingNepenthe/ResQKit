@@ -1,32 +1,43 @@
 export const ROUTES = {
   SPLASH: "Splash",
   LOADING: "Loading",
-
   LOGIN: "Login",
   REGISTER: "Register",
+  FORGOT_PASSWORD: "ForgotPassword",
   ACCOUNT: "Account",
 
   HOME: "Home",
   VEHICLE: "Vehicle",
+  GUIDES: "Guides",
+  SETTINGS: "Settings",
 
   CONNECT_DEVICE: "ConnectDevice",
-
   AI: "AI",
   HISTORY: "History",
+  INCIDENT_DETAIL: "IncidentDetail",
 
-  GUIDES: "Guides",
-
-  SETTINGS: "Settings",
   FAQ: "FAQ",
   CONTACT: "Contact",
-
+  NOTIFICATIONS: "Notifications",
   LANGUAGE: "Language",
   DEVICE_INFO: "DeviceInfo",
+  SAFETY_PROFILE: "SafetyProfile",
+  CONSENT: "Consent",
+  REGISTERED_KITS: "RegisteredKits",
+  ADVANCED_SETTINGS: "AdvancedSettings",
+  REGULATIONS: "Regulations",
 
   GUIDE_CATEGORY: "GuideCategory",
   GUIDE_DETAIL: "GuideDetail",
-
   APP_GUIDE_DETAIL: "AppGuideDetail",
 
-  FORGOT_PASSWORD: "ForgotPassword",
+  INCIDENT_START: "IncidentStart",
+  AGE_SELECTION: "AgeSelection",
+  SITUATION_SELECTION: "SituationSelection",
+  PROTOCOL: "Protocol",
+  VICTIMS: "Victims",
+  HANDOFF: "Handoff",
+  INTERVIEW: "Interview",
+  REPORT: "Report",
+  REVIEW: "Review",
 };

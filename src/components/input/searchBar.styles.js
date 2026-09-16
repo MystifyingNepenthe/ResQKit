@@ -9,33 +9,41 @@ import {
 export default StyleSheet.create({
   container: {
     flexDirection: "row",
-
     alignItems: "center",
+
+    height: 42,
+
+    marginHorizontal: SPACING.lg,
+    marginTop: SPACING.md,
+
+    paddingHorizontal: SPACING.md,
 
     backgroundColor: COLORS.white,
 
     borderWidth: 1,
-
     borderColor: COLORS.border,
-
     borderRadius: RADIUS.md,
-
-    marginHorizontal: SPACING.lg,
-
-    marginTop: SPACING.lg,
-
-    paddingHorizontal: SPACING.sm,
-
-    height: 35,
   },
 
   input: {
     flex: 1,
 
+    height: "100%",
+
     marginLeft: SPACING.sm,
+    paddingVertical: 0,
 
-    fontSize: 16,
-
+    fontSize: 15,
     color: COLORS.text,
+  },
+
+  clearButton: {
+    width: 30,
+    height: 30,
+
+    alignItems: "center",
+    justifyContent: "center",
+
+    marginLeft: SPACING.xs,
   },
 });

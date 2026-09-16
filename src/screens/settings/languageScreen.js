@@ -16,6 +16,7 @@ import {
 
 import AppScreenHeader from "../../components/common/appScreenHeader/appScreenHeader";
 import PrimaryCard from "../../components/common/primaryCard";
+import useApp from "../../hooks/useApp";
 
 import {
   COLORS,
@@ -31,8 +32,11 @@ export default function LanguageScreen({
     i18n,
   } = useTranslation();
 
-  const currentLanguage =
-    i18n.language;
+  const { updateSettings } = useApp();
+
+  const currentLanguage = String(
+    i18n.resolvedLanguage || i18n.language || "ro"
+  ).toLowerCase().startsWith("en") ? "en" : "ro";
 
   function selectLanguage(
     language
@@ -40,6 +44,7 @@ export default function LanguageScreen({
     i18n.changeLanguage(
       language
     );
+    updateSettings({ uiLanguage: language });
   }
 
   return (

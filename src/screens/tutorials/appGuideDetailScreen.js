@@ -17,6 +17,7 @@ import PrimaryCard from "../../components/common/primaryCard";
 import {
   getAppTutorialById,
 } from "../../mock/appTutorials";
+import useLocale from "../../hooks/useLocale";
 
 import {
   ROUTES,
@@ -32,12 +33,15 @@ export default function AppGuideDetailScreen({
   route,
   navigation,
 }) {
+  const { language, pick } = useLocale();
+
   const tutorialId =
     route?.params?.tutorialId;
 
   const tutorial =
     getAppTutorialById(
-      tutorialId
+      tutorialId,
+      language
     );
 
   if (!tutorial) {
@@ -46,7 +50,7 @@ export default function AppGuideDetailScreen({
         style={styles.container}
       >
         <AppScreenHeader
-          title="Tutorial"
+          title={pick("Tutorial", "Tutorial")}
           navigation={navigation}
           showMenu={false}
         />
@@ -67,7 +71,7 @@ export default function AppGuideDetailScreen({
           <Text
             style={styles.notFound}
           >
-            Tutorialul nu a fost găsit.
+            {pick("Tutorialul nu a fost găsit.", "Tutorial not found.")}
           </Text>
         </View>
       </SafeAreaView>
@@ -145,7 +149,7 @@ export default function AppGuideDetailScreen({
               styles.sectionTitle
             }
           >
-            Pași
+            {pick("Pași", "Steps")}
           </Text>
 
           {(tutorial.steps || []).map(

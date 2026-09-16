@@ -25,7 +25,7 @@ export default function GuidesScreen({
   navigation,
   route,
 }) {
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState(route?.params?.search || "");
 
   const [guideType, setGuideType] =
     useState(
@@ -41,6 +41,12 @@ export default function GuidesScreen({
       );
     }
   }, [route?.params?.guideType]);
+
+  useEffect(() => {
+    if (typeof route?.params?.search === "string") {
+      setSearch(route.params.search);
+    }
+  }, [route?.params?.search]);
 
   return (
     <SafeAreaView style={styles.container}>

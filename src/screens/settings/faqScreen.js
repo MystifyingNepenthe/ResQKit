@@ -17,7 +17,8 @@ import AppScreenHeader from "../../components/common/appScreenHeader/appScreenHe
 import FloatingAIButton from "../../components/home/aiButton";
 import FAQItem from "../../components/faq/faqItem";
 
-import { faqItems } from "../../mock/faq";
+import { getFaqItems } from "../../mock/faq";
+import useLocale from "../../hooks/useLocale";
 
 import { ROUTES } from "../../constants/routes";
 
@@ -30,6 +31,9 @@ export default function FAQScreen({
 }) {
   const [search, setSearch] =
     useState("");
+
+  const { language, pick } = useLocale();
+  const faqItems = getFaqItems(language);
 
   const filteredFAQ = useMemo(() => {
     const query =
@@ -51,7 +55,7 @@ export default function FAQScreen({
         answer.includes(query)
       );
     });
-  }, [search]);
+  }, [faqItems, search]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -86,15 +90,13 @@ export default function FAQScreen({
           <>
             <View style={styles.intro}>
               <Text style={styles.title}>
-                Întrebări frecvente
+                {pick("Întrebări frecvente", "Frequently asked questions")}
               </Text>
 
               <Text
                 style={styles.description}
               >
-                Găsește rapid răspunsuri
-                despre aplicație și
-                dispozitivul ResQKit.
+                {pick("Găsește rapid răspunsuri despre aplicație și dispozitivul ResQKit.", "Quickly find answers about the app and the ResQKit device.")}
               </Text>
             </View>
 
@@ -112,7 +114,7 @@ export default function FAQScreen({
               <TextInput
                 value={search}
                 onChangeText={setSearch}
-                placeholder="Caută o întrebare..."
+                placeholder={pick("Caută o întrebare...", "Search a question...")}
                 placeholderTextColor={
                   COLORS.textSecondary
                 }
@@ -147,7 +149,7 @@ export default function FAQScreen({
             <Text
               style={styles.emptyTitle}
             >
-              Nu am găsit rezultate
+              {pick("Nu am găsit rezultate", "No results found")}
             </Text>
 
             <Text
@@ -155,8 +157,7 @@ export default function FAQScreen({
                 styles.emptyDescription
               }
             >
-              Încearcă o altă expresie de
-              căutare.
+              {pick("Încearcă o altă expresie de căutare.", "Try a different search phrase.")}
             </Text>
           </View>
         }

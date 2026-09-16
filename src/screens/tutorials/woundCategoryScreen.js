@@ -19,6 +19,7 @@ import SeverityBadge from "../../components/guides/severityBadge";
 import {
   getTutorialsByCategory,
 } from "../../mock/tutorials";
+import useLocale from "../../hooks/useLocale";
 
 import {
   ROUTES,
@@ -34,6 +35,8 @@ export default function WoundCategoryScreen({
   route,
   navigation,
 }) {
+  const { language, pick } = useLocale();
+
   const {
     categoryId,
     categoryTitle,
@@ -41,7 +44,8 @@ export default function WoundCategoryScreen({
 
   const tutorials =
     getTutorialsByCategory(
-      categoryId
+      categoryId,
+      language
     );
 
   return (
@@ -51,7 +55,7 @@ export default function WoundCategoryScreen({
       <AppScreenHeader
         title={
           categoryTitle ||
-          "Ghiduri"
+          pick("Ghiduri", "Guides")
         }
         navigation={navigation}
         showMenu={false}
@@ -87,7 +91,7 @@ export default function WoundCategoryScreen({
             <Text
               style={styles.empty}
             >
-              Nu există încă ghiduri pentru această categorie.
+              {pick("Nu există încă ghiduri pentru această categorie.", "There are no guides in this category yet.")}
             </Text>
           </View>
         ) : (

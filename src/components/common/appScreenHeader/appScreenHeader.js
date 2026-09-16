@@ -4,6 +4,7 @@ import {
 
 import AppHeader from "../appHeader/appHeader";
 import SideMenu from "../sideMenu/sideMenu";
+import { ROUTES } from "../../../constants/routes";
 
 export default function AppScreenHeader({
   title,
@@ -51,7 +52,7 @@ export default function AppScreenHeader({
         }
         onNotificationPress={
           onNotificationPress ||
-          (() => {})
+          (() => navigation.navigate(ROUTES.NOTIFICATIONS))
         }
         onProfilePress={
           onProfilePress ||

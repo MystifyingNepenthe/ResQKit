@@ -1,98 +1,23 @@
-export const appTutorials = [
-  {
-    id: "gettingStarted",
-    title: "Introducere",
-    icon: "rocket-launch-outline",
-    description:
-      "Află cum este organizată aplicația ResQKit și care sunt funcțiile principale.",
-    steps: [
-      "Autentifică-te sau creează un cont nou.",
-      "Conectează dispozitivul ResQKit la aplicație.",
-      "Verifică starea și bateria dispozitivului din pagina Acasă.",
-      "Completează informațiile vehiculului.",
-      "Folosește secțiunea Ghiduri pentru instrucțiuni de prim ajutor.",
-      "Folosește asistentul AI pentru întrebări și suport suplimentar.",
-    ],
-  },
-
-  {
-    id: "connectDevice",
-    title: "Conectarea ResQKit",
-    icon: "bluetooth-connect",
-    description:
-      "Conectează dispozitivul ResQKit la aplicație pentru a vedea starea și bateria acestuia.",
-    steps: [
-      "Pornește dispozitivul ResQKit.",
-      "Activează Bluetooth pe telefon.",
-      "Deschide pagina de conectare ResQKit.",
-      "Apasă butonul de conectare.",
-      "Așteaptă confirmarea conexiunii.",
-      "După conectare vei fi redirecționat către pagina Acasă.",
-    ],
-  },
-
-  {
-    id: "home",
-    title: "Pagina Acasă",
-    icon: "home-outline",
-    description:
-      "Pagina Acasă îți oferă acces rapid la starea dispozitivului și funcțiile principale.",
-    steps: [
-      "Verifică dacă ResQKit este conectat.",
-      "Consultă nivelul bateriei.",
-      "Folosește butonul „Sincronizează acum” pentru actualizarea stării.",
-      "Folosește bara de căutare pentru a găsi rapid informații.",
-      "Deschide asistentul AI folosind butonul flotant.",
-    ],
-  },
-
-  {
-    id: "vehicle",
-    title: "Vehicul",
-    icon: "car-outline",
-    description:
-      "Secțiunea Vehicul păstrează informațiile mașinii asociate contului tău.",
-    steps: [
-      "Deschide tab-ul Vehicul.",
-      "Verifică modelul mașinii.",
-      "Verifică numărul de înmatriculare.",
-      "Verifică seria VIN.",
-      "Folosește „Găsește ResQKit” pentru a reda un semnal sonor pe dispozitiv.",
-    ],
-  },
-
-  {
-    id: "ai",
-    title: "Asistent AI",
-    icon: "robot-outline",
-    description:
-    "Asistentul AI ResQKit te ajută cu întrebări despre aplicație și îți poate oferi ghidare suplimentară.",
-    steps: [
-      "Apasă butonul flotant AI disponibil în aplicație.",
-      "Scrie întrebarea în câmpul de mesaj.",
-      "Poți folosi sugestiile rapide disponibile.",
-      "Citește cu atenție răspunsurile primite.",
-      "În situații de urgență reală, contactează serviciile de urgență.",
-    ],
-  },
-
-  {
-    id: "settings",
-    title: "Setări",
-    icon: "cog-outline",
-    description:
-      "Din Setări poți administra contul, dispozitivul și preferințele aplicației.",
-    steps: [
-      "Deschide tab-ul Setări.",
-      "Accesează Cont pentru modificarea datelor personale.",
-      "Accesează Dispozitiv pentru informații despre ResQKit.",
-      "Schimbă limba aplicației din secțiunea Limbă.",
-    ],
-  },
+const ro = [
+  { id: "gettingStarted", title: "Introducere", icon: "rocket-launch-outline", description: "Află cum este organizată aplicația ResQKit și care sunt funcțiile principale.", steps: ["Autentifică-te sau creează un cont nou.", "Conectează dispozitivul ResQKit la aplicație.", "Verifică starea și bateria dispozitivului din pagina Acasă.", "Completează informațiile vehiculului.", "Folosește secțiunea Ghiduri pentru instrucțiuni de prim ajutor.", "Folosește asistentul AI pentru întrebări și suport suplimentar."] },
+  { id: "connectDevice", title: "Conectarea ResQKit", icon: "bluetooth-connect", description: "Conectează dispozitivul ResQKit la aplicație pentru a vedea starea și bateria acestuia.", steps: ["Pornește dispozitivul ResQKit.", "Activează Bluetooth pe telefon.", "Deschide pagina de conectare ResQKit.", "Apasă butonul de conectare.", "Așteaptă confirmarea conexiunii.", "După conectare vei fi redirecționat către pagina Acasă."] },
+  { id: "home", title: "Pagina Acasă", icon: "home-outline", description: "Pagina Acasă îți oferă acces rapid la starea dispozitivului și funcțiile principale.", steps: ["Verifică dacă ResQKit este conectat.", "Consultă nivelul bateriei.", "Folosește butonul „Sincronizează acum” pentru actualizarea stării.", "Folosește bara de căutare pentru a găsi rapid informații.", "Deschide asistentul AI folosind butonul flotant."] },
+  { id: "vehicle", title: "Vehicul", icon: "car-outline", description: "Secțiunea Vehicul păstrează informațiile mașinii asociate contului tău.", steps: ["Deschide tab-ul Vehicul.", "Verifică modelul mașinii.", "Verifică numărul de înmatriculare.", "Verifică seria VIN.", "Folosește „Găsește ResQKit” pentru a reda un semnal sonor pe dispozitiv."] },
+  { id: "ai", title: "Asistent AI", icon: "robot-outline", description: "Asistentul AI ResQKit te ajută cu întrebări despre aplicație și îți poate oferi ghidare suplimentară.", steps: ["Apasă butonul flotant AI disponibil în aplicație.", "Scrie întrebarea în câmpul de mesaj.", "Poți folosi sugestiile rapide disponibile.", "Citește cu atenție răspunsurile primite.", "În situații de urgență reală, contactează serviciile de urgență."] },
+  { id: "settings", title: "Setări", icon: "cog-outline", description: "Din Setări poți administra contul, dispozitivul și preferințele aplicației.", steps: ["Deschide tab-ul Setări.", "Accesează Cont pentru modificarea datelor personale.", "Accesează Dispozitiv pentru informații despre ResQKit.", "Schimbă limba aplicației din secțiunea Limbă."] },
 ];
 
-export function getAppTutorialById(id) {
-  return appTutorials.find(
-    (tutorial) => tutorial.id === id
-  );
+const en = [
+  { id: "gettingStarted", title: "Getting started", icon: "rocket-launch-outline", description: "Learn how the ResQKit app is organized and what the main features are.", steps: ["Sign in or create a new account.", "Connect the ResQKit device to the app.", "Check the device status and battery from Home.", "Complete the vehicle information.", "Use Guides for first-aid instructions.", "Use the AI assistant for questions and additional support."] },
+  { id: "connectDevice", title: "Connect ResQKit", icon: "bluetooth-connect", description: "Connect the ResQKit device to the app to view its status and battery.", steps: ["Turn on the ResQKit device.", "Enable Bluetooth on your phone.", "Open the ResQKit connection screen.", "Tap the connect button.", "Wait for the connection confirmation.", "After connecting, you will be redirected to Home."] },
+  { id: "home", title: "Home screen", icon: "home-outline", description: "Home gives you quick access to device status and the app's main features.", steps: ["Check whether ResQKit is connected.", "Check the battery level.", "Use ‘Sync now’ to refresh the status.", "Use the search bar to find information quickly.", "Open the AI assistant using the floating button."] },
+  { id: "vehicle", title: "Vehicle", icon: "car-outline", description: "The Vehicle section stores information about the car linked to your account.", steps: ["Open the Vehicle tab.", "Check the vehicle model.", "Check the license plate.", "Check the VIN.", "Use ‘Find ResQKit’ to play a sound on the device."] },
+  { id: "ai", title: "AI Assistant", icon: "robot-outline", description: "The ResQKit AI assistant helps with questions about the app and can provide additional guidance.", steps: ["Tap the floating AI button available throughout the app.", "Type your question in the message field.", "You can use the available quick suggestions.", "Read the answers carefully.", "In a real emergency, contact emergency services."] },
+  { id: "settings", title: "Settings", icon: "cog-outline", description: "In Settings you can manage your account, device, and app preferences.", steps: ["Open the Settings tab.", "Open Account to edit personal information.", "Open Device for ResQKit information.", "Change the app language under Language."] },
+];
+
+export const appTutorials = ro;
+export function getAppTutorialById(id, language = "ro") {
+  const list = String(language).toLowerCase().startsWith("en") ? en : ro;
+  return list.find((tutorial) => tutorial.id === id);
 }

@@ -1,58 +1,22 @@
-import {
-  Pressable,
-  Text,
-  View,
-} from "react-native";
-
+import { Pressable, Text, View } from "react-native";
+import useLocale from "../../hooks/useLocale";
 import styles from "./historySwitcher.styles";
 
-const OPTIONS = [
-  {
-    id: "interventions",
-    label: "Intervenții",
-  },
-  {
-    id: "operators",
-    label: "Date trimise",
-  },
-  {
-    id: "ai",
-    label: "Conversații AI",
-  },
-];
+export default function HistorySwitcher({ selected, onChange }) {
+  const { pick } = useLocale();
+  const options = [
+    { id: "interventions", label: pick("Intervenții", "Interventions") },
+    { id: "operators", label: pick("Date trimise", "Sent data") },
+    { id: "ai", label: pick("Conversații AI", "AI chats") },
+  ];
 
-export default function HistorySwitcher({
-  selected,
-  onChange,
-}) {
   return (
     <View style={styles.container}>
-      {OPTIONS.map((option) => {
-        const isSelected =
-          selected === option.id;
-
+      {options.map((option) => {
+        const active = selected === option.id;
         return (
-          <Pressable
-            key={option.id}
-            style={[
-              styles.button,
-              isSelected &&
-                styles.active,
-            ]}
-            onPress={() =>
-              onChange(option.id)
-            }
-          >
-            <Text
-              numberOfLines={2}
-              style={[
-                styles.text,
-                isSelected &&
-                  styles.activeText,
-              ]}
-            >
-              {option.label}
-            </Text>
+          <Pressable key={option.id} style={[styles.button, active && styles.active]} onPress={() => onChange(option.id)}>
+            <Text numberOfLines={2} style={[styles.text, active && styles.activeText]}>{option.label}</Text>
           </Pressable>
         );
       })}
