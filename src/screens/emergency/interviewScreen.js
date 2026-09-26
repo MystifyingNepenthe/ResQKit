@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Alert, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Button, ProgressBar, TextInput } from "react-native-paper";
-import AppScreenHeader from "../../components/common/appScreenHeader/appScreenHeader";
+import EmergencyScreenHeader from "../../components/emergency/emergencyScreenHeader/emergencyScreenHeader";
 import Emergency112Banner from "../../components/emergency/emergency112Banner";
 import VoiceInput from "../../components/emergency/voiceInput";
 import useApp from "../../hooks/useApp";
@@ -147,7 +147,7 @@ export default function InterviewScreen({ navigation }) {
   if (!prompt) {
     return (
       <SafeAreaView style={styles.container}>
-        <AppScreenHeader title={pick("Interviu pentru raport", "Report interview")} navigation={navigation} showMenu={false} showNotifications={false} />
+        <EmergencyScreenHeader title={pick("Interviu pentru raport", "Report interview")} navigation={navigation} showMenu={false} showNotifications={false} />
         <View style={styles.content}>
           <Button mode="contained" onPress={() => finishInterview()}>{pick("Generează raportul", "Generate report")}</Button>
         </View>
@@ -157,7 +157,7 @@ export default function InterviewScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <AppScreenHeader title={pick("Interviu pentru raport", "Report interview")} navigation={navigation} showMenu={false} showNotifications={false} />
+      <EmergencyScreenHeader title={pick("Interviu pentru raport", "Report interview")} navigation={navigation} showMenu={false} showNotifications={false} />
       <Emergency112Banner />
       <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
         <View style={styles.row}>

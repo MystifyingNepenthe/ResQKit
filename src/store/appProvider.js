@@ -54,6 +54,8 @@ export default function AppProvider({ children }) {
   const [incident, setIncidentState] = useState(null);
   const [retainedIncidents, setRetainedIncidents] = useState([]);
   const [institutionalLog, setInstitutionalLog] = useState([]);
+  const [aiNavigationAction, setAiNavigationAction] = useState(null);
+  const [aiConversationScope, setAiConversationScope] = useState("general");
   const [appReady, setAppReady] = useState(false);
 
   useEffect(() => {
@@ -232,6 +234,10 @@ export default function AppProvider({ children }) {
     void removeKey(STORAGE_KEYS.institutionalLog);
   }, []);
 
+  const clearAiNavigationAction = useCallback(() => {
+    setAiNavigationAction(null);
+  }, []);
+
   const signIn = useCallback(async (email, password) => {
     const backendUser = await authService.login(email, password);
     const local = backendUserToLocal(backendUser, user);
@@ -266,12 +272,15 @@ export default function AppProvider({ children }) {
     incident, startIncident, updateIncident, addVictim, updateVictim, updateActiveVictim, selectVictim, discardIncident, closeIncident,
     retainedIncidents, deleteRetained,
     institutionalLog, logInstitutional, clearInstitutionalLog,
+    aiNavigationAction, setAiNavigationAction, clearAiNavigationAction,
+    aiConversationScope, setAiConversationScope,
     signIn, signUp, signOut,
   }), [
     device, setDevice, user, setUser, vehicle, setVehicle, isLoggedIn, authReady, appReady, online,
     consent, updateConsent, safetyProfile, updateSafetyProfile, settings, updateSettings, incident,
     startIncident, updateIncident, addVictim, updateVictim, updateActiveVictim, selectVictim, discardIncident, closeIncident,
-    retainedIncidents, deleteRetained, institutionalLog, logInstitutional, clearInstitutionalLog, signIn, signUp, signOut,
+    retainedIncidents, deleteRetained, institutionalLog, logInstitutional, clearInstitutionalLog,
+    aiNavigationAction, clearAiNavigationAction, aiConversationScope, signIn, signUp, signOut,
   ]);
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

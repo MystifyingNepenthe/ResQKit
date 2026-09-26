@@ -33,4 +33,27 @@ export default StyleSheet.create({
     justifyContent:
       "center",
   },
+
+  newChatRow: {
+    width: "100%",
+    alignItems: "flex-end",
+    paddingHorizontal: SPACING.lg,
+    marginBottom: SPACING.sm,
+  },
+
+  newChatButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: SPACING.sm,
+    paddingVertical: 7,
+    borderRadius: 999,
+    backgroundColor: COLORS.white,
+  },
+
+  newChatText: {
+    color: COLORS.primary,
+    fontSize: 13,
+    fontWeight: "700",
+    marginLeft: 6,
+  },
 });

@@ -1,6 +1,6 @@
 import { ScrollView, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import AppScreenHeader from "../../components/common/appScreenHeader/appScreenHeader";
+import EmergencyScreenHeader from "../../components/emergency/emergencyScreenHeader/emergencyScreenHeader";
 import Emergency112Banner from "../../components/emergency/emergency112Banner";
 import EmergencyChoiceCard from "../../components/emergency/emergencyChoiceCard";
 import useApp from "../../hooks/useApp";
@@ -23,7 +23,7 @@ export default function SituationSelectionScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <AppScreenHeader title={pick("Tipul situației", "Situation type")} navigation={navigation} showMenu={false} showNotifications={false} />
+      <EmergencyScreenHeader title={pick("Tipul situației", "Situation type")} navigation={navigation} showMenu={false} showNotifications={false} />
       <Emergency112Banner />
       <ScrollView contentContainerStyle={styles.content}>
         <Text style={styles.title}>{pick("Ce s-a întâmplat?", "What happened?")}</Text>

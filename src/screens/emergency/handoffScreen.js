@@ -5,7 +5,7 @@ import { Button, Chip, Switch, TextInput } from "react-native-paper";
 import * as Clipboard from "expo-clipboard";
 import * as Location from "expo-location";
 
-import AppScreenHeader from "../../components/common/appScreenHeader/appScreenHeader";
+import EmergencyScreenHeader from "../../components/emergency/emergencyScreenHeader/emergencyScreenHeader";
 import Emergency112Banner from "../../components/emergency/emergency112Banner";
 import PrimaryCard from "../../components/common/primaryCard";
 import KitScanner from "../../components/emergency/kitScanner";
@@ -89,7 +89,7 @@ export default function HandoffScreen({ navigation }) {
   if (!incident) {
     return (
       <SafeAreaView style={styles.container}>
-        <AppScreenHeader title={pick("Predare informații", "Handoff")} navigation={navigation} showMenu={false} />
+        <EmergencyScreenHeader title={pick("Predare informații", "Handoff")} navigation={navigation} showMenu={false} />
         <View style={styles.content}>
           <Text style={styles.title}>{pick("Nu există o sesiune activă.", "There is no active session.")}</Text>
         </View>
@@ -199,7 +199,7 @@ export default function HandoffScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <AppScreenHeader
+      <EmergencyScreenHeader
         title={pick("Predă informațiile", "Handoff information")}
         navigation={navigation}
         showMenu={false}

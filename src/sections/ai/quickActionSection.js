@@ -6,6 +6,10 @@ import AIQuickAction from "../../components/ai/aiQuickAction";
 import styles from "./quickActionSection.styles";
 
 export default function QuickActionsSection({
+  hasActiveIncident = false,
+  onStartEmergency,
+  onContinueEmergency,
+  onExplainCurrentStep,
   onAnalyzeWound,
   onFirstAid,
   onCheckResQKit,
@@ -15,9 +19,29 @@ export default function QuickActionsSection({
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>
-        {t("ai.quickSuggestions")}
-      </Text>
+      <Text style={styles.title}>{t("ai.quickSuggestions")}</Text>
+
+      {hasActiveIncident ? (
+        <>
+          <AIQuickAction
+            title={t("ai.continueEmergency")}
+            icon="ambulance"
+            onPress={onContinueEmergency}
+          />
+
+          <AIQuickAction
+            title={t("ai.explainCurrentStep")}
+            icon="clipboard-pulse-outline"
+            onPress={onExplainCurrentStep}
+          />
+        </>
+      ) : (
+        <AIQuickAction
+          title={t("ai.startEmergency")}
+          icon="car-emergency"
+          onPress={onStartEmergency}
+        />
+      )}
 
       <AIQuickAction
         title={t("ai.analyzeWound")}

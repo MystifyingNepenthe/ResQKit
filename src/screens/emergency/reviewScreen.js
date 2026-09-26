@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Alert, ScrollView, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Button, RadioButton } from "react-native-paper";
-import AppScreenHeader from "../../components/common/appScreenHeader/appScreenHeader";
+import EmergencyScreenHeader from "../../components/emergency/emergencyScreenHeader/emergencyScreenHeader";
 import Emergency112Banner from "../../components/emergency/emergency112Banner";
 import PrimaryCard from "../../components/common/primaryCard";
 import useApp from "../../hooks/useApp";
@@ -51,7 +51,7 @@ export default function ReviewScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <AppScreenHeader title={pick("Încheiere sesiune", "End session")} navigation={navigation} showMenu={false} showNotifications={false} />
+      <EmergencyScreenHeader title={pick("Încheiere sesiune", "End session")} navigation={navigation} showMenu={false} showNotifications={false} />
       <Emergency112Banner />
       <ScrollView contentContainerStyle={styles.content}>
         <Text style={styles.title}>{pick("Sesiune încheiată", "Session complete")}</Text>

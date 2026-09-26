@@ -3,7 +3,7 @@ import { Alert, Linking, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Button } from "react-native-paper";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import AppScreenHeader from "../../components/common/appScreenHeader/appScreenHeader";
+import EmergencyScreenHeader from "../../components/emergency/emergencyScreenHeader/emergencyScreenHeader";
 import useApp from "../../hooks/useApp";
 import useLocale from "../../hooks/useLocale";
 import { ROUTES } from "../../constants/routes";
@@ -40,7 +40,7 @@ export default function Call112GateScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <AppScreenHeader title={pick("Apel de urgență", "Emergency call")} navigation={navigation} showMenu={false} showNotifications={false} />
+      <EmergencyScreenHeader title={pick("Apel de urgență", "Emergency call")} navigation={navigation} showMenu={false} showNotifications={false} />
       <ScrollView contentContainerStyle={styles.content}>
         <View style={styles.hero}>
           <View style={[styles.heroIcon, { backgroundColor: "#FDECEC" }]}>

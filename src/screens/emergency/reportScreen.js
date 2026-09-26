@@ -3,7 +3,7 @@ import { Alert, ScrollView, Share, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Button } from "react-native-paper";
 import * as Clipboard from "expo-clipboard";
-import AppScreenHeader from "../../components/common/appScreenHeader/appScreenHeader";
+import EmergencyScreenHeader from "../../components/emergency/emergencyScreenHeader/emergencyScreenHeader";
 import Emergency112Banner from "../../components/emergency/emergency112Banner";
 import PrimaryCard from "../../components/common/primaryCard";
 import useApp from "../../hooks/useApp";
@@ -47,12 +47,12 @@ export default function ReportScreen({ navigation }) {
     try { setEdxlPreview(await buildEdxlSitrep(incident.backendSessionId)); } catch (error) { Alert.alert("EDXL preview", error.message); }
   }
 
-  if (!incident) return <SafeAreaView style={styles.container}><AppScreenHeader title={pick("Raport", "Report")} navigation={navigation} showMenu={false} /><View style={styles.content}><Text style={styles.title}>{pick("Nu există o sesiune activă.", "There is no active session.")}</Text></View></SafeAreaView>;
+  if (!incident) return <SafeAreaView style={styles.container}><EmergencyScreenHeader title={pick("Raport", "Report")} navigation={navigation} showMenu={false} /><View style={styles.content}><Text style={styles.title}>{pick("Nu există o sesiune activă.", "There is no active session.")}</Text></View></SafeAreaView>;
   const ceimText = incident.ceimReport ? JSON.stringify(incident.ceimReport, null, 2) : pick("Raportul CEIM nu a fost generat încă.", "The CEIM report has not been generated yet.");
 
   return (
     <SafeAreaView style={styles.container}>
-      <AppScreenHeader title={pick("Raport incident", "Incident report")} navigation={navigation} showMenu={false} showNotifications={false} />
+      <EmergencyScreenHeader title={pick("Raport incident", "Incident report")} navigation={navigation} showMenu={false} showNotifications={false} />
       <Emergency112Banner />
       <ScrollView contentContainerStyle={styles.content}>
         <PrimaryCard style={{ marginBottom: 16 }}>

@@ -14,6 +14,8 @@ export default function AppScreenHeader({
   showProfile = true,
   onNotificationPress,
   onProfilePress,
+  leftIcon,
+  onLeftPress,
 }) {
   const [
     menuVisible,
@@ -21,6 +23,11 @@ export default function AppScreenHeader({
   ] = useState(false);
 
   function handleLeftPress() {
+    if (onLeftPress) {
+      onLeftPress();
+      return;
+    }
+
     if (!showMenu) {
       if (navigation.canGoBack()) {
         navigation.goBack();
@@ -37,9 +44,10 @@ export default function AppScreenHeader({
       <AppHeader
         title={title}
         leftIcon={
-          showMenu
+          leftIcon ||
+          (showMenu
             ? "menu"
-            : "arrow-left"
+            : "arrow-left")
         }
         onMenuPress={
           handleLeftPress

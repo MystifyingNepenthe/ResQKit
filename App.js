@@ -8,6 +8,11 @@ import { CopilotKitProvider } from "@copilotkit/react-native/headless";
 
 import AppProvider from "./src/store/appProvider";
 import RootNavigator from "./src/navigation/rootNavigator";
+import { navigationRef } from "./src/navigation/navigationRef";
+
+import ResQAITools from "./src/ai/ResQaiTools";
+import EmergencyAIContext from "./src/ai/EmergencyAIContext";
+import KnowledgeAIContext from "./src/ai/KnowledgeAIContext";
 
 import { theme } from "./src/design";
 
@@ -19,14 +24,25 @@ export default function App() {
     <CopilotKitProvider
       runtimeUrl={RUNTIME_URL}
       onError={(error) => {
-        console.log("CopilotKit error:", error);
+        console.log(
+          "CopilotKit error:",
+          error
+        );
       }}
     >
       <PaperProvider theme={theme}>
         <AppProvider>
-          <NavigationContainer>
+          <NavigationContainer
+            ref={navigationRef}
+          >
             <RootNavigator />
           </NavigationContainer>
+
+          <ResQAITools />
+
+          <EmergencyAIContext />
+
+          <KnowledgeAIContext />
         </AppProvider>
       </PaperProvider>
     </CopilotKitProvider>

@@ -1,7 +1,7 @@
 import { ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Button, Chip } from "react-native-paper";
-import AppScreenHeader from "../../components/common/appScreenHeader/appScreenHeader";
+import EmergencyScreenHeader from "../../components/emergency/emergencyScreenHeader/emergencyScreenHeader";
 import Emergency112Banner from "../../components/emergency/emergency112Banner";
 import KitScanner from "../../components/emergency/kitScanner";
 import PrimaryCard from "../../components/common/primaryCard";
@@ -31,7 +31,7 @@ export default function KitPreparationScreen({ navigation, route }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <AppScreenHeader title={pick("Materiale disponibile", "Available supplies")} navigation={navigation} showMenu={false} showNotifications={false} />
+      <EmergencyScreenHeader title={pick("Materiale disponibile", "Available supplies")} navigation={navigation} showMenu={false} showNotifications={false} />
       <Emergency112Banner />
       <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
         <Text style={styles.title}>{pick("Ce materiale ai la îndemână?", "What supplies do you have?")}</Text>

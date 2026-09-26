@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Alert, Linking, Platform, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Button } from "react-native-paper";
-import AppScreenHeader from "../../components/common/appScreenHeader/appScreenHeader";
+import EmergencyScreenHeader from "../../components/emergency/emergencyScreenHeader/emergencyScreenHeader";
 import CPRMetronome from "../../components/emergency/cprMetronome";
 import Emergency112Banner from "../../components/emergency/emergency112Banner";
 import ProtocolKitHint from "../../components/emergency/protocolKitHint";
@@ -120,7 +120,7 @@ export default function ProtocolScreen({ navigation }) {
   if (!active || !node) {
     return (
       <SafeAreaView style={styles.container}>
-        <AppScreenHeader title={pick("Protocol", "Protocol")} navigation={navigation} showMenu={false} showNotifications={false} />
+        <EmergencyScreenHeader title={pick("Protocol", "Protocol")} navigation={navigation} showMenu={false} showNotifications={false} />
         <Emergency112Banner />
         <View style={styles.content}>
           <Text style={styles.title}>{pick("Protocol indisponibil", "Protocol unavailable")}</Text>
@@ -132,7 +132,7 @@ export default function ProtocolScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <AppScreenHeader title={pick("Ghidare de urgență", "Emergency guidance")} navigation={navigation} showMenu={false} showNotifications={false} />
+      <EmergencyScreenHeader title={pick("Ghidare de urgență", "Emergency guidance")} navigation={navigation} showMenu={false} showNotifications={false} />
       <Emergency112Banner />
       <ScrollView contentContainerStyle={styles.content}>
         <View style={styles.row}>

@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Button, Checkbox, ProgressBar } from "react-native-paper";
-import AppScreenHeader from "../../components/common/appScreenHeader/appScreenHeader";
+import EmergencyScreenHeader from "../../components/emergency/emergencyScreenHeader/emergencyScreenHeader";
 import Emergency112Banner from "../../components/emergency/emergency112Banner";
 import useApp from "../../hooks/useApp";
 import useLocale from "../../hooks/useLocale";
@@ -58,7 +58,7 @@ export default function TriageScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <AppScreenHeader title={pick("Triaj rapid", "Quick triage")} navigation={navigation} showMenu={false} showNotifications={false} />
+      <EmergencyScreenHeader title={pick("Triaj rapid", "Quick triage")} navigation={navigation} showMenu={false} showNotifications={false} />
       <Emergency112Banner />
       <ScrollView contentContainerStyle={styles.content}>
         <Text style={styles.sectionTitle}>{pick("Pas", "Step")} {step + 1}/3</Text>

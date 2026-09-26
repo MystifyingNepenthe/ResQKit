@@ -2,7 +2,7 @@ import { Alert, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { Button } from "react-native-paper";
-import AppScreenHeader from "../../components/common/appScreenHeader/appScreenHeader";
+import EmergencyScreenHeader from "../../components/emergency/emergencyScreenHeader/emergencyScreenHeader";
 import useApp from "../../hooks/useApp";
 import useLocale from "../../hooks/useLocale";
 import { ROUTES } from "../../constants/routes";
@@ -36,13 +36,16 @@ export default function IncidentStartScreen({ navigation }) {
     const active = incident?.victims?.find((v) => v.id === incident.activeVictimId) || incident?.victims?.[0];
     if (!active?.ageProfile) return navigation.navigate(ROUTES.AGE_SELECTION);
     if (!active?.situation) return navigation.navigate(ROUTES.SITUATION_SELECTION);
+    if (!incident?.kitReviewedAt) {
+      return navigation.navigate(ROUTES.KIT_PREPARATION, { nextRoute: ROUTES.PROTOCOL });
+    }
     if (active?.protocolNodeId) return navigation.navigate(ROUTES.PROTOCOL);
     return navigation.navigate(ROUTES.SITUATION_SELECTION);
   }
 
   return (
     <SafeAreaView style={styles.container}>
-      <AppScreenHeader title={pick("Intervenție", "Intervention")} navigation={navigation} showMenu={false} showNotifications={false} />
+      <EmergencyScreenHeader title={pick("Intervenție", "Intervention")} navigation={navigation} showMenu={false} showNotifications={false} />
       {!online ? <View style={styles.offline}><Text style={styles.offlineText}>{pick("Ești offline. Protocoalele fixe și sesiunile locale rămân disponibile.", "You are offline. Fixed protocols and local sessions remain available.")}</Text></View> : null}
       <ScrollView contentContainerStyle={styles.content}>
         <View style={styles.hero}>
