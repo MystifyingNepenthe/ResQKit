@@ -18,8 +18,8 @@ export default function EmergencyStartCard({
 
   const subtitle = hasActiveIncident
     ? pick(
-        "Ai o sesiune activă salvată pe dispozitiv.",
-        "You have an active session saved on this device."
+        "Ai o sesiune activă salvată local.",
+        "You have an active session saved locally."
       )
     : pick(
         "Triaj rapid și protocoale de prim ajutor pas cu pas.",

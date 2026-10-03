@@ -13,7 +13,7 @@ import styles from "./settingsScreen.styles";
 export default function SettingsScreen({ navigation }) {
   const { t, i18n } = useTranslation();
   const { pick } = useLocale();
-  const { signOut, isLoggedIn, settings, online } = useApp();
+  const { signOut, isLoggedIn, settings, online, registeredKits, activeKit } = useApp();
   const currentLanguage = String(i18n.resolvedLanguage || i18n.language).toLowerCase().startsWith("en") ? "English" : "Română";
 
   async function logout() {
@@ -33,8 +33,8 @@ export default function SettingsScreen({ navigation }) {
           <SettingRow icon="account-outline" title={t("settings.account")} onPress={() => navigation.navigate(ROUTES.ACCOUNT)} />
           <SettingRow icon="shield-account-outline" title={pick("Profil de siguranță", "Safety profile")} onPress={() => navigation.navigate(ROUTES.SAFETY_PROFILE)} />
           <SettingRow icon="shield-check-outline" title={pick("Consimțământ și siguranță", "Consent and safety")} onPress={() => navigation.navigate(ROUTES.CONSENT, { next: ROUTES.SETTINGS })} />
-          <SettingRow icon="devices" title={t("settings.device")} onPress={() => navigation.navigate(ROUTES.DEVICE_INFO)} />
-          <SettingRow icon="medical-bag" title={pick("Kituri înregistrate", "Registered kits")} value={isLoggedIn ? "Backend" : "Login"} onPress={() => navigation.navigate(ROUTES.REGISTERED_KITS)} />
+          <SettingRow icon="medical-bag" title={pick("Kituri înregistrate", "Registered kits")} value={pick(`${registeredKits.length} salvate`, `${registeredKits.length} saved`)} onPress={() => navigation.navigate(ROUTES.REGISTERED_KITS)} />
+          <SettingRow icon="clipboard-check-outline" title={pick("Verifică trusa", "Check kit")} value={activeKit ? activeKit.label : pick("Nesalvată", "Not set")} onPress={() => navigation.navigate(ROUTES.KIT_CHECK)} />
           <SettingRow icon="translate" title={t("settings.language")} value={currentLanguage} onPress={() => navigation.navigate(ROUTES.LANGUAGE)} />
         </PrimaryCard>
 

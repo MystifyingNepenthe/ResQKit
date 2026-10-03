@@ -1,0 +1,31 @@
+import { StyleSheet } from "react-native";
+import { COLORS, RADIUS, SPACING } from "../../design";
+
+export default StyleSheet.create({
+  container: { flex: 1, backgroundColor: COLORS.background },
+  content: { paddingBottom: SPACING.xxxl },
+  identityCard: { marginHorizontal: SPACING.lg, marginTop: SPACING.lg },
+  card: { marginHorizontal: SPACING.lg, marginTop: SPACING.md },
+  summaryCard: { marginHorizontal: SPACING.lg, marginTop: SPACING.md },
+  titleRow: { flexDirection: "row", alignItems: "flex-start", gap: SPACING.md },
+  titleIcon: { width: 48, height: 48, borderRadius: RADIUS.lg, alignItems: "center", justifyContent: "center", backgroundColor: COLORS.primaryLight },
+  titleBody: { flex: 1 },
+  title: { color: COLORS.text, fontSize: 20, lineHeight: 25, fontWeight: "800" },
+  subtitle: { color: COLORS.textSecondary, fontSize: 13, lineHeight: 19, marginTop: 4 },
+  input: { marginTop: SPACING.md, backgroundColor: COLORS.white },
+  sectionHeader: { flexDirection: "row", alignItems: "flex-start", gap: SPACING.md },
+  flex: { flex: 1 },
+  sectionTitle: { color: COLORS.text, fontSize: 17, fontWeight: "800" },
+  muted: { color: COLORS.textSecondary, fontSize: 13, lineHeight: 18, marginTop: 4 },
+  countBadge: { minWidth: 52, paddingHorizontal: 10, paddingVertical: 7, borderRadius: RADIUS.round, alignItems: "center", backgroundColor: COLORS.primaryLight },
+  countText: { color: COLORS.primaryDark, fontSize: 12, fontWeight: "800" },
+  resetButton: { alignSelf: "flex-start", flexDirection: "row", alignItems: "center", gap: 6, marginTop: SPACING.md, minHeight: 40, paddingHorizontal: 12, borderRadius: RADIUS.md, borderWidth: 1, borderColor: COLORS.border },
+  resetText: { color: COLORS.primary, fontSize: 13, fontWeight: "700" },
+  summaryText: { color: COLORS.text, fontSize: 14, marginTop: SPACING.sm, fontWeight: "600" },
+  selectedList: { color: COLORS.textSecondary, fontSize: 12, lineHeight: 18, marginTop: SPACING.sm },
+  sourceRow: { flexDirection: "row", alignItems: "center", gap: 7, marginTop: SPACING.md, paddingTop: SPACING.md, borderTopWidth: 1, borderTopColor: COLORS.border },
+  sourceText: { flex: 1, color: COLORS.textSecondary, fontSize: 12, lineHeight: 17 },
+  saveArea: { marginHorizontal: SPACING.lg, marginTop: SPACING.lg },
+  saveAsNewButton: { minHeight: 48, marginTop: SPACING.sm, flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 7, borderRadius: RADIUS.md, borderWidth: 1, borderColor: COLORS.border, backgroundColor: COLORS.white },
+  saveAsNewText: { color: COLORS.primary, fontSize: 14, fontWeight: "700" },
+});

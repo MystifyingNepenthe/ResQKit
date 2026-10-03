@@ -102,7 +102,7 @@ export default function SideMenu({
           />
 
           <MenuItem
-            title={pick("ResQKit-ul meu", "My ResQKit")}
+            title={pick("Acasă", "Home")}
             onPress={() =>
               navigateToTab(
                 ROUTES.HOME
@@ -133,6 +133,15 @@ export default function SideMenu({
             onPress={() =>
               navigateToRoot(
                 ROUTES.HISTORY
+              )
+            }
+          />
+
+          <MenuItem
+            title={pick("Verifică trusa", "Check kit")}
+            onPress={() =>
+              navigateToRoot(
+                ROUTES.KIT_CHECK
               )
             }
           />

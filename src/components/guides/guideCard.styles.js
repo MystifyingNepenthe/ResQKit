@@ -15,7 +15,6 @@ export default StyleSheet.create({
     borderColor: COLORS.border,
     ...SHADOWS.small,
   },
-
   iconContainer: {
     width: 46,
     height: 46,
@@ -25,7 +24,6 @@ export default StyleSheet.create({
     backgroundColor: COLORS.primaryLight,
     marginRight: SPACING.md,
   },
-
   title: {
     flex: 1,
     fontSize: 16,
@@ -34,8 +32,24 @@ export default StyleSheet.create({
     color: COLORS.text,
     marginRight: SPACING.sm,
   },
-
-  pressed: {
-    opacity: 0.72,
+  heroCard: {
+    overflow: "hidden",
+    marginBottom: SPACING.md,
+    backgroundColor: COLORS.white,
+    borderRadius: RADIUS.xl,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    ...SHADOWS.small,
   },
+  heroFooter: {
+    minHeight: 68,
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: SPACING.md,
+    paddingVertical: SPACING.sm,
+  },
+  heroTextWrap: { flex: 1, marginRight: SPACING.sm },
+  heroTitle: { color: COLORS.text, fontSize: 16, lineHeight: 21, fontWeight: "800" },
+  heroSubtitle: { color: COLORS.textSecondary, fontSize: 11, marginTop: 2 },
+  pressed: { opacity: 0.72 },
 });

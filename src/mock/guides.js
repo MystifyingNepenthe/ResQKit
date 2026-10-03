@@ -53,9 +53,9 @@ export const appGuides = [
     icon: "rocket-launch-outline",
   },
   {
-    id: "connectDevice",
-    titleKey: "guides.appCategories.connectDevice",
-    icon: "bluetooth-connect",
+    id: "kitCheck",
+    titleKey: "guides.appCategories.kitCheck",
+    icon: "clipboard-check-outline",
   },
   {
     id: "home",

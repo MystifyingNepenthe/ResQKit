@@ -8,6 +8,8 @@ import {
 
 import {
   Alert,
+  KeyboardAvoidingView,
+  Platform,
   ScrollView,
   Text,
   TouchableOpacity,
@@ -59,7 +61,6 @@ export default function AIScreen({
   } = useLocale();
 
   const {
-    device,
     vehicle,
     incident,
     aiNavigationAction,
@@ -280,7 +281,6 @@ export default function AIScreen({
         const fastResult = resolveFastIntent({
           text: cleanText,
           language,
-          device,
           vehicle,
           incident,
           pendingMedicalContext,
@@ -356,7 +356,6 @@ export default function AIScreen({
         uiBusy,
         pick,
         language,
-        device,
         vehicle,
         incident,
         pendingMedicalContext,
@@ -413,6 +412,11 @@ export default function AIScreen({
         showMenu={false}
       />
 
+      <KeyboardAvoidingView
+        style={styles.keyboardAvoidingView}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        keyboardVerticalOffset={Platform.OS === "ios" ? 8 : 0}
+      >
       <ScrollView
         ref={
           scrollViewRef
@@ -506,14 +510,6 @@ export default function AIScreen({
                 )
               }
 
-              onCheckResQKit={() =>
-                handleSend(
-                  pick(
-                    "Verifică starea curentă a dispozitivului meu ResQKit.",
-                    "Check the current status of my ResQKit device."
-                  )
-                )
-              }
 
               onAskQuestion={() =>
                 handleSend(
@@ -611,6 +607,7 @@ export default function AIScreen({
           !isReady
         }
       />
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }

@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { Image, View } from "react-native";
 
 export default function Logo() {
   return (
@@ -9,17 +9,14 @@ export default function Logo() {
         marginBottom: 30,
       }}
     >
-      <Text style={{ fontSize: 36 }}>🩺</Text>
-
-      <Text
+      <Image
+        source={require("../../../assets/logo.png")}
         style={{
-          fontSize: 26,
-          fontWeight: "700",
-          marginTop: 10,
+          width: 220,
+          height: 120,
         }}
-      >
-        ResQKit
-      </Text>
+        resizeMode="contain"
+      />
     </View>
   );
 }

@@ -2,7 +2,6 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { useNetworkState } from "expo-network";
 
 import AppContext from "./appContext";
-import deviceMock from "../mock/device";
 import i18n from "../localization/i18n";
 import {
   DEFAULT_CONSENT,
@@ -39,11 +38,29 @@ function backendUserToLocal(backendUser, fallback = EMPTY_USER) {
   };
 }
 
+function normalizeKit(kit = {}) {
+  const now = new Date().toISOString();
+  return {
+    id: kit.id || `kit-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+    label: String(kit.label || "").trim() || "Trusa medicală",
+    kitType: kit.kitType || kit.kit_type || "vehicle",
+    locationNote: kit.locationNote || kit.location_note || "",
+    itemCodes: Array.isArray(kit.itemCodes)
+      ? [...new Set(kit.itemCodes)]
+      : Array.isArray(kit.contents)
+        ? [...new Set(kit.contents)]
+        : [],
+    source: kit.source || "manual",
+    lastChecked: kit.lastChecked || kit.last_checked || now,
+    createdAt: kit.createdAt || now,
+    updatedAt: kit.updatedAt || kit.updated_at || now,
+  };
+}
+
 export default function AppProvider({ children }) {
   const networkState = useNetworkState();
   const online = networkState.isInternetReachable ?? networkState.isConnected ?? true;
 
-  const [device, setDeviceState] = useState(deviceMock);
   const [user, setUserState] = useState(EMPTY_USER);
   const [vehicle, setVehicleState] = useState(EMPTY_VEHICLE);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -54,6 +71,8 @@ export default function AppProvider({ children }) {
   const [incident, setIncidentState] = useState(null);
   const [retainedIncidents, setRetainedIncidents] = useState([]);
   const [institutionalLog, setInstitutionalLog] = useState([]);
+  const [registeredKits, setRegisteredKitsState] = useState([]);
+  const [activeKitId, setActiveKitIdState] = useState(null);
   const [aiNavigationAction, setAiNavigationAction] = useState(null);
   const [aiConversationScope, setAiConversationScope] = useState("general");
   const [appReady, setAppReady] = useState(false);
@@ -62,10 +81,9 @@ export default function AppProvider({ children }) {
     let alive = true;
     void (async () => {
       const data = await loadAppData();
-      const [savedUser, savedVehicle, savedDevice] = await Promise.all([
+      const [savedUser, savedVehicle] = await Promise.all([
         getJSON(STORAGE_KEYS.user, EMPTY_USER),
         getJSON(STORAGE_KEYS.vehicle, EMPTY_VEHICLE),
-        getJSON(STORAGE_KEYS.device, deviceMock),
       ]);
       if (!alive) return;
       setConsentState(data.consent || DEFAULT_CONSENT);
@@ -74,9 +92,11 @@ export default function AppProvider({ children }) {
       setIncidentState(data.incident || null);
       setRetainedIncidents(data.retained || []);
       setInstitutionalLog(data.institutionalLog || []);
+      const loadedKits = Array.isArray(data.registeredKits) ? data.registeredKits.map(normalizeKit) : [];
+      setRegisteredKitsState(loadedKits);
+      setActiveKitIdState(data.activeKitId || loadedKits[0]?.id || null);
       setUserState(savedUser || EMPTY_USER);
       setVehicleState(savedVehicle || EMPTY_VEHICLE);
-      setDeviceState(savedDevice || deviceMock);
       if (data.settings?.uiLanguage) void i18n.changeLanguage(data.settings.uiLanguage);
       setAppReady(true);
 
@@ -95,22 +115,12 @@ export default function AppProvider({ children }) {
         await setJSON(STORAGE_KEYS.user, local);
         setIsLoggedIn(true);
       } catch {
-        // Păstrăm sesiunea locală dacă telefonul este offline; token-ul rămâne sursa de adevăr
-        // până când backend-ul poate fi contactat din nou.
         if (alive) setIsLoggedIn(Boolean(token));
       } finally {
         if (alive) setAuthReady(true);
       }
     })();
     return () => { alive = false; };
-  }, []);
-
-  const setDevice = useCallback((value) => {
-    setDeviceState((prev) => {
-      const next = typeof value === "function" ? value(prev) : value;
-      void setJSON(STORAGE_KEYS.device, next);
-      return next;
-    });
   }, []);
 
   const setUser = useCallback((value) => {
@@ -158,12 +168,58 @@ export default function AppProvider({ children }) {
     });
   }, []);
 
+  const saveRegisteredKit = useCallback((kit, { makeActive = true } = {}) => {
+    const normalized = normalizeKit(kit);
+    setRegisteredKitsState((current) => {
+      const existing = current.find((entry) => entry.id === normalized.id);
+      const next = existing
+        ? current.map((entry) => entry.id === normalized.id ? { ...entry, ...normalized, createdAt: entry.createdAt } : entry)
+        : [normalized, ...current];
+      void setJSON(STORAGE_KEYS.registeredKits, next);
+      return next;
+    });
+    if (makeActive) {
+      setActiveKitIdState(normalized.id);
+      void setJSON(STORAGE_KEYS.activeKitId, normalized.id);
+    }
+    return normalized;
+  }, []);
+
+  const deleteRegisteredKitLocal = useCallback((kitId) => {
+    const next = registeredKits.filter((entry) => entry.id !== kitId);
+    setRegisteredKitsState(next);
+    void setJSON(STORAGE_KEYS.registeredKits, next);
+
+    if (activeKitId === kitId) {
+      const nextActive = next[0]?.id || null;
+      setActiveKitIdState(nextActive);
+      void setJSON(STORAGE_KEYS.activeKitId, nextActive);
+    }
+  }, [registeredKits, activeKitId]);
+
+  const setActiveKitId = useCallback((kitId) => {
+    setActiveKitIdState(kitId || null);
+    void setJSON(STORAGE_KEYS.activeKitId, kitId || null);
+  }, []);
+
+  const activeKit = useMemo(
+    () => registeredKits.find((entry) => entry.id === activeKitId) || registeredKits[0] || null,
+    [registeredKits, activeKitId]
+  );
+
   const startIncident = useCallback(() => {
     const fresh = newIncident();
+    if (activeKit) {
+      fresh.kitItems = [...activeKit.itemCodes];
+      fresh.kitSource = "saved_kit";
+      fresh.kitReviewedAt = activeKit.lastChecked || activeKit.updatedAt || new Date().toISOString();
+      fresh.activeKitId = activeKit.id;
+      fresh.activeKitLabel = activeKit.label;
+    }
     setIncidentState(fresh);
     void setJSON(STORAGE_KEYS.incident, fresh);
     return fresh;
-  }, []);
+  }, [activeKit]);
 
   const updateIncident = useCallback((patch) => {
     setIncidentState((prev) => {
@@ -261,7 +317,6 @@ export default function AppProvider({ children }) {
   }, []);
 
   const value = useMemo(() => ({
-    device, setDevice,
     user, setUser,
     vehicle, setVehicle,
     isLoggedIn, setIsLoggedIn,
@@ -269,6 +324,7 @@ export default function AppProvider({ children }) {
     consent, updateConsent,
     safetyProfile, updateSafetyProfile,
     settings, updateSettings,
+    registeredKits, activeKit, activeKitId, saveRegisteredKit, deleteRegisteredKitLocal, setActiveKitId,
     incident, startIncident, updateIncident, addVictim, updateVictim, updateActiveVictim, selectVictim, discardIncident, closeIncident,
     retainedIncidents, deleteRetained,
     institutionalLog, logInstitutional, clearInstitutionalLog,
@@ -276,9 +332,10 @@ export default function AppProvider({ children }) {
     aiConversationScope, setAiConversationScope,
     signIn, signUp, signOut,
   }), [
-    device, setDevice, user, setUser, vehicle, setVehicle, isLoggedIn, authReady, appReady, online,
-    consent, updateConsent, safetyProfile, updateSafetyProfile, settings, updateSettings, incident,
-    startIncident, updateIncident, addVictim, updateVictim, updateActiveVictim, selectVictim, discardIncident, closeIncident,
+    user, setUser, vehicle, setVehicle, isLoggedIn, authReady, appReady, online,
+    consent, updateConsent, safetyProfile, updateSafetyProfile, settings, updateSettings,
+    registeredKits, activeKit, activeKitId, saveRegisteredKit, deleteRegisteredKitLocal, setActiveKitId,
+    incident, startIncident, updateIncident, addVictim, updateVictim, updateActiveVictim, selectVictim, discardIncident, closeIncident,
     retainedIncidents, deleteRetained, institutionalLog, logInstitutional, clearInstitutionalLog,
     aiNavigationAction, clearAiNavigationAction, aiConversationScope, signIn, signUp, signOut,
   ]);

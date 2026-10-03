@@ -1,7 +1,15 @@
-import { Pressable, Text, View } from "react-native";
+import {
+  Pressable,
+  Text,
+  View,
+} from "react-native";
+
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
-import { COLORS } from "../../design";
+import {
+  COLORS,
+} from "../../design";
+
 import styles from "./guideCard.styles";
 
 export default function GuideCard({
@@ -15,10 +23,14 @@ export default function GuideCard({
       disabled={!onPress}
       style={({ pressed }) => [
         styles.card,
-        pressed && onPress && styles.pressed,
+        pressed &&
+          onPress &&
+          styles.pressed,
       ]}
     >
-      <View style={styles.iconContainer}>
+      <View
+        style={styles.iconContainer}
+      >
         <MaterialCommunityIcons
           name={icon}
           size={26}
@@ -26,14 +38,19 @@ export default function GuideCard({
         />
       </View>
 
-      <Text style={styles.title} numberOfLines={2}>
+      <Text
+        style={styles.title}
+        numberOfLines={2}
+      >
         {title}
       </Text>
 
       <MaterialCommunityIcons
         name="chevron-right"
         size={24}
-        color={COLORS.textSecondary}
+        color={
+          COLORS.textSecondary
+        }
       />
     </Pressable>
   );

@@ -10,7 +10,7 @@ import { COLORS } from "../../design";
 import styles from "./loadingScreen.styles";
 
 export default function LoadingScreen({ navigation }) {
-  const { isLoggedIn, device, authReady, appReady } = useApp();
+  const { isLoggedIn, authReady, appReady } = useApp();
   const { pick } = useLocale();
 
   useEffect(() => {
@@ -18,12 +18,11 @@ export default function LoadingScreen({ navigation }) {
 
     const timer = setTimeout(() => {
       if (!isLoggedIn) return navigation.replace(ROUTES.LOGIN);
-      if (!device?.connected) return navigation.replace(ROUTES.CONNECT_DEVICE);
       navigation.replace(ROUTES.HOME);
     }, 500);
 
     return () => clearTimeout(timer);
-  }, [navigation, isLoggedIn, device?.connected, authReady, appReady]);
+  }, [navigation, isLoggedIn, authReady, appReady]);
 
   return (
     <SafeAreaView style={styles.container}>

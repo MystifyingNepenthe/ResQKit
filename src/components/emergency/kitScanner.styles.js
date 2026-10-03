@@ -7,6 +7,7 @@ export default StyleSheet.create({
   camera: { height: 260, borderRadius: RADIUS.lg, overflow: "hidden" },
   actions: { gap: SPACING.xs },
   results: { flexDirection: "row", flexWrap: "wrap", gap: SPACING.xs },
-  chip: { marginTop: SPACING.xs },
+  chip: { marginTop: SPACING.xs, backgroundColor: COLORS.surface, borderWidth: 1, borderColor: COLORS.primaryLight },
+  chipText: { color: COLORS.text, fontWeight: "600" },
   sceneNote: { color: COLORS.textSecondary, fontSize: 13, lineHeight: 19 },
 });

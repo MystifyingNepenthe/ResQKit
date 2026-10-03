@@ -6,7 +6,8 @@ import AppScreenHeader from "../../components/common/appScreenHeader/appScreenHe
 import FloatingAIButton from "../../components/home/aiButton";
 
 import VehicleInformationSection from "../../sections/vehicle/vehicleInfoSection";
-import FindDeviceSection from "../../sections/vehicle/findDeviceSection";
+import VehicleEmergencySection from "../../sections/vehicle/vehicleEmergencySection";
+import VehiclePreparednessSection from "../../sections/vehicle/vehiclePreparednessSection";
 
 import { ROUTES } from "../../constants/routes";
 
@@ -32,8 +33,12 @@ export default function VehicleScreen({
         showsVerticalScrollIndicator={false}
       >
         <VehicleInformationSection />
+        <VehicleEmergencySection />
+        <VehiclePreparednessSection
+          onOpenKit={() => navigation.navigate(ROUTES.KIT_CHECK)}
+          onOpenAccount={() => navigation.navigate(ROUTES.ACCOUNT)}
+        />
 
-        <FindDeviceSection />
       </ScrollView>
 
       <FloatingAIButton

@@ -36,7 +36,7 @@ export default function ConsentScreen({ navigation, route }) {
           <View style={styles.row}>
             <View style={styles.flex}>
               <Text style={styles.listTitle}>{pick("Consimțământ pentru date medicale locale", "Consent for local health data")}</Text>
-              <Text style={styles.listDescription}>{pick("Opțional. Permite salvarea Profilului de siguranță pe dispozitiv. Partajarea într-un incident se activează separat.", "Optional. Allows the Safety Profile to be stored on the device. Sharing it during an incident is enabled separately.")}</Text>
+              <Text style={styles.listDescription}>{pick("Opțional. Permite salvarea locală a Profilului de siguranță pe telefon. Partajarea într-un incident se activează separat.", "Optional. Allows the Safety Profile to be stored locally on your phone. Sharing it during an incident is enabled separately.")}</Text>
             </View>
             <Switch value={consent.healthDataConsent} onValueChange={(value) => updateConsent({ healthDataConsent: value, healthDataConsentAt: value ? new Date().toISOString() : null })} />
           </View>

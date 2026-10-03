@@ -21,6 +21,11 @@ export default StyleSheet.create({
       SPACING.xxxl,
   },
 
+  heroWrap: {
+    marginHorizontal: SPACING.lg,
+    marginTop: SPACING.lg,
+  },
+
   card: {
     marginHorizontal:
       SPACING.lg,

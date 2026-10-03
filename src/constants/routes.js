@@ -11,7 +11,6 @@ export const ROUTES = {
   GUIDES: "Guides",
   SETTINGS: "Settings",
 
-  CONNECT_DEVICE: "ConnectDevice",
   AI: "AI",
   HISTORY: "History",
   INCIDENT_DETAIL: "IncidentDetail",
@@ -20,7 +19,6 @@ export const ROUTES = {
   CONTACT: "Contact",
   NOTIFICATIONS: "Notifications",
   LANGUAGE: "Language",
-  DEVICE_INFO: "DeviceInfo",
   SAFETY_PROFILE: "SafetyProfile",
   CONSENT: "Consent",
   REGISTERED_KITS: "RegisteredKits",
@@ -38,6 +36,7 @@ export const ROUTES = {
   SITUATION_SELECTION: "SituationSelection",
   PROTOCOL: "Protocol",
   KIT_PREPARATION: "KitPreparation",
+  KIT_CHECK: "KitCheck",
   VICTIMS: "Victims",
   TRIAGE: "Triage",
   HANDOFF: "Handoff",

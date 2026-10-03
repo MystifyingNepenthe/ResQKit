@@ -12,25 +12,12 @@ export default {
     cancel: "Cancel",
     back: "Back",
     continue: "Continue",
-    connected: "Connected",
-    disconnected: "Disconnected",
   },
 
   home: {
     title: "Home",
     welcome: "Welcome!",
     searchPlaceholder: "Search guides...",
-    myResQKit: "My ResQKit",
-    deviceStatus: "Device Status",
-    status: "Status",
-    justNow: "Just now",
-    resyncNow: "Sync Now",
-    battery: "Battery",
-    resync: "Resync now",
-    connectNow: "Connect now",
-    lastSync: "Last sync",
-    deviceDisconnected:
-      "ResQKit is not currently connected. Connect the device to view its battery and status.",
   },
 
   vehicle: {
@@ -39,19 +26,6 @@ export default {
     model: "Model",
     licensePlate: "License Plate",
     vin: "VIN",
-    locateTitle: "Locate ResQKit",
-    locateDescription: "Play a sound on the device to help you find it.",
-    findResQKit: "Find ResQKit",
-    findDescription:
-      "Play a sound on the device to help you locate it.",
-    locateButton: "Find ResQKit",
-    locatingButton: "Locating...",
-    locating:
-      "Sending command to ResQKit...",
-    locateSuccess:
-      "ResQKit is now playing a sound.",
-    locateDisconnected:
-      "ResQKit must be connected before it can be located.",
   },
 
   guides: {
@@ -75,7 +49,7 @@ export default {
 
     appCategories: {
       gettingStarted: "Getting Started",
-      connectDevice: "Connect ResQKit",
+      kitCheck: "Check your kit",
       home: "Home Screen",
       vehicle: "Vehicle",
       ai: "AI Assistant",
@@ -97,7 +71,6 @@ export default {
     messagePlaceholder: "Write a message...",
     analyzeWound: "Analyze a wound",
     firstAid: "First aid",
-    checkResQKit: "Check ResQKit",
     askQuestion: "Ask a question",
     quickSuggestions: "Quick suggestions",
     startEmergency: "Start an intervention",
@@ -112,7 +85,6 @@ export default {
     title: "Settings",
     account: "Account",
     vehicle: "Vehicle",
-    device: "Device",
     notifications: "Notifications",
     language: "Language",
     theme: "Theme",
@@ -156,13 +128,4 @@ export default {
       "Already have an account? Sign in",
   },
 
-  connect: {
-    title: "Connect ResQKit",
-    subtitle:
-      "Pair your ResQKit device with the app.",
-    description:
-      "Make sure the device is powered on and close to your phone.",
-    connect: "Connect ResQKit",
-    skip: "Continue without device",
-},
 };

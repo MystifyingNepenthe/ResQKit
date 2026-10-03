@@ -14,6 +14,7 @@ import AppScreenHeader from "../../components/common/appScreenHeader/appScreenHe
 import FloatingAIButton from "../../components/home/aiButton";
 import PrimaryCard from "../../components/common/primaryCard";
 import SeverityBadge from "../../components/guides/severityBadge";
+import GuideHero from "../../components/guides/guideHero";
 
 import {
   getTutorialById,
@@ -102,6 +103,10 @@ export default function GuideDetailScreen({
           false
         }
       >
+        <View style={styles.heroWrap}>
+          <GuideHero categoryId={tutorial.category} title={tutorial.title} />
+        </View>
+
         <PrimaryCard
           style={styles.card}
         >

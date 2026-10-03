@@ -38,7 +38,7 @@ function NotificationItem({ icon, title, description, tone = "default" }) {
 }
 
 export default function NotificationsScreen({ navigation }) {
-  const { incident, device } = useApp();
+  const { incident, online, retainedIncidents } = useApp();
   const { pick } = useLocale();
 
   const notifications = [];
@@ -56,31 +56,32 @@ export default function NotificationsScreen({ navigation }) {
     });
   }
 
-  if (device?.connected) {
+  if (!online) {
     notifications.push({
-      id: "device-connected",
-      icon: "check-circle-outline",
-      title: pick("ResQKit conectat", "ResQKit connected"),
+      id: "offline-mode",
+      icon: "wifi-off",
+      title: pick("Mod offline", "Offline mode"),
       description: pick(
-        "Dispozitivul ResQKit este conectat la aplicație.",
-        "Your ResQKit device is connected to the app."
+        "Protocoalele fixe rămân disponibile local, dar funcțiile care folosesc backend-ul pot fi limitate.",
+        "Fixed protocols remain available locally, but backend-powered features may be limited."
+      ),
+      tone: "warning",
+    });
+  }
+
+  if (retainedIncidents?.length) {
+    notifications.push({
+      id: "history-available",
+      icon: "history",
+      title: pick("Istoric disponibil", "History available"),
+      description: pick(
+        `Ai ${retainedIncidents.length} intervenții păstrate local conform setării de retenție.`,
+        `You have ${retainedIncidents.length} interventions stored locally according to your retention setting.`
       ),
       tone: "success",
     });
   }
 
-  if (device?.connected && Number(device?.battery) <= 20) {
-    notifications.push({
-      id: "low-battery",
-      icon: "battery-alert-variant-outline",
-      title: pick("Baterie scăzută", "Low battery"),
-      description: pick(
-        `Bateria dispozitivului este la ${device?.battery ?? 0}%.`,
-        `The device battery is at ${device?.battery ?? 0}%.`
-      ),
-      tone: "warning",
-    });
-  }
 
   return (
     <SafeAreaView style={styles.container}>

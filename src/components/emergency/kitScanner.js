@@ -109,7 +109,7 @@ export default function KitScanner({
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
-        {pick("Recunoaștere conținut ResQKit", "ResQKit content recognition")}
+        {pick("Recunoaștere conținut trusă", "Kit content recognition")}
       </Text>
       <Text style={styles.description}>
         {pick(
@@ -146,7 +146,7 @@ export default function KitScanner({
       {results.length ? (
         <View style={styles.results}>
           {results.map((item) => (
-            <Chip key={`${item.code}-${item.name}`} style={styles.chip}>
+            <Chip key={`${item.code}-${item.name}`} style={styles.chip} textStyle={styles.chipText}>
               {item.name || item.code} · {Math.round(Number(item.confidence || 0) * 100)}%
             </Chip>
           ))}

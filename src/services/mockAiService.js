@@ -18,11 +18,6 @@ export async function sendMockAIMessage(messages) {
         reply = aiMockResponses.cut;
       } else if (lastMessage.includes("prim ajutor")) {
         reply = aiMockResponses.firstAid;
-      } else if (
-        lastMessage.includes("resqkit") ||
-        lastMessage.includes("dispozitiv")
-      ) {
-        reply = aiMockResponses.checkResQKit;
       }
 
       resolve({

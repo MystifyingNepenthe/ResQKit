@@ -12,25 +12,12 @@ export default {
     cancel: "Anulează",
     back: "Înapoi",
     continue: "Continuă",
-    connected: "Conectat",
-    disconnected: "Deconectat",
   },
 
   home: {
     title: "Acasă",
     welcome: "Bine ai venit!",
     searchPlaceholder: "Caută ghiduri...",
-    myResQKit: "ResQKit-ul meu",
-    deviceStatus: "Starea dispozitivului",
-    status: "Stare",
-    justNow: "Chiar acum",
-    resyncNow: "Sincronizează acum",
-    battery: "Baterie",
-    resync: "Sincronizează acum",
-    connectNow: "Conectează acum",
-    lastSync: "Ultima sincronizare",
-    deviceDisconnected:
-      "ResQKit nu este conectat momentan. Conectează dispozitivul pentru a vedea bateria și starea acestuia.",
   },
 
   vehicle: {
@@ -39,20 +26,6 @@ export default {
     model: "Model",
     licensePlate: "Număr de înmatriculare",
     vin: "Serie șasiu (VIN)",
-    locateTitle: "Localizează ResQKit",
-    locateDescription:
-      "Redă un sunet pe dispozitiv pentru a-l găsi mai ușor.",
-    findResQKit: "Găsește ResQKit",
-    findDescription:
-      "Redă un semnal sonor pe dispozitiv pentru a-l găsi mai ușor.",
-    locateButton: "Găsește ResQKit",
-    locatingButton: "Se caută...",
-    locating:
-      "Se trimite comanda către ResQKit...",
-    locateSuccess:
-      "ResQKit redă acum un semnal sonor.",
-    locateDisconnected:
-      "ResQKit trebuie să fie conectat pentru a putea fi localizat.",
   },
 
   guides: {
@@ -76,7 +49,7 @@ export default {
 
     appCategories: {
         gettingStarted: "Introducere",
-        connectDevice: "Conectarea ResQKit",
+        kitCheck: "Verificarea trusei",
         home: "Pagina Acasă",
         vehicle: "Vehicul",
         ai: "Asistent AI",
@@ -98,7 +71,6 @@ export default {
     messagePlaceholder: "Scrie un mesaj...",
     analyzeWound: "Analizează o rană",
     firstAid: "Prim ajutor",
-    checkResQKit: "Verifică ResQKit",
     askQuestion: "Pune o întrebare",
     quickSuggestions: "Sugestii rapide",
     startEmergency: "Începe o intervenție",
@@ -113,7 +85,6 @@ export default {
     title: "Setări",
     account: "Cont",
     vehicle: "Vehicul",
-    device: "Dispozitiv",
     notifications: "Notificări",
     language: "Limbă",
     theme: "Temă",
@@ -157,13 +128,4 @@ export default {
       "Ai deja un cont? Autentifică-te",
   },
 
-  connect: {
-    title: "Conectează ResQKit",
-    subtitle:
-      "Asociază dispozitivul ResQKit cu aplicația.",
-    description:
-      "Asigură-te că dispozitivul este pornit și se află în apropierea telefonului.",
-    connect: "Conectează ResQKit",
-    skip: "Continuă fără dispozitiv",
-},
 };

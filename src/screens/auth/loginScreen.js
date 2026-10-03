@@ -16,7 +16,7 @@ import styles from "./loginScreen.styles";
 export default function LoginScreen({ navigation }) {
   const { t } = useTranslation();
   const { pick } = useLocale();
-  const { signIn, device } = useApp();
+  const { signIn } = useApp();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -30,7 +30,7 @@ export default function LoginScreen({ navigation }) {
     setError(""); setLoading(true);
     try {
       await signIn(cleanEmail, password);
-      navigation.reset({ index: 0, routes: [{ name: device?.connected ? ROUTES.HOME : ROUTES.CONNECT_DEVICE }] });
+      navigation.reset({ index: 0, routes: [{ name: ROUTES.HOME }] });
     } catch (err) {
       setError(err?.message || pick("Autentificarea nu a reușit. Verifică backend-ul și datele introduse.", "Sign-in failed. Check the backend and your credentials."));
     } finally { setLoading(false); }

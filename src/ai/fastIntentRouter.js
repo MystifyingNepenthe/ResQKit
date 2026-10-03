@@ -121,19 +121,6 @@ function appGuidesAction(language) {
   });
 }
 
-function deviceInfoAction(language) {
-  return makeRouteAction({
-    route: ROUTES.DEVICE_INFO,
-    title: copy(language, "Detalii ResQKit", "ResQKit details"),
-    description: copy(
-      language,
-      "Dacă vrei să vezi toate informațiile salvate despre dispozitiv, le găsești aici.",
-      "If you want to see all saved device information, you can find it here."
-    ),
-    buttonLabel: copy(language, "Vezi detaliile dispozitivului", "View device details"),
-  });
-}
-
 function vehicleAction(language) {
   return makeTabAction({
     tab: ROUTES.VEHICLE,
@@ -144,22 +131,6 @@ function vehicleAction(language) {
       "You can view the saved model, license plate and VIN here."
     ),
     buttonLabel: copy(language, "Deschide Vehicul", "Open Vehicle"),
-  });
-}
-
-function connectTutorialAction(language) {
-  const tutorial = getAppTutorialById("connectDevice", language);
-
-  return makeRouteAction({
-    route: ROUTES.APP_GUIDE_DETAIL,
-    params: { tutorialId: "connectDevice" },
-    title: tutorial?.title || copy(language, "Conectarea ResQKit", "Connect ResQKit"),
-    description: copy(
-      language,
-      "Dacă vrei instrucțiunile complete, poți deschide tutorialul.",
-      "If you want the full instructions, you can open the tutorial."
-    ),
-    buttonLabel: copy(language, "Vezi tutorialul complet", "View full tutorial"),
   });
 }
 
@@ -533,10 +504,6 @@ function resolveExplicitPageNavigation({ normalized, language, incident }) {
       action: genericPageAction(language, { route: ROUTES.LANGUAGE, title: copy(language, "Limbă", "Language") }),
     },
     {
-      aliases: ["informatii dispozitiv", "detalii dispozitiv", "device info", "detalii resqkit"],
-      action: deviceInfoAction(language),
-    },
-    {
       aliases: ["profil de siguranta", "safety profile"],
       action: genericPageAction(language, { route: ROUTES.SAFETY_PROFILE, title: copy(language, "Profil de siguranță", "Safety profile") }),
     },
@@ -546,7 +513,11 @@ function resolveExplicitPageNavigation({ normalized, language, incident }) {
     },
     {
       aliases: ["truse inregistrate", "registered kits"],
-      action: genericPageAction(language, { route: ROUTES.REGISTERED_KITS, title: copy(language, "ResQKit-uri înregistrate", "Registered kits") }),
+      action: genericPageAction(language, { route: ROUTES.REGISTERED_KITS, title: copy(language, "Kituri înregistrate", "Registered kits") }),
+    },
+    {
+      aliases: ["verifica trusa", "scanare trusa", "kit check", "check kit", "scan kit"],
+      action: genericPageAction(language, { route: ROUTES.KIT_CHECK, title: copy(language, "Verifică trusa", "Check kit") }),
     },
     {
       aliases: ["setari avansate", "advanced settings"],
@@ -555,10 +526,6 @@ function resolveExplicitPageNavigation({ normalized, language, incident }) {
     {
       aliases: ["reglementari", "regulations"],
       action: genericPageAction(language, { route: ROUTES.REGULATIONS, title: copy(language, "Reglementări", "Regulations") }),
-    },
-    {
-      aliases: ["conectare", "conecteaza dispozitiv", "connect device", "connection"],
-      action: genericPageAction(language, { route: ROUTES.CONNECT_DEVICE, title: copy(language, "Conectare ResQKit", "Connect ResQKit") }),
     },
     {
       aliases: ["mod practica", "practica", "practice"],
@@ -616,7 +583,6 @@ function resolveExplicitPageNavigation({ normalized, language, incident }) {
 export function resolveFastIntent({
   text,
   language = "ro",
-  device,
   vehicle,
   incident,
   pendingMedicalContext = null,
@@ -643,85 +609,10 @@ export function resolveFastIntent({
     return {
       assistantText: copy(
         language,
-        "ResQKit este un sistem de asistență pentru situații de prim ajutor și intervenții, format din aplicația mobilă și dispozitivul ResQKit. Aplicația include ghiduri de prim ajutor, sesiuni de intervenție, informații despre vehicul și ResQ AI. Dacă vrei să afli mai multe, poți deschide ghidurile aplicației de mai jos.",
-        "ResQKit is an assistance system for first aid and interventions, made up of the mobile app and the ResQKit device. The app includes first-aid guides, intervention sessions, vehicle information and ResQ AI. If you want to learn more, you can open the app guides below."
+        "ResQKit este o aplicație de asistență pentru pregătire și situații de prim ajutor. Include ghiduri fixe, sesiuni de intervenție, verificarea trusei, informații despre vehicul și ResQ AI. Dacă vrei să afli mai multe, poți deschide ghidurile aplicației de mai jos.",
+        "ResQKit is an emergency readiness and first-aid assistance app. It includes fixed guides, intervention sessions, kit checks, vehicle information and ResQ AI. If you want to learn more, you can open the app guides below."
       ),
       navigationAction: appGuidesAction(language),
-      nextMedicalContext: null,
-    };
-  }
-
-  // --------------------------------------------------
-  // Device battery/status.
-  // --------------------------------------------------
-  const asksBattery = hasAny(normalized, ["baterie", "battery", "acumulator"]);
-
-  if (asksBattery) {
-    const connected = Boolean(device?.connected);
-    const battery =
-      connected && typeof device?.battery === "number"
-        ? Math.max(0, Math.min(100, device.battery))
-        : null;
-
-    const assistantText = !connected
-      ? copy(
-          language,
-          "ResQKit apare ca deconectat în starea curentă a aplicației, deci nivelul bateriei nu este disponibil. Dacă vrei, poți vedea detaliile dispozitivului mai jos.",
-          "ResQKit appears disconnected in the current app state, so the battery level is not available. If you want, you can view the device details below."
-        )
-      : battery == null
-        ? copy(
-            language,
-            "ResQKit este conectat în starea curentă a aplicației, dar nivelul bateriei nu este disponibil. Dacă vrei, poți vedea detaliile dispozitivului mai jos.",
-            "ResQKit is connected in the current app state, but the battery level is not available. If you want, you can view the device details below."
-          )
-        : copy(
-            language,
-            `ResQKit are ${battery}% baterie în starea curentă a aplicației. Dacă vrei, poți vedea toate detaliile dispozitivului mai jos.`,
-            `ResQKit has ${battery}% battery in the current app state. If you want, you can view all device details below.`
-          );
-
-    return {
-      assistantText,
-      navigationAction: deviceInfoAction(language),
-      nextMedicalContext: null,
-    };
-  }
-
-  const asksDeviceStatus = hasAny(normalized, [
-    "starea curenta a dispozitivului",
-    "starea dispozitivului",
-    "status resqkit",
-    "statusul resqkit",
-    "device status",
-    "resqkit status",
-    "este resqkit conectat",
-  ]);
-
-  if (asksDeviceStatus) {
-    const connected = Boolean(device?.connected);
-    const battery =
-      connected && typeof device?.battery === "number"
-        ? Math.max(0, Math.min(100, device.battery))
-        : null;
-
-    return {
-      assistantText: connected
-        ? copy(
-            language,
-            battery == null
-              ? "ResQKit apare ca conectat în starea curentă a aplicației. Nivelul bateriei nu este disponibil."
-              : `ResQKit apare ca conectat și are ${battery}% baterie în starea curentă a aplicației.`,
-            battery == null
-              ? "ResQKit appears connected in the current app state. The battery level is not available."
-              : `ResQKit appears connected and has ${battery}% battery in the current app state.`
-          )
-        : copy(
-            language,
-            "ResQKit apare ca deconectat în starea curentă a aplicației.",
-            "ResQKit appears disconnected in the current app state."
-          ),
-      navigationAction: deviceInfoAction(language),
       nextMedicalContext: null,
     };
   }
@@ -786,33 +677,11 @@ export function resolveFastIntent({
   }
 
   // --------------------------------------------------
-  // How to connect — answer first + optional tutorial.
-  // --------------------------------------------------
-  const asksHowToConnect =
-    hasAny(normalized, ["cum conectez", "cum pot conecta", "how do i connect", "how to connect"]) &&
-    hasAny(normalized, ["resqkit", "dispozitiv", "device"]);
-
-  if (asksHowToConnect) {
-    const tutorial = getAppTutorialById("connectDevice", language);
-    const steps = (tutorial?.steps || []).slice(0, 4);
-    const numbered = steps.map((step, index) => `${index + 1}. ${step}`).join("\n");
-
-    return {
-      assistantText: copy(
-        language,
-        `Pentru conectare:\n${numbered}\nDacă vrei instrucțiunile complete, poți deschide tutorialul de mai jos.`,
-        `To connect:\n${numbered}\nIf you want the full instructions, you can open the tutorial below.`
-      ),
-      navigationAction: connectTutorialAction(language),
-      nextMedicalContext: null,
-    };
-  }
-
-  // --------------------------------------------------
   // App-guide questions — same answer-first + card flow.
   // --------------------------------------------------
   const appGuideIntent = [
     { id: "gettingStarted", aliases: ["cum incep", "cum folosesc aplicatia", "introducere resqkit", "getting started"] },
+    { id: "kitCheck", aliases: ["cum verific trusa", "cum scanez trusa", "kit check guide", "check my kit"] },
     { id: "home", aliases: ["cum folosesc home", "cum folosesc pagina acasa", "pagina acasa", "home screen"] },
     { id: "vehicle", aliases: ["cum folosesc vehicul", "cum folosesc pagina masinii", "cum folosesc vehicle"] },
     { id: "ai", aliases: ["cum folosesc ai", "cum folosesc asistentul ai", "asistent ai"] },

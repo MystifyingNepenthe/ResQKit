@@ -4,7 +4,6 @@ export const STORAGE_KEYS = {
   authToken: "resqkit.auth.token",
   user: "resqkit.user.v2",
   vehicle: "resqkit.vehicle.v2",
-  device: "resqkit.device.v2",
   consent: "resqkit.consent.v1",
   safetyProfile: "resqkit.profile.v1",
   settings: "resqkit.settings.v1",
@@ -12,6 +11,8 @@ export const STORAGE_KEYS = {
   retained: "resqkit.retained.v2",
   institutionalLog: "resqkit.institutional_log.v1",
   chatHistory: "resqkit.chat_history.v1",
+  registeredKits: "resqkit.registered_kits.v2",
+  activeKitId: "resqkit.active_kit_id.v1",
 };
 
 export const DEFAULT_CONSENT = {
@@ -111,6 +112,8 @@ export function newIncident() {
     kitItems: [],
     kitSource: "none",
     kitReviewedAt: null,
+    activeKitId: null,
+    activeKitLabel: "",
     backendSessionId: null,
     sessionCode: null,
     interviewAnswers: [],
@@ -126,7 +129,7 @@ export function newIncident() {
 }
 
 export async function loadAppData() {
-  const [consent, safetyProfile, settings, incident, retained, institutionalLog, chats] = await Promise.all([
+  const [consent, safetyProfile, settings, incident, retained, institutionalLog, chats, registeredKits, activeKitId] = await Promise.all([
     getJSON(STORAGE_KEYS.consent, DEFAULT_CONSENT),
     getJSON(STORAGE_KEYS.safetyProfile, DEFAULT_SAFETY_PROFILE),
     getJSON(STORAGE_KEYS.settings, DEFAULT_SETTINGS),
@@ -134,8 +137,10 @@ export async function loadAppData() {
     sweepRetained(),
     getJSON(STORAGE_KEYS.institutionalLog, []),
     getJSON(STORAGE_KEYS.chatHistory, []),
+    getJSON(STORAGE_KEYS.registeredKits, []),
+    getJSON(STORAGE_KEYS.activeKitId, null),
   ]);
-  return { consent, safetyProfile, settings, incident, retained, institutionalLog, chats };
+  return { consent, safetyProfile, settings, incident, retained, institutionalLog, chats, registeredKits, activeKitId };
 }
 
 export async function closeAndRetainIncident(incident, retention) {

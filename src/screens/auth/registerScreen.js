@@ -125,7 +125,7 @@ export default function RegisterScreen({
     try {
       await signUp({ email: cleanEmail, password, firstName: cleanFirstName, lastName: cleanLastName });
       setVehicle({ model: cleanModel, plate: cleanPlate, vin: cleanVin });
-      navigation.reset({ index: 0, routes: [{ name: ROUTES.CONNECT_DEVICE }] });
+      navigation.reset({ index: 0, routes: [{ name: ROUTES.HOME }] });
     } catch (err) {
       setError(err?.message || pick("Contul nu a putut fi creat. Verifică backend-ul.", "The account could not be created. Check the backend."));
     } finally {

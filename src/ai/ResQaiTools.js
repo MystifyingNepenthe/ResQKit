@@ -43,7 +43,7 @@ const FIRST_AID_CATEGORY_IDS = [
 
 const APP_GUIDE_IDS = [
   "gettingStarted",
-  "connectDevice",
+  "kitCheck",
   "home",
   "vehicle",
   "ai",
@@ -96,8 +96,6 @@ function queueNavigation(setAiNavigationAction, action) {
 
 export default function ResQAITools() {
   const {
-    device,
-    setDevice,
     vehicle,
     incident,
     setAiNavigationAction,
@@ -711,7 +709,7 @@ export default function ResQAITools() {
     {
       name: "openVehicle",
       description:
-        "Deschide pagina Vehicle din ResQKit. Folosește acest tool când utilizatorul cere să vadă vehiculul, informațiile mașinii sau pagina de localizare ResQKit.",
+        "Deschide pagina Vehicle din ResQKit. Folosește acest tool când utilizatorul cere să vadă vehiculul sau informațiile mașinii.",
       parameters: z.object({}),
       handler: async () => {
         queueNavigation(setAiNavigationAction, {
@@ -730,133 +728,6 @@ export default function ResQAITools() {
       },
     },
     [language]
-  );
-
-  // ==================================================
-  // OPEN DEVICE CONNECTION — EXISTING MOCK/APP STATE ONLY
-  // ==================================================
-
-  useFrontendTool(
-    {
-      name: "openDeviceConnection",
-      description:
-        "Deschide ecranul de conectare a dispozitivului ResQKit. Nu presupune că există integrare hardware reală în această versiune.",
-      parameters: z.object({}),
-      handler: async () => {
-        queueNavigation(setAiNavigationAction, {
-          kind: "route",
-          route: ROUTES.CONNECT_DEVICE,
-          title: localText(language, "Conectare ResQKit", "Connect ResQKit"),
-          description: localText(language, "Poți deschide ecranul de conectare. Integrarea hardware reală nu este activă încă.", "You can open the connection screen. Real hardware integration is not active yet."),
-          buttonLabel: localText(language, "Deschide conectarea", "Open connection"),
-        });
-
-        return safeToolResult({
-          success: true,
-          navigationPending: true,
-          destination: "ConnectDevice",
-        });
-      },
-    },
-    [language]
-  );
-
-  // ==================================================
-  // GET RESQKIT STATUS — PRESERVED LOCAL APP STATE
-  // ==================================================
-
-  useFrontendTool(
-    {
-      name: "getResQKitStatus",
-      description:
-        "Citește starea curentă a dispozitivului ResQKit din starea aplicației. Datele pot fi simulate până la integrarea hardware și nu trebuie prezentate drept telemetrie hardware reală.",
-      parameters: z.object({}),
-      handler: async () => {
-        const connected = Boolean(device?.connected);
-        const battery =
-          connected && typeof device?.battery === "number"
-            ? device.battery
-            : null;
-
-        queueNavigation(setAiNavigationAction, {
-          kind: "route",
-          route: ROUTES.DEVICE_INFO,
-          title: localText(language, "Detalii ResQKit", "ResQKit details"),
-          description: localText(
-            language,
-            "Dacă vrei să vezi toate informațiile salvate despre dispozitiv, le găsești aici.",
-            "If you want to see all saved device information, you can find it here."
-          ),
-          buttonLabel: localText(language, "Vezi detaliile dispozitivului", "View device details"),
-        });
-
-        return safeToolResult({
-          connected,
-          battery,
-          lastSync: device?.lastSync ?? null,
-          firmware: device?.firmware ?? null,
-          serialNumber: device?.serialNumber ?? null,
-          deviceId: device?.id ?? null,
-          source: "local_app_state",
-          hardwareVerified: false,
-          navigationPending: true,
-        });
-      },
-    },
-    [
-      device?.connected,
-      device?.battery,
-      device?.lastSync,
-      device?.firmware,
-      device?.serialNumber,
-      device?.id,
-    ]
-  );
-
-  // ==================================================
-  // RESYNC RESQKIT — PRESERVED LOCAL APP STATE
-  // ==================================================
-
-  useFrontendTool(
-    {
-      name: "resyncResQKit",
-      description:
-        "Actualizează starea locală de sincronizare a ResQKit în versiunea curentă. Nu reprezintă încă o sincronizare hardware reală.",
-      parameters: z.object({}),
-      handler: async () => {
-        if (!device?.connected) {
-          return safeToolResult({
-            success: false,
-            reason: "device_disconnected",
-            message: "ResQKit nu este conectat.",
-          });
-        }
-
-        const nextBattery =
-          typeof device?.battery === "number"
-            ? Math.max(1, Math.min(100, device.battery))
-            : 82;
-
-        const lastSync = new Date().toISOString();
-
-        setDevice((previous) => ({
-          ...previous,
-          connected: true,
-          battery: nextBattery,
-          lastSync,
-        }));
-
-        return safeToolResult({
-          success: true,
-          connected: true,
-          battery: nextBattery,
-          lastSync,
-          source: "local_app_state",
-          hardwareVerified: false,
-        });
-      },
-    },
-    [device?.connected, device?.battery, device?.lastSync]
   );
 
   // ==================================================

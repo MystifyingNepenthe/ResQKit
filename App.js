@@ -17,8 +17,7 @@ import KnowledgeAIContext from "./src/ai/KnowledgeAIContext";
 import { theme } from "./src/design";
 
 const RUNTIME_URL =
-  "http://192.168.0.20:8200/api/copilotkit";
-
+"http://172.20.10.11:8200/api/copilotkit";
 export default function App() {
   return (
     <CopilotKitProvider

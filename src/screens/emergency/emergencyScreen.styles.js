@@ -39,4 +39,28 @@ export default StyleSheet.create({
   chips: { flexDirection: "row", flexWrap: "wrap", gap: SPACING.xs, marginTop: SPACING.sm },
   divider: { height: 1, backgroundColor: COLORS.border, marginVertical: SPACING.md },
   code: { fontFamily: "monospace", fontSize: 12, color: COLORS.text, lineHeight: 18 },
+
+  modalBackdrop: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 24,
+    backgroundColor: "rgba(0,0,0,0.45)",
+  },
+
+  qrModal: {
+    width: "100%",
+    maxWidth: 380,
+    borderRadius: 24,
+    padding: 24,
+    backgroundColor: COLORS.white,
+    alignItems: "center",
+  },
+
+  qrContainer: {
+    marginTop: 20,
+    padding: 14,
+    borderRadius: 16,
+    backgroundColor: COLORS.white,
+  },
 });

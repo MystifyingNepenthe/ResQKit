@@ -43,6 +43,8 @@ export default function WoundGuidesSection({ search = "" }) {
             key={guide.id}
             title={guide.translatedTitle}
             icon={guide.icon}
+            categoryId={guide.id}
+            hero
             onPress={() =>
               navigation.navigate(ROUTES.GUIDE_CATEGORY, {
                 categoryId: guide.id,

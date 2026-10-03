@@ -12,7 +12,6 @@ export default function QuickActionsSection({
   onExplainCurrentStep,
   onAnalyzeWound,
   onFirstAid,
-  onCheckResQKit,
   onAskQuestion,
 }) {
   const { t } = useTranslation();
@@ -55,11 +54,6 @@ export default function QuickActionsSection({
         onPress={onFirstAid}
       />
 
-      <AIQuickAction
-        title={t("ai.checkResQKit")}
-        icon="access-point-check"
-        onPress={onCheckResQKit}
-      />
 
       <AIQuickAction
         title={t("ai.askQuestion")}

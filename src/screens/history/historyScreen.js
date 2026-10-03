@@ -58,7 +58,7 @@ export default function HistoryScreen({ navigation }) {
         title: pick("Intervenție locală", "Local intervention"),
         ...when,
         description: pick(`${count} victimă(e) · retenție ${entry.retention}`, `${count} person(s) · retention ${entry.retention}`),
-        status: formatRetentionRemaining(entry.expiresAt, language) || pick("Pe dispozitiv", "On device"),
+        status: formatRetentionRemaining(entry.expiresAt, language) || pick("Local", "Local"),
         details: [
           entry.expiresAt ? `${pick("Ștergere automată", "Automatic deletion")}: ${formatRetentionRemaining(entry.expiresAt, language)}` : null,
           ...(entry.incident?.victims || []).map((v) => `${v.label || pick(`Victima ${v.number || ""}`, `Person ${v.number || ""}`)}: ${v.situation || pick("situație neprecizată", "unspecified situation")}`),

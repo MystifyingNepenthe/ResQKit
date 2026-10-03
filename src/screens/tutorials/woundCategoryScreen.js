@@ -15,6 +15,7 @@ import AppScreenHeader from "../../components/common/appScreenHeader/appScreenHe
 import FloatingAIButton from "../../components/home/aiButton";
 import PrimaryCard from "../../components/common/primaryCard";
 import SeverityBadge from "../../components/guides/severityBadge";
+import GuideHero from "../../components/guides/guideHero";
 
 import {
   getTutorialsByCategory,
@@ -74,6 +75,10 @@ export default function WoundCategoryScreen({
           false
         }
       >
+        <View style={styles.heroWrap}>
+          <GuideHero categoryId={categoryId} title={categoryTitle || pick("Ghiduri", "Guides")} />
+        </View>
+
         {tutorials.length === 0 ? (
           <View
             style={

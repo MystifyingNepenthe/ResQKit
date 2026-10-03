@@ -2,14 +2,14 @@ export const interventionHistory = [
   {
     id: "intervention-1",
     type: "intervention",
-    title: "Accident rutier detectat",
+    title: "Intervenție pentru accident rutier",
     description:
-      "ResQKit a înregistrat un posibil incident rutier și a pornit fluxul de asistență.",
+      "A fost pornit manual fluxul de asistență pentru un accident rutier.",
     date: "8 septembrie 2026",
     time: "14:32",
     status: "Finalizat",
     details: [
-      "Impact detectat",
+      "Context selectat: accident rutier",
       "Instrucțiuni de prim ajutor afișate",
       "Date pregătite pentru operator",
       "Intervenție încheiată",
@@ -45,9 +45,7 @@ export const operatorHistory = [
     status: "Trimis",
     details: [
       "Tip incident: Accident rutier",
-      "Impact detectat: Da",
       "Locație: Disponibilă",
-      "Nivel baterie ResQKit: 74%",
       "Vehicul asociat: Disponibil",
     ],
   },

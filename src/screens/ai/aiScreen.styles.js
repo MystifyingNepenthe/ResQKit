@@ -15,6 +15,10 @@ export default StyleSheet.create({
       COLORS.background,
   },
 
+  keyboardAvoidingView: {
+    flex: 1,
+  },
+
   scrollView: {
     flex: 1,
   },

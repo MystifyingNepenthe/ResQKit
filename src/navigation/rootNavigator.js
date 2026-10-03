@@ -6,13 +6,11 @@ import LoginScreen from "../screens/auth/loginScreen";
 import RegisterScreen from "../screens/auth/registerScreen";
 import ForgotPasswordScreen from "../screens/auth/forgotPassword";
 import AccountScreen from "../screens/settings/accountScreen";
-import ConnectDeviceScreen from "../screens/device/connectScreen";
 import AIScreen from "../screens/ai/aiScreen";
 import HistoryScreen from "../screens/history/historyScreen";
 import IncidentDetailScreen from "../screens/history/incidentDetailScreen";
 import MainTabNavigator from "./mainTabNavigator";
 import LanguageScreen from "../screens/settings/languageScreen";
-import DeviceInfoScreen from "../screens/settings/deviceInfoScreen";
 import SafetyProfileScreen from "../screens/settings/safetyProfileScreen";
 import ConsentScreen from "../screens/settings/consentScreen";
 import RegisteredKitsScreen from "../screens/settings/registeredKitsScreen";
@@ -31,6 +29,7 @@ import AgeSelectionScreen from "../screens/emergency/ageSelectionScreen";
 import SituationSelectionScreen from "../screens/emergency/situationSelectionScreen";
 import ProtocolScreen from "../screens/emergency/protocolScreen";
 import KitPreparationScreen from "../screens/emergency/kitPreparationScreen";
+import KitCheckScreen from "../screens/emergency/kitCheckScreen";
 import VictimsScreen from "../screens/emergency/victimsScreen";
 import TriageScreen from "../screens/emergency/triageScreen";
 import HandoffScreen from "../screens/emergency/handoffScreen";
@@ -53,12 +52,10 @@ export default function RootNavigator() {
       <Stack.Screen name={ROUTES.FORGOT_PASSWORD} component={ForgotPasswordScreen} />
       <Stack.Screen name={ROUTES.HOME} component={MainTabNavigator} />
       <Stack.Screen name={ROUTES.ACCOUNT} component={AccountScreen} />
-      <Stack.Screen name={ROUTES.CONNECT_DEVICE} component={ConnectDeviceScreen} />
       <Stack.Screen name={ROUTES.AI} component={AIScreen} />
       <Stack.Screen name={ROUTES.HISTORY} component={HistoryScreen} />
       <Stack.Screen name={ROUTES.INCIDENT_DETAIL} component={IncidentDetailScreen} />
       <Stack.Screen name={ROUTES.LANGUAGE} component={LanguageScreen} />
-      <Stack.Screen name={ROUTES.DEVICE_INFO} component={DeviceInfoScreen} />
       <Stack.Screen name={ROUTES.SAFETY_PROFILE} component={SafetyProfileScreen} />
       <Stack.Screen name={ROUTES.CONSENT} component={ConsentScreen} />
       <Stack.Screen name={ROUTES.REGISTERED_KITS} component={RegisteredKitsScreen} />
@@ -77,6 +74,7 @@ export default function RootNavigator() {
       <Stack.Screen name={ROUTES.SITUATION_SELECTION} component={SituationSelectionScreen} />
       <Stack.Screen name={ROUTES.PROTOCOL} component={ProtocolScreen} />
       <Stack.Screen name={ROUTES.KIT_PREPARATION} component={KitPreparationScreen} />
+      <Stack.Screen name={ROUTES.KIT_CHECK} component={KitCheckScreen} />
       <Stack.Screen name={ROUTES.VICTIMS} component={VictimsScreen} />
       <Stack.Screen name={ROUTES.TRIAGE} component={TriageScreen} />
       <Stack.Screen name={ROUTES.HANDOFF} component={HandoffScreen} />

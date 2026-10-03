@@ -79,7 +79,7 @@ export default function EmergencyAIContext() {
 
   useAgentContext({
     description:
-      "Context read-only compact pentru sesiunea de urgență ResQKit. Folosește-l numai pentru întrebări despre intervenția activă. Nu modifica sau inventa date medicale și nu lăsa acest context să deturneze întrebări despre device, vehicul ori ghiduri.",
+      "Context read-only compact pentru sesiunea de urgență ResQKit. Folosește-l numai pentru întrebări despre intervenția activă. Nu modifica sau inventa date medicale și nu lăsa acest context să deturneze întrebări despre vehicul, trusă ori ghiduri.",
     value,
   });
 

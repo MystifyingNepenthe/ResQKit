@@ -96,7 +96,7 @@ export default function FAQScreen({
               <Text
                 style={styles.description}
               >
-                {pick("Găsește rapid răspunsuri despre aplicație și dispozitivul ResQKit.", "Quickly find answers about the app and the ResQKit device.")}
+                {pick("Găsește rapid răspunsuri despre aplicația ResQKit și funcțiile sale.", "Quickly find answers about the ResQKit app and its features.")}
               </Text>
             </View>
 
