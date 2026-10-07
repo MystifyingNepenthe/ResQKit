@@ -188,8 +188,6 @@ export default function AIScreen({
 
   const sending = uiBusy;
 
-
-
   useEffect(() => {
     if (
       !messages.length &&
@@ -218,36 +216,31 @@ export default function AIScreen({
 
 
   useEffect(() => {
-    if (
-      sending ||
-      !messages.length
-    ) {
-      return;
+  if (sending || !messages.length) {
+    return;
+  }
+
+  async function saveConversation() {
+    try {
+      conversationIdRef.current = await saveAIConversation(
+        messages,
+        conversationIdRef.current,
+        language
+      );
+    } catch (error) {
+      console.log(
+        "AI conversation save error:",
+        error
+      );
     }
+  }
 
-    async function saveConversation() {
-      try {
-        conversationIdRef.current =
-          await saveAIConversation(
-            messages,
-            conversationIdRef.current,
-            language
-          );
-      } catch (error) {
-        console.log(
-          "AI conversation save error:",
-          error
-        );
-      }
-    }
-
-    void saveConversation();
-  }, [
-    messages,
-    sending,
-    language,
-  ]);
-
+  void saveConversation();
+}, [
+  messages,
+  sending,
+  language,
+]);
 
   const handleSend =
     useCallback(
@@ -274,10 +267,6 @@ export default function AIScreen({
           content: cleanText,
         };
 
-        // Fast deterministic path for obvious app intents and first-aid
-        // routing. pendingMedicalContext keeps short follow-up answers tied
-        // to the previous medical category (e.g. burn -> "more extensive
-        // with blisters") so they cannot accidentally route to another guide.
         const fastResult = resolveFastIntent({
           text: cleanText,
           language,
@@ -297,8 +286,6 @@ export default function AIScreen({
             ? agent.messages
             : [];
 
-          // Apply both messages atomically. This immediately leaves the
-          // empty/quick-action state even when no LLM run is needed.
           agent.setMessages([
             ...currentMessages,
             userMessage,
@@ -321,7 +308,6 @@ export default function AIScreen({
           return;
         }
 
-        // Anything nuanced still goes through CopilotKit + Llama.
         setPendingMedicalContext(null);
 
         agent.addMessage(userMessage);
@@ -333,12 +319,7 @@ export default function AIScreen({
           await copilotkit.runAgent({
             agent,
           });
-        } catch (error) {
-          console.log(
-            "ResQ AI error:",
-            error
-          );
-
+        } catch {
           setConnectionError(
             pick(
               "Nu mă pot conecta momentan la ResQ AI. Verifică dacă serverul local și Ollama sunt pornite.",

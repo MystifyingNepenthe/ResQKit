@@ -49,6 +49,11 @@ export default StyleSheet.create({
       COLORS.border,
   },
 
+  logoImage: {
+    width: 76,
+    height: 76,
+  },
+
   brand: {
     marginTop: SPACING.sm,
 

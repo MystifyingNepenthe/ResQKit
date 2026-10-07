@@ -1,54 +1,69 @@
 import { useEffect } from "react";
-import { ActivityIndicator, Text, View } from "react-native";
+
+import { Image, Text, View } from "react-native";
+
 import { SafeAreaView } from "react-native-safe-area-context";
-import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+
+import { ActivityIndicator } from "react-native-paper";
 
 import useApp from "../../hooks/useApp";
-import useLocale from "../../hooks/useLocale";
+
 import { ROUTES } from "../../constants/routes";
+
 import { COLORS } from "../../design";
+
 import styles from "./loadingScreen.styles";
 
 export default function LoadingScreen({ navigation }) {
-  const { isLoggedIn, authReady, appReady } = useApp();
-  const { pick } = useLocale();
+  const {
+    appReady,
+    authReady,
+    isLoggedIn,
+  } = useApp();
 
   useEffect(() => {
-    if (!authReady || !appReady) return undefined;
+    if (!appReady || !authReady) {
+      return;
+    }
 
     const timer = setTimeout(() => {
-      if (!isLoggedIn) return navigation.replace(ROUTES.LOGIN);
-      navigation.replace(ROUTES.HOME);
+      navigation.replace(
+        isLoggedIn ? ROUTES.HOME : ROUTES.LOGIN
+      );
     }, 500);
 
     return () => clearTimeout(timer);
-  }, [navigation, isLoggedIn, authReady, appReady]);
+  }, [
+    appReady,
+    authReady,
+    isLoggedIn,
+    navigation,
+  ]);
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
         <View style={styles.logoCircle}>
-          <MaterialCommunityIcons
-            name="medical-bag"
-            size={42}
-            color={COLORS.primary}
+          <Image
+            source={require("../../../assets/logo.png")}
+            style={styles.logoImage}
+            resizeMode="cover"
           />
         </View>
-        <Text style={styles.title}>ResQKit</Text>
+
+        <Text style={styles.title}>
+          ResQKit
+        </Text>
+
+        <Text style={styles.subtitle}>
+          Se pregătește aplicația...
+        </Text>
+
         <ActivityIndicator
-          size="large"
+          size="small"
           color={COLORS.primary}
           style={styles.loader}
         />
-        <Text style={styles.loadingText}>
-          {pick("Pregătim aplicația...", "Preparing the app...")}
-        </Text>
-        <Text style={styles.description}>
-          {pick(
-            "Verificăm sesiunea, contul și datele locale.",
-            "Checking your session, account, and local data."
-          )}
-        </Text>
       </View>
     </SafeAreaView>
   );

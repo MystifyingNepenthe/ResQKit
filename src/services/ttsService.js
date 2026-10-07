@@ -10,7 +10,6 @@ export async function stopSpeaking() {
   try {
     await Speech.stop();
   } catch {
-    // Stopping an idle synthesizer is safe.
   }
 }
 
@@ -37,7 +36,6 @@ export async function speakText(
       rate,
       pitch: 1,
       volume: 1,
-      // On iOS this lets the system manage the speech audio session itself.
       ...(Platform.OS === "ios" ? { useApplicationAudioSession: false } : {}),
       onStart: () => onStart?.(),
       onDone: () => onDone?.(),

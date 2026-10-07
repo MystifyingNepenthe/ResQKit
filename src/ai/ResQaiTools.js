@@ -103,9 +103,6 @@ export default function ResQAITools() {
 
   const language = i18n.language || "ro";
 
-  // ==================================================
-  // KNOWLEDGE RETRIEVAL — FIRST AID
-  // ==================================================
 
   useFrontendTool(
     {
@@ -158,9 +155,6 @@ export default function ResQAITools() {
     [language]
   );
 
-  // ==================================================
-  // KNOWLEDGE RETRIEVAL — APP GUIDE
-  // ==================================================
 
   useFrontendTool(
     {
@@ -210,9 +204,6 @@ export default function ResQAITools() {
     [language]
   );
 
-  // ==================================================
-  // OPEN GUIDES
-  // ==================================================
 
   useFrontendTool(
     {
@@ -259,9 +250,6 @@ export default function ResQAITools() {
     [language]
   );
 
-  // ==================================================
-  // OPEN SPECIFIC FIRST-AID GUIDE
-  // ==================================================
 
   useFrontendTool(
     {
@@ -358,9 +346,6 @@ export default function ResQAITools() {
     [language]
   );
 
-  // ==================================================
-  // OPEN SPECIFIC APP GUIDE
-  // ==================================================
 
   useFrontendTool(
     {
@@ -405,9 +390,6 @@ export default function ResQAITools() {
     [language]
   );
 
-  // ==================================================
-  // EMERGENCY — OPEN START SCREEN
-  // ==================================================
 
   useFrontendTool(
     {
@@ -438,9 +420,6 @@ export default function ResQAITools() {
     [language]
   );
 
-  // ==================================================
-  // EMERGENCY — CONTINUE ACTIVE SESSION
-  // ==================================================
 
   useFrontendTool(
     {
@@ -483,9 +462,6 @@ export default function ResQAITools() {
     [incident?.id, incident?.updatedAt]
   );
 
-  // ==================================================
-  // EMERGENCY — CURRENT FIXED PROTOCOL STEP
-  // ==================================================
 
   useFrontendTool(
     {
@@ -547,9 +523,6 @@ export default function ResQAITools() {
     [incident?.id, incident?.updatedAt, language]
   );
 
-  // ==================================================
-  // EMERGENCY — OPEN CURRENT PROTOCOL
-  // ==================================================
 
   useFrontendTool(
     {
@@ -585,9 +558,6 @@ export default function ResQAITools() {
     [incident?.id, incident?.updatedAt]
   );
 
-  // ==================================================
-  // EMERGENCY — OPEN PEOPLE / TRIAGE / HANDOFF / REPORT
-  // ==================================================
 
   useFrontendTool(
     {
@@ -663,9 +633,6 @@ export default function ResQAITools() {
     [incident?.id]
   );
 
-  // ==================================================
-  // EMERGENCY — DETERMINISTIC BRIEF FOR AI SUMMARY
-  // ==================================================
 
   useFrontendTool(
     {
@@ -701,9 +668,6 @@ export default function ResQAITools() {
     [incident?.id, incident?.updatedAt, language]
   );
 
-  // ==================================================
-  // OPEN VEHICLE
-  // ==================================================
 
   useFrontendTool(
     {
@@ -730,9 +694,6 @@ export default function ResQAITools() {
     [language]
   );
 
-  // ==================================================
-  // GET VEHICLE INFO
-  // ==================================================
 
   useFrontendTool(
     {

@@ -40,7 +40,6 @@ export const DEFAULT_SETTINGS = {
   realDataMode: false,
   uiLanguage: "ro",
   notifications: {
-    // Persistate local; backend-ul colegului nu are serviciu push conectat.
     push: false,
     urgentAlerts: false,
     expiryReminders: false,

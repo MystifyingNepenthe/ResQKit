@@ -224,7 +224,6 @@ function categoryResult(language, categoryId, assistantText) {
 function resolveMedicalIntent({ normalized, language, pendingMedicalContext }) {
   const context = pendingMedicalContext || null;
 
-  // BURNS -------------------------------------------------
   const mentionsBurn =
     context === "burns" ||
     hasAny(normalized, ["arsura", "arsuri", "m am ars", "mam ars", "oparit", "oparire", "burn"]);
@@ -288,7 +287,6 @@ function resolveMedicalIntent({ normalized, language, pendingMedicalContext }) {
     );
   }
 
-  // CUTS --------------------------------------------------
   const mentionsCut =
     context === "cuts" ||
     hasAny(normalized, ["taietura", "taiat", "m am taiat", "mam taiat", "cut ", "cut myself"]);
@@ -319,7 +317,6 @@ function resolveMedicalIntent({ normalized, language, pendingMedicalContext }) {
     );
   }
 
-  // BLEEDING ----------------------------------------------
   const mentionsBleeding =
     context === "bleeding" ||
     hasAny(normalized, ["sangerare", "sangereaza", "curge sange", "blood", "bleeding"]);
@@ -344,7 +341,6 @@ function resolveMedicalIntent({ normalized, language, pendingMedicalContext }) {
     );
   }
 
-  // FRACTURES ---------------------------------------------
   const mentionsFracture =
     context === "fractures" ||
     hasAny(normalized, ["fractura", "fracturat", "os rupt", "broken bone", "fracture"]);
@@ -369,7 +365,6 @@ function resolveMedicalIntent({ normalized, language, pendingMedicalContext }) {
     );
   }
 
-  // CPR ---------------------------------------------------
   const mentionsCpr =
     context === "cpr" ||
     hasAny(normalized, ["resuscitare", "rcp", "cpr", "nu raspunde", "inconstient"]);
@@ -391,7 +386,6 @@ function resolveMedicalIntent({ normalized, language, pendingMedicalContext }) {
     );
   }
 
-  // CHOKING -----------------------------------------------
   const mentionsChoking =
     context === "choking" ||
     hasAny(normalized, ["sufocare", "se sufoca", "s a inecat", "s-a inecat", "choking", "airway"]);
@@ -413,7 +407,6 @@ function resolveMedicalIntent({ normalized, language, pendingMedicalContext }) {
     );
   }
 
-  // POISONING ---------------------------------------------
   if (
     context === "poisoning" ||
     hasAny(normalized, ["intoxicatie", "otravire", "otravit", "substanta toxica", "poisoning", "poisoned"])
@@ -421,7 +414,6 @@ function resolveMedicalIntent({ normalized, language, pendingMedicalContext }) {
     return guideResult(language, "suspected-poisoning");
   }
 
-  // ALLERGIC REACTION -------------------------------------
   const mentionsAllergy =
     context === "allergicReaction" ||
     hasAny(normalized, ["reactie alergica", "alergie", "anafilax", "allergic reaction", "allergy"]);
@@ -441,7 +433,6 @@ function resolveMedicalIntent({ normalized, language, pendingMedicalContext }) {
     );
   }
 
-  // ROAD ACCIDENT -----------------------------------------
   if (
     context === "carAccident" ||
     hasAny(normalized, ["accident rutier", "accident de masina", "accident auto", "car accident", "road accident"])
@@ -576,10 +567,6 @@ function resolveExplicitPageNavigation({ normalized, language, incident }) {
   };
 }
 
-/**
- * Handles deterministic app intents locally for speed and reliability.
- * Returning null means the message should be sent to the LLM.
- */
 export function resolveFastIntent({
   text,
   language = "ro",
@@ -590,9 +577,6 @@ export function resolveFastIntent({
   const normalized = normalizeText(text);
   if (!normalized) return null;
 
-  // --------------------------------------------------
-  // What is ResQKit?
-  // --------------------------------------------------
   const asksWhatIsResQKit =
     hasAny(normalized, [
       "ce este resqkit",
@@ -617,9 +601,6 @@ export function resolveFastIntent({
     };
   }
 
-  // --------------------------------------------------
-  // Vehicle facts.
-  // --------------------------------------------------
   const asksVin =
     /(^| )vin( |$)/.test(normalized) ||
     hasAny(normalized, ["serie sasiu", "seria de sasiu", "chassis number"]);
@@ -676,9 +657,6 @@ export function resolveFastIntent({
     };
   }
 
-  // --------------------------------------------------
-  // App-guide questions — same answer-first + card flow.
-  // --------------------------------------------------
   const appGuideIntent = [
     { id: "gettingStarted", aliases: ["cum incep", "cum folosesc aplicatia", "introducere resqkit", "getting started"] },
     { id: "kitCheck", aliases: ["cum verific trusa", "cum scanez trusa", "kit check guide", "check my kit"] },
@@ -703,10 +681,6 @@ export function resolveFastIntent({
     };
   }
 
-  // --------------------------------------------------
-  // All first-aid guide families use the same deterministic flow.
-  // This intentionally runs BEFORE generic page navigation.
-  // --------------------------------------------------
   const medicalResult = resolveMedicalIntent({
     normalized,
     language,
@@ -715,9 +689,6 @@ export function resolveFastIntent({
 
   if (medicalResult) return medicalResult;
 
-  // --------------------------------------------------
-  // General guide navigation.
-  // --------------------------------------------------
   const asksOpenGuides =
     hasAny(normalized, ["deschide", "arata", "open", "show"]) &&
     hasAny(normalized, ["ghid", "ghiduri", "guides"]);
@@ -745,15 +716,9 @@ export function resolveFastIntent({
     };
   }
 
-  // --------------------------------------------------
-  // Explicit page navigation — cards for all safe pages.
-  // --------------------------------------------------
   const pageNavigation = resolveExplicitPageNavigation({ normalized, language, incident });
   if (pageNavigation) return pageNavigation;
 
-  // --------------------------------------------------
-  // Emergency session.
-  // --------------------------------------------------
   const asksStartEmergency = hasAny(normalized, [
     "incep o interventie",
     "incepe interventia",

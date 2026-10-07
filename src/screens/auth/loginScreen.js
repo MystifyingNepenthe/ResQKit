@@ -3,7 +3,7 @@ import { ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useTranslation } from "react-i18next";
 import useLocale from "../../hooks/useLocale";
-import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import { Image } from "react-native";
 import { Button, TextInput } from "react-native-paper";
 
 import InputField from "../../components/input/inputFields";
@@ -40,7 +40,13 @@ export default function LoginScreen({ navigation }) {
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
         <View style={styles.logoArea}>
-          <View style={styles.logoCircle}><MaterialCommunityIcons name="medical-bag" size={38} color={COLORS.primary} /></View>
+          <View style={styles.logoCircle}>
+            <Image
+              source={require("../../../assets/logo.png")}
+              style={styles.logoImage}
+              resizeMode="cover"
+            />
+          </View>
           <Text style={styles.brand}>ResQKit</Text>
         </View>
         <Text style={styles.title}>{t("auth.welcome")}</Text>

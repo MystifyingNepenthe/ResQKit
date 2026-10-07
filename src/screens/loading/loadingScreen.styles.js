@@ -1,100 +1,50 @@
-import {
-  StyleSheet,
-} from "react-native";
+import { StyleSheet } from "react-native";
 
-import {
-  COLORS,
-  RADIUS,
-  SPACING,
-} from "../../design";
+import { COLORS, SPACING } from "../../design";
 
 export default StyleSheet.create({
   container: {
     flex: 1,
-
-    backgroundColor:
-      COLORS.background,
+    backgroundColor: COLORS.background,
   },
 
   content: {
     flex: 1,
-
     alignItems: "center",
-
-    justifyContent:
-      "center",
-
-    paddingHorizontal:
-      SPACING.xl,
+    justifyContent: "center",
+    paddingHorizontal: SPACING.xl,
   },
 
   logoCircle: {
     width: 92,
     height: 92,
+    borderRadius: 46,
+    overflow: "hidden",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#FFFFFF",
+  },
 
-    borderRadius:
-      RADIUS.round,
-
-    alignItems:
-      "center",
-
-    justifyContent:
-      "center",
-
-    backgroundColor:
-      COLORS.white,
-
-    borderWidth: 1,
-
-    borderColor:
-      COLORS.border,
+  logoImage: {
+    width: 92,
+    height: 92,
   },
 
   title: {
-    marginTop:
-      SPACING.md,
-
+    marginTop: SPACING.lg,
     fontSize: 30,
+    fontWeight: "800",
+    color: COLORS.text,
+  },
 
-    fontWeight:
-      "800",
-
-    color:
-      COLORS.text,
+  subtitle: {
+    marginTop: SPACING.sm,
+    fontSize: 15,
+    color: COLORS.textSecondary,
+    textAlign: "center",
   },
 
   loader: {
-    marginTop:
-      SPACING.xl,
-  },
-
-  loadingText: {
-    marginTop:
-      SPACING.lg,
-
-    fontSize: 16,
-
-    fontWeight:
-      "600",
-
-    color:
-      COLORS.text,
-  },
-
-  description: {
-    marginTop:
-      SPACING.sm,
-
-    maxWidth: 280,
-
-    fontSize: 13,
-
-    lineHeight: 19,
-
-    textAlign:
-      "center",
-
-    color:
-      COLORS.textSecondary,
+    marginTop: SPACING.xl,
   },
 });

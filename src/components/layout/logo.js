@@ -9,14 +9,26 @@ export default function Logo() {
         marginBottom: 30,
       }}
     >
-      <Image
-        source={require("../../../assets/logo.png")}
+      <View
         style={{
-          width: 220,
+          width: 120,
           height: 120,
+          borderRadius: 60,
+          overflow: "hidden",
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: "#FFFFFF",
         }}
-        resizeMode="contain"
-      />
+      >
+        <Image
+          source={require("../../../assets/logo.png")}
+          style={{
+            width: 120,
+            height: 120,
+          }}
+          resizeMode="cover"
+        />
+      </View>
     </View>
   );
 }

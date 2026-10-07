@@ -1,10 +1,6 @@
 import { StyleSheet } from "react-native";
 
-import {
-  COLORS,
-  RADIUS,
-  SPACING,
-} from "../../design";
+import { COLORS, SPACING } from "../../design";
 
 export default StyleSheet.create({
   container: {
@@ -24,50 +20,38 @@ export default StyleSheet.create({
   },
 
   logoCircle: {
-    width: 112,
-    height: 112,
-
-    borderRadius: RADIUS.round,
-
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    overflow: "hidden",
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: "#FFFFFF",
+  },
 
-    backgroundColor: COLORS.primaryDark,
-
-    borderWidth: 2,
-    borderColor: "rgba(255,255,255,0.25)",
+  logoImage: {
+    width: 120,
+    height: 120,
   },
 
   logoText: {
     marginTop: SPACING.lg,
-
-    fontSize: 38,
+    fontSize: 34,
     fontWeight: "800",
-
-    letterSpacing: 0.5,
-
     color: COLORS.white,
   },
 
   tagline: {
     marginTop: SPACING.sm,
-
     fontSize: 15,
-    lineHeight: 22,
-
     textAlign: "center",
-
-    color: "rgba(255,255,255,0.82)",
+    color: COLORS.white,
   },
 
   footer: {
-    marginBottom: SPACING.xl,
-
-    fontSize: 12,
-    letterSpacing: 0.8,
-
+    paddingBottom: SPACING.xl,
     textAlign: "center",
-
-    color: "rgba(255,255,255,0.65)",
+    fontSize: 13,
+    color: COLORS.white,
   },
 });

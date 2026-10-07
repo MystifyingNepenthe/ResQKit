@@ -80,7 +80,6 @@ export default function HandoffScreen({ navigation }) {
   }, [incident?.id, selectedVictimId, user?.firstName, user?.lastName]);
 
   useEffect(() => {
-    // A polished version belongs to the exact deterministic brief that produced it.
     setSpokenBrief("");
   }, [brief]);
 
